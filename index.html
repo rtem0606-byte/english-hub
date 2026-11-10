@@ -1,0 +1,1306 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>English Series Hub | Ultimate Edition</title>
+    <style>
+        :root {
+            --bg-main: #090a10;
+            --bg-card: #121521;
+            --bg-card-hover: #181c2c;
+            --bg-input: #1a1e2e;
+            --accent-primary: #8b5cf6;
+            --accent-secondary: #3b82f6;
+            --accent-glow: rgba(139, 92, 246, 0.35);
+            --text-main: #f3f4f6;
+            --text-muted: #9ca3af;
+            --border-color: #262b40;
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+        }
+
+        body.theme-vampire {
+            --bg-main: #0c0406;
+            --bg-card: #1a090d;
+            --bg-card-hover: #260d14;
+            --bg-input: #220b12;
+            --accent-primary: #e11d48;
+            --accent-secondary: #9f1239;
+            --accent-glow: rgba(225, 29, 72, 0.4);
+            --border-color: #3f121d;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            padding-bottom: 70px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            overflow-x: hidden;
+        }
+
+        /* Шапка */
+        header {
+            background: linear-gradient(180deg, rgba(18, 21, 33, 0.95) 0%, var(--bg-main) 100%);
+            padding: 24px 16px 18px;
+            text-align: center;
+            border-bottom: 1px solid var(--border-color);
+            position: relative;
+        }
+
+        header h1 {
+            font-size: 1.6rem;
+            font-weight: 800;
+            background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary), #ec4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+        }
+
+        header p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        /* Навигация */
+        nav {
+            display: flex;
+            justify-content: space-around;
+            background: rgba(18, 21, 33, 0.9);
+            backdrop-filter: blur(12px);
+            padding: 10px 8px;
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            gap: 4px;
+            overflow-x: auto;
+        }
+
+        nav button {
+            background: transparent;
+            border: 1px solid transparent;
+            color: var(--text-muted);
+            font-size: 0.82rem;
+            font-weight: 600;
+            cursor: pointer;
+            padding: 8px 12px;
+            border-radius: 10px;
+            transition: all 0.25s ease;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        nav button.active {
+            color: #fff;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            box-shadow: 0 4px 15px var(--accent-glow);
+        }
+
+        .container {
+            padding: 18px 14px;
+            max-width: 760px;
+            margin: 0 auto;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Карточки */
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 16px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+            transition: transform 0.2s ease, border-color 0.2s ease;
+        }
+
+        .card h2 {
+            font-size: 1.25rem;
+            margin-bottom: 12px;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .card p {
+            font-size: 0.92rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        /* Статистика на Главной */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+
+        .stat-box {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 14px 10px;
+            text-align: center;
+        }
+
+        .stat-num {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--accent-primary);
+            margin-bottom: 4px;
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        /* Карточки вселенных */
+        .universe-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 12px;
+            margin-top: 12px;
+        }
+
+        .universe-card {
+            background: var(--bg-input);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 16px;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .universe-card:hover {
+            border-color: var(--accent-primary);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px var(--accent-glow);
+        }
+
+        .universe-card h3 {
+            font-size: 1.05rem;
+            color: #fff;
+            margin-bottom: 6px;
+        }
+
+        .universe-card p {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+        }
+
+        .universe-link {
+            font-size: 0.8rem;
+            color: var(--accent-primary);
+            font-weight: 600;
+        }
+
+        /* Поиск и фильтры словаря */
+        .search-box {
+            width: 100%;
+            padding: 14px 16px;
+            background: var(--bg-input);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            color: #fff;
+            font-size: 0.95rem;
+            margin-bottom: 12px;
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .search-box:focus {
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 12px var(--accent-glow);
+        }
+
+        .filter-row {
+            display: flex;
+            gap: 6px;
+            overflow-x: auto;
+            padding-bottom: 8px;
+            margin-bottom: 14px;
+        }
+
+        .filter-btn {
+            background: var(--bg-input);
+            border: 1px solid var(--border-color);
+            color: var(--text-muted);
+            padding: 7px 12px;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: 0.2s;
+        }
+
+        .filter-btn.active {
+            background: var(--accent-primary);
+            color: #fff;
+            border-color: var(--accent-primary);
+        }
+
+        /* Карточка слова */
+        .word-card {
+            background: var(--bg-input);
+            border: 1px solid var(--border-color);
+            border-left: 4px solid var(--accent-primary);
+            padding: 16px;
+            border-radius: 12px;
+            margin-bottom: 12px;
+            transition: 0.2s;
+        }
+
+        .word-card.learned {
+            border-left-color: var(--success);
+            opacity: 0.85;
+        }
+
+        .word-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 6px;
+            gap: 8px;
+        }
+
+        .word-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .word-transc {
+            font-size: 0.85rem;
+            color: var(--accent-primary);
+            font-weight: 400;
+            margin-left: 6px;
+        }
+
+        .word-actions {
+            display: flex;
+            gap: 6px;
+        }
+
+        .icon-btn {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            padding: 5px 9px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: 0.2s;
+        }
+
+        .icon-btn.learned-btn.active {
+            background: rgba(16, 185, 129, 0.2);
+            border-color: var(--success);
+            color: var(--success);
+        }
+
+        .word-translation {
+            font-size: 0.95rem;
+            color: #e5e7eb;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .word-example {
+            font-size: 0.86rem;
+            color: var(--text-muted);
+            font-style: italic;
+            background: var(--bg-card);
+            padding: 10px 12px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            margin-bottom: 8px;
+        }
+
+        .tag {
+            display: inline-block;
+            font-size: 0.72rem;
+            font-weight: 600;
+            background: rgba(139, 92, 246, 0.18);
+            color: #c4b5fd;
+            padding: 3px 9px;
+            border-radius: 6px;
+        }
+
+        /* Тесты */
+        .quiz-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .score-badge {
+            background: rgba(16, 185, 129, 0.15);
+            border: 1px solid var(--success);
+            color: var(--success);
+            padding: 4px 10px;
+            border-radius: 8px;
+            font-size: 0.82rem;
+            font-weight: 700;
+        }
+
+        .progress-bar-bg {
+            width: 100%;
+            height: 8px;
+            background: var(--bg-input);
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 18px;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-primary), var(--success));
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .quiz-question-box {
+            background: var(--bg-input);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 14px;
+        }
+
+        .quiz-q-title {
+            font-size: 1rem;
+            color: #fff;
+            font-weight: 600;
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+
+        .quiz-option {
+            display: block;
+            width: 100%;
+            padding: 12px 14px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            text-align: left;
+            border-radius: 10px;
+            margin-bottom: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: 0.2s;
+        }
+
+        .quiz-option:hover:not(:disabled) {
+            border-color: var(--accent-primary);
+            background: var(--bg-card-hover);
+        }
+
+        .quiz-option.correct {
+            background: rgba(16, 185, 129, 0.2);
+            border-color: var(--success);
+            color: #6ee7b7;
+            font-weight: 600;
+        }
+
+        .quiz-option.wrong {
+            background: rgba(239, 68, 68, 0.2);
+            border-color: var(--danger);
+            color: #fca5a5;
+        }
+
+        .quiz-explanation {
+            display: none;
+            margin-top: 10px;
+            padding: 10px 12px;
+            background: rgba(59, 130, 246, 0.12);
+            border-left: 3px solid var(--accent-secondary);
+            border-radius: 6px;
+            font-size: 0.84rem;
+            color: #dbeafe;
+            line-height: 1.4;
+        }
+
+        /* Уроки по сериалам */
+        .lesson-card {
+            background: var(--bg-input);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 14px;
+        }
+
+        .quote-box {
+            font-size: 1.02rem;
+            font-weight: 700;
+            color: #fff;
+            background: var(--bg-card);
+            padding: 12px;
+            border-radius: 8px;
+            border-left: 4px solid var(--accent-primary);
+            margin-bottom: 8px;
+        }
+
+        .quote-ru {
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+            font-style: italic;
+        }
+
+        .analysis-block {
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .analysis-title {
+            font-size: 0.82rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: var(--accent-primary);
+            margin-bottom: 4px;
+            letter-spacing: 0.5px;
+        }
+
+        /* Прогресс и чекбоксы */
+        .checklist-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: var(--bg-input);
+            border: 1px solid var(--border-color);
+            padding: 12px 14px;
+            border-radius: 10px;
+            margin-bottom: 8px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .checklist-item input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            accent-color: var(--accent-primary);
+            cursor: pointer;
+        }
+
+        .checklist-item span {
+            font-size: 0.92rem;
+            color: var(--text-main);
+        }
+
+        .action-btn {
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            color: #fff;
+            border: none;
+            padding: 12px 18px;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+            display: inline-block;
+            margin-right: 8px;
+            margin-top: 8px;
+        }
+
+        .action-btn.danger {
+            background: rgba(239, 68, 68, 0.2);
+            border: 1px solid var(--danger);
+            color: #fca5a5;
+        }
+.main-header {
+            width: 100%;
+            text-align: center;
+            background-color: #050505;
+            padding-bottom: 10px;
+        }
+
+        .hero-banner {
+            width: 100%;
+            max-width: 1200px;
+            height: auto;
+            border-bottom: 3px solid #5c0000;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.9);
+            border-radius: 0 0 15px 15px;
+            display: block;
+            margin: 0 auto;
+        }
+
+  /* Таймер до Нового года */
+        .countdown-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin: 14px 0;
+        }
+        .time-box {
+            background: var(--bg-input);
+            border: 1px solid var(--accent-primary);
+            box-shadow: 0 0 12px var(--accent-glow);
+            border-radius: 12px;
+            padding: 12px 6px;
+            text-align: center;
+        }
+        .time-val {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: #fff;
+            display: block;
+        }
+        .time-label {
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .ny-quote {
+            font-size: 0.9rem;
+            color: #e5e7eb;
+            font-style: italic;
+            background: var(--bg-input);
+            padding: 12px;
+            border-radius: 10px;
+            border-left: 3px solid var(--accent-primary);
+            margin-top: 10px;
+        }
+
+
+    </style>
+</head>
+<body>
+<header class="main-header">
+    <img src="banner.jpg" alt="English Series Hub Banner" class="hero-banner">
+</header>
+
+    <header>
+        <h1>English Series Hub | Ultimate Edition</h1>
+        <p>Твой продвинутый тренажер уровня B1 по любимым сериалам и дорамам</p>
+    </header>
+
+    <nav>
+        <button class="active" onclick="switchTab('home', this)">🏠 Главная</button>
+        <button onclick="switchTab('dict', this)">📚 Словарь</button>
+        <button onclick="switchTab('tests', this)">🎯 Тесты</button>
+        <button onclick="switchTab('shows', this)">🎬 Сериалы</button>
+        <button onclick="switchTab('progress', this)">⚡ Прогресс</button>
+    </nav>
+
+    <div class="container">
+        <!-- 1. ВКЛАДКА: ГЛАВНАЯ -->
+        <div id="home" class="tab-content active">
+            <div class="card">
+                <h2>🔥 Добро пожаловать в Ultimate Hub!</h2>
+                <p>Прокачивай живой английский уровня B1 на реальных диалогах, интригах и драмах. Слушай произношение, отмечай выученные слова, проходи викторины и разбирай грамматику любимых героев.</p>
+            </div>
+   <!-- Таймер до Нового года -->
+            <div class="card">
+                <h2>❄️ До Нового года осталось:</h2>
+                <div class="countdown-grid">
+                    <div class="time-box"><span class="time-val" id="cd-days">00</span><span class="time-label">Дней</span></div>
+                    <div class="time-box"><span class="time-val" id="cd-hours">00</span><span class="time-label">Часов</span></div>
+                    <div class="time-box"><span class="time-val" id="cd-mins">00</span><span class="time-label">Минут</span></div>
+                    <div class="time-box"><span class="time-val" id="cd-secs">00</span><span class="time-label">Секунд</span></div>
+                </div>
+                <div class="ny-quote" id="nyQuoteBox">
+                    "Winter is coming to Mystic Falls... Time to level up your English before the clock strikes midnight!"
+                </div>
+                <button class="action-btn" onclick="nextNyQuote()">🔮 Сменить предсказание B1</button>
+            </div>
+            <div class="stats-grid">
+                <div class="stat-box">
+                    <div class="stat-num" id="statWords">0 / 32</div>
+                    <div class="stat-label">Изучено слов</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-num" id="statTests">0 / 12</div>
+                    <div class="stat-label">Верных ответов</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-num" id="statGoals">0 / 6</div>
+                    <div class="stat-label">Целей закрыто</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>🌌 Выбери свою вселенную</h2>
+                <p>Нажми на карточку проекта, чтобы сразу перейти к его словам в словаре:</p>
+                <div class="universe-grid">
+                    <div class="universe-card" onclick="openShowDict('vampire')">
+                        <h3>🧛‍♂️ Дневники Вампира</h3>
+                        <p>The Vampire Diaries — мистика, вечная любовь, проклятия и эмоциональные диалоги Мистик Фоллс.</p>
+                        <span class="universe-link">Открыть лексику (16) →</span>
+                    </div>
+                    <div class="universe-card" onclick="openShowDict('housewives')">
+                        <h3>🏡 Отчаянные домохозяйки</h3>
+                        <p>Desperate Housewives — ирония, скелеты в шкафу, сплетни и безупречный разговорный английский Вистерия Лейн.</p>
+                        <span class="universe-link">Открыть лексику (8) →</span>
+                    </div>
+                    <div class="universe-card" onclick="openShowDict('spn')">
+                        <h3>😈 Сверхъестественное</h3>
+                        <p>Supernatural — дорожный сленг братьев Винчестеров, охота на демонов, сарказм и американские идиомы.</p>
+                        <span class="universe-link">Открыть лексику (8) →</span>
+                    </div>
+                    <div class="universe-card" onclick="openShowDict('penthouse')">
+                        <h3>🏢 Пентхаус</h3>
+                        <p>The Penthouse — лексика высшего общества, амбиции, месть, судебные интриги и борьба за власть во дворце Гера.</p>
+                        <span class="universe-link">Открыть лексику (8) →</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. ВКЛАДКА: СЛОВАРЬ -->
+        <div id="dict" class="tab-content">
+            <div class="card">
+                <h2>📚 Интерактивный словарь B1 (64 карточки)</h2>
+                <p style="margin-bottom: 12px;">Нажимай 🔊 для озвучки слова на английском и ⭐, чтобы отметить слово как выученное.</p>
+                
+                <input type="text" id="searchInput" class="search-box" placeholder="🔍 Поиск по-английски, по-русски или по цитате..." oninput="renderDictionary()">
+                
+                <div class="filter-row">
+                    <button class="filter-btn active" onclick="setDictFilter('all', this)">Все (64)</button>
+                    <button class="filter-btn" onclick="setDictFilter('vampire', this)">🧛‍♂️ Дневники Вампира</button>
+                    <button class="filter-btn" onclick="setDictFilter('housewives', this)">🏡 Домохозяйки</button>
+                    <button class="filter-btn" onclick="setDictFilter('spn', this)">😈 Сверхъестественное</button>
+                    <button class="filter-btn" onclick="setDictFilter('penthouse', this)">🏢 Пентхаус</button>
+                    <button class="filter-btn" onclick="setDictFilter('learned', this)">⭐ Выученные</button>
+                </div>
+
+                <div id="wordsContainer"></div>
+            </div>
+        </div>
+
+        <!-- 3. ВКЛАДКА: ТЕСТЫ -->
+        <div id="tests" class="tab-content">
+            <div class="card">
+                <div class="quiz-header">
+                    <h2>🎯 Тренажер и Викторины B1</h2>
+                    <span class="score-badge" id="quizScoreBadge">Счет: 0 / 12</span>
+                </div>
+                <p style="margin-bottom: 12px;">Проверь знание слов, идиом и грамматики из всех 4 сериалов. После каждого ответа появится подробный разбор!</p>
+                
+                <div class="progress-bar-bg">
+                    <div class="progress-bar-fill" id="quizProgressBar"></div>
+                </div>
+
+                <div class="filter-row">
+                    <button class="filter-btn active" onclick="setQuizCategory('all', this)">Все вопросы (12)</button>
+                    <button class="filter-btn" onclick="setQuizCategory('vocab', this)">Лексика и идиомы</button>
+                    <button class="filter-btn" onclick="setQuizCategory('grammar', this)">Грамматика в цитатах</button>
+                </div>
+
+                <div id="quizContainer"></div>
+
+                <button class="action-btn" onclick="resetQuiz()">🔄 Пройти тесты заново</button>
+            </div>
+        </div>
+
+        <!-- 4. ВКЛАДКА: СЕРИАЛЫ -->
+        <div id="shows" class="tab-content">
+            <div class="card">
+                <h2>🎬 Глубокий разбор сцен и грамматики</h2>
+                <p style="margin-bottom: 14px;">Выбери проект, чтобы разобрать культовые цитаты, грамматику уровня B1 и живой разговорный сленг:</p>
+                
+                <div class="filter-row">
+                    <button class="filter-btn active" onclick="switchShowLesson('vampire', this)">🧛‍♂️ Дневники Вампира</button>
+                    <button class="filter-btn" onclick="switchShowLesson('housewives', this)">🏡 Домохозяйки</button>
+                    <button class="filter-btn" onclick="switchShowLesson('spn', this)">😈 Сверхъестественное</button>
+                    <button class="filter-btn" onclick="switchShowLesson('penthouse', this)">🏢 Пентхаус</button>
+                </div>
+
+                <div id="lessonsContainer"></div>
+            </div>
+        </div>
+
+        <!-- 5. ВКЛАДКА: ПРОГРЕСС И НАСТРОЙКИ -->
+        <div id="progress" class="tab-content">
+            <div class="card">
+                <h2>🎨 Оформление портала</h2>
+                <p style="margin-bottom: 12px;">Переключай атмосферу сайта под свое настроение:</p>
+                <button class="action-btn" onclick="setTheme('cyber')">🌌 Ночной Киберпанк (Фиолетовый)</button>
+                <button class="action-btn" onclick="setTheme('vampire')">🩸 Вампирский Бордовый (Мистик Фоллс)</button>
+            </div>
+
+            <div class="card">
+                <h2>🏆 Чек-лист твоих достижений B1</h2>
+                <p style="margin-bottom: 14px;">Отмечай выполненные этапы обучения (всё автоматически сохраняется на устройстве):</p>
+                <div id="checklistContainer"></div>
+            </div>
+
+            <div class="card">
+                <h2>⚙️ Управление данными</h2>
+                <p style="margin-bottom: 10px;">Если хочешь обнулить выученные слова, результаты тестов и чек-лист:</p>
+                <button class="action-btn danger" onclick="clearAllProgress()">🗑️ Сбросить весь прогресс</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ================= БАЗА СЛОВ (32 СЛОВА УРОВНЯ B1) =================
+        const wordsData = [
+            // Дневники Вампира (8)
+            { id: 1, word: "Compel", transc: "[kəmˈpel]", ru: "Внушать, принуждать (взглядом)", example: "Stefan promised he would never compel Elena against her will.", show: "vampire", showName: "Дневники Вампира" },
+            { id: 2, word: "Immortality", transc: "[ˌɪmɔːˈtæləti]", ru: "Бессмертие", example: "Immortality is a curse when you spend it completely alone.", show: "vampire", showName: "Дневники Вампира" },
+            { id: 3, word: "humanity switch", transc: "[hjuːˈmænəti swɪtʃ]", ru: "Переключатель человечности (эмоций)", example: "When a vampire turns off their humanity switch, they feel no guilt at all.", show: "vampire", showName: "Дневники Вампира" },
+            { id: 4, word: "Doppelgänger", transc: "[ˈdɒpəlˌɡæŋə]", ru: "Двойник", example: "Elena discovered that she was Katherine's doppelgänger.", show: "vampire", showName: "Дневники Вампира" },
+            { id: 5, word: "Inevitable", transc: "[ɪnˈevɪtəbl]", ru: "Неизбежный", example: "Falling in love with both brothers felt completely inevitable.", show: "vampire", showName: "Дневники Вампира" },
+            { id: 6, word: "Redemption", transc: "[rɪˈdempʃn]", ru: "Искупление (вины)", example: "Damon spent seasons searching for redemption after everything he did.", show: "vampire", showName: "Дневники Вампира" },
+            { id: 7, word: "Guilt", transc: "[ɡɪlt]", ru: "Чувство вины", example: "If I'm going to feel guilt about something, I'll feel guilt about this.", show: "vampire", showName: "Дневники Вампира" },
+            { id: 8, word: "Mercy", transc: "[ˈmɜːsi]", ru: "Милосердие, пощада", example: "Klaus rarely showed mercy to his enemies in Mystic Falls.", show: "vampire", showName: "Дневники Вампира" },
+
+            // Отчаянные домохозяйки (8)
+            { id: 9, word: "Suburbia", transc: "[səˈbɜːbiə]", ru: "Пригород (жизнь в пригороде)", example: "Behind the manicured lawns of suburbia, everyone hides a dark secret.", show: "housewives", showName: "Отчаянные домохозяйки" },
+            { id: 10, word: "Blackmail", transc: "[ˈblækmeɪl]", ru: "Шантаж, шантажировать", example: "Someone sent Mary Alice a note to blackmail her.", show: "housewives", showName: "Отчаянные домохозяйки" },
+            { id: 11, word: "Gossip", transc: "[ˈɡɒsɪp]", ru: "Сплетни, сплетничать", example: "The neighbors love to gossip over morning coffee on Wisteria Lane.", show: "housewives", showName: "Отчаянные домохозяйки" },
+            { id: 12, word: "Hypocrite", transc: "[ˈhɪpəkrɪt]", ru: "Лицемер", example: "Don't be a hypocrite — we all know what you did last summer.", show: "housewives", showName: "Отчаянные домохозяйки" },
+            { id: 13, word: "Affair", transc: "[əˈfeə]", ru: "Роман на стороне, интрижка", example: "Gabrielle tried to keep her secret affair hidden from Carlos.", show: "housewives", showName: "Отчаянные домохозяйки" },
+            { id: 14, word: "Desperate", transc: "[ˈdespərət]", ru: "Отчаянный, доведенный до крайности", example: "Desperate times call for desperate measures.", show: "housewives", showName: "Отчаянные домохозяйки" },
+            { id: 15, word: "Reputation", transc: "[ˌrepjuˈteɪʃn]", ru: "Репутация", example: "Bree would do anything to protect her family's spotless reputation.", show: "housewives", showName: "Отчаянные домохозяйки" },
+            { id: 16, word: "Pretend", transc: "[prɪˈtend]", ru: "Притворяться, делать вид", example: "Smile and pretend everything is fine while the house is burning.", show: "housewives", showName: "Отчаянные домохозяйки" },
+
+            // Сверхъестественное (8)
+            { id: 17, word: "Crossroads", transc: "[ˈkrɒsrəʊdz]", ru: "Перекресток (или переломный момент)", example: "Never make a deal with a demon at the crossroads.", show: "spn", showName: "Сверхъестественное" },
+            { id: 18, word: "Possessed", transc: "[pəˈzest]", ru: "Одержимый (духом/демоном)", example: "Sam realized the sheriff was possessed by an evil spirit.", show: "spn", showName: "Сверхъестественное" },
+            { id: 19, word: "Vessel", transc: "[ˈvesl]", ru: "Сосуд, оболочка (тело для ангела)", example: "An angel cannot act on Earth without a willing human vessel.", show: "spn", showName: "Сверхъестественное" },
+            { id: 20, word: "Omen", transc: "[ˈəʊmən]", ru: "Знамение, предзнаменование", example: "Sudden lightning and cold air are a bad omen for hunters.", show: "spn", showName: "Сверхъестественное" },
+            { id: 21, word: "Sacrifice", transc: "[ˈsækrɪfaɪs]", ru: "Жертва, жертвовать собой", example: "The Winchesters are always ready to sacrifice everything for family.", show: "spn", showName: "Сверхъестественное" },
+            { id: 22, word: "Grief", transc: "[ɡriːf]", ru: "Горе, глубокая скорбь", example: "Dealing with grief is the hardest part of the hunting business.", show: "spn", showName: "Сверхъестественное" },
+            { id: 23, word: "Hunt down", transc: "[hʌnt daʊn]", ru: "Выследить, вести охоту (фразовый глагол)", example: "We need to hunt down the creature before midnight.", show: "spn", showName: "Сверхъестественное" },
+            { id: 24, word: "Piehole", transc: "[ˈpaɪhəʊl]", ru: "Рот, «варежка» (разговорный сленг)", example: "Driver picks the music, shotgun shuts his piehole!", show: "spn", showName: "Сверхъестественное" },
+
+            // Пентхаус (8)
+            { id: 25, word: "Vengeance", transc: "[ˈvendʒəns]", ru: "Месть, возмездие", example: "Shim Su-ryeon planned her cold vengeance from the top floor.", show: "penthouse", showName: "Пентхаус" },
+            { id: 26, word: "Privilege", transc: "[ˈprɪvəlɪdʒ]", ru: "Привилегия, особое право элиты", example: "Wealth and privilege allowed the Hera Club to bend the law.", show: "penthouse", showName: "Пентхаус" },
+            { id: 27, word: "Bribe", transc: "[braɪb]", ru: "Взятка, подкупать", example: "They tried to bribe the judges to win the classical trophy.", show: "penthouse", showName: "Пентхаус" },
+            { id: 28, word: "prestigious", transc: "[preˈstɪdʒəs]", ru: "Престижный, элитный", example: "Every parent fought to get their child into the prestigious Cheong-ah Arts School.", show: "penthouse", showName: "Пентхаус" },
+            { id: 29, word: "Deceive", transc: "[dɪˈsiːv]", ru: "Обманывать, вводить в заблуждение", example: "Joo Dan-tae knew how to deceive everyone with a polite smile.", show: "penthouse", showName: "Пентхаус" },
+            { id: 30, word: "Ruthless", transc: "[ˈruːθləs]", ru: "Безжалостный, беспощадный", example: "To survive in the Penthouse, you have to become ruthless.", show: "penthouse", showName: "Пентхаус" },
+            { id: 31, word: "Culprit", transc: "[ˈkʌlprɪt]", ru: "Виновник, преступник", example: "The police still haven't found the real culprit behind the fall.", show: "penthouse", showName: "Пентхаус" },
+            { id: 32, word: "Obsession", transc: "[əbˈseʃn]", ru: "Одержимость, навязчивая идея", example: "Cheon Seo-jin's obsession with being number one destroyed her peace.", show: "penthouse", showName: "Пентхаус" },
+            // --- НОВЫЕ 32 СЛОВА (ЧАСТЬ 2) ---
+            // Дневники Вампира (+8)
+            { id: 33, word: "Vervain", transc: "[ˈvɜːveɪn]", ru: "Вербена (защитная трава)", example: "Elena wore a necklace with vervain so no vampire could compel her.", show: "vampire", showName: "Дневники Вампира" },
+            { id: 34, word: "Bloodlust", transc: "[ˈblʌdlʌst]", ru: "Жажда крови", example: "Stefan struggled to control his bloodlust for decades.", show: "vampire", showName: "Дневники Вампира" },
+            { id: 35, word: "Sire bond", transc: "[ˈsaɪə bɒnd]", ru: "Кровная связь (подчинение создателю)", example: "A rare sire bond makes a vampire obey their creator's every wish.", show: "vampire", showName: "Дневники Вампира" },
+            { id: 36, word: "Ancestor", transc: "[ˈænsestə]", ru: "Предок", example: "Bonnie called upon the spirits of her powerful witch ancestors.", show: "vampire", showName: "Дневники Вампира" },
+            { id: 37, word: "Ripper", transc: "[ˈrɪpə]", ru: "Потрошитель (вампир без тормозов)", example: "When Stefan loses control, he turns back into a ruthless Ripper.", show: "vampire", showName: "Дневники Вампира" },
+            { id: 38, word: "Grief-stricken", transc: "[ˈɡriːf ˌstrɪkən]", ru: "Убитый горем", example: "Grief-stricken after the loss, Elena decided to turn off her emotions.", show: "vampire", showName: "Дневники Вампира" },
+            { id: 39, word: "Daylight ring", transc: "[ˈdeɪlaɪt rɪŋ]", ru: "Кольцо дневного света", example: "Without his daylight ring, Damon would burn in the sun.", show: "vampire", showName: "Дневники Вампира" },
+            { id: 40, word: "Betrayal", transc: "[bɪˈtreɪəl]", ru: "Предательство, измена", example: "Klaus never forgave his family for their bitter betrayal.", show: "vampire", showName: "Дневники Вампира" },
+
+            // Отчаянные домохозяйки (+8)
+            { id: 41, word: "Alibi", transc: "[ˈæləbaɪ]", ru: "Алиби", example: "Bree calmly invented a perfect alibi for her husband.", show: "housewives", showName: "Отчаянные домохозяйки" },
+            { id: 42, word: "Nosy", transc: "[ˈnəʊzi]", ru: "Любопытный (сующий нос в чужие дела)", example: "Mrs. McCluskey was the most nosy neighbor on the entire street.", show: "housewives", showName: "Отчаянные домохозяйки" },
+            { id: 43, word: "Cover up", transc: "[ˈkʌvər ʌp]", ru: "Скрыть, замести следы (фразовый глагол)", example: "The four friends agreed to cover up the crime together.", show: "housewives", showName: "Отчаянные домохозяйки" },
+            { id: 44, word: "White lie", transc: "[waɪt laɪ]", ru: "Ложь во спасение, невинная ложь", example: "What started as a harmless white lie quickly turned into a scandal.", show: "housewives", showName: "Отчаянные домохозяйки" },
+            { id: 45, word: "Confess", transc: "[kənˈfes]", ru: "Признаться, исповедаться", example: "Susan wanted to confess everything to the police immediately.", show: "housewives", showName: "Отчаянные домохозяйки" },
+            { id: 46, word: "Rivalry", transc: "[ˈraɪvəlri]", ru: "Соперничество, конкуренция", example: "Katherine and Bree had a fierce rivalry over who baked the best pie.", show: "housewives", showName: "Отчаянные домохозяйки" },
+            { id: 47, word: "Unfaithful", transc: "[ʌnˈfeɪθfl]", ru: "Неверный (в браке/отношениях)", example: "She suspected that her husband was being unfaithful to her.", show: "housewives", showName: "Отчаянные домохозяйки" },
+            { id: 48, word: "Manipulate", transc: "[məˈnɪpjuleɪt]", ru: "Манипулировать", example: "Felicia Tilman knew exactly how to manipulate Paul Young.", show: "housewives", showName: "Отчаянные домохозяйки" },
+
+            // Сверхъестественное (+8)
+            { id: 49, word: "Salt circle", transc: "[sɔːlt ˈsɜːkl]", ru: "Соляной круг (для защиты)", example: "Quick, pour a salt circle around the door to keep the ghost out!", show: "spn", showName: "Сверхъестественное" },
+            { id: 50, word: "Exorcism", transc: "[ˈeksɔːsɪzəm]", ru: "Экзорцизм, изгнание демона", example: "Sam memorized the Latin exorcism by heart.", show: "spn", showName: "Сверхъестественное" },
+            { id: 51, word: "Free will", transc: "[friː wɪl]", ru: "Свобода воли", example: "Team Free Will refused to follow the angels' destiny.", show: "spn", showName: "Сверхъестественное" },
+            { id: 52, word: "Urban legend", transc: "[ˈɜːbən ˈledʒənd]", ru: "Городская легенда", example: "Every spooky urban legend turns out to be real on the road.", show: "spn", showName: "Сверхъестественное" },
+            { id: 53, word: "Shape-shifter", transc: "[ˈʃeɪpˌʃɪftə]", ru: "Оборотень, перевёртыш", example: "The monster was a shape-shifter pretending to be Dean.", show: "spn", showName: "Сверхъестественное" },
+            { id: 54, word: "Track down", transc: "[træk daʊn]", ru: "Отыскать по следам, вычислить (фраз. глагол)", example: "Bobby helped the boys track down the rare supernatural weapon.", show: "spn", showName: "Сверхъестественное" },
+            { id: 55, word: "Hellhound", transc: "[ˈhelhaʊnd]", ru: "Адская гончая", example: "When your ten years are up, the invisible hellhound comes for you.", show: "spn", showName: "Сверхъестественное" },
+            { id: 56, word: "False ID", transc: "[fɔːls ˌaɪˈdiː]", ru: "Поддельное удостоверение (фальшивые корочки)", example: "Sam and Dean used false IDs to pose as FBI agents.", show: "spn", showName: "Сверхъестественное" },
+
+            // Пентхаус (+8)
+            { id: 57, word: "Heir", transc: "[eə]", ru: "Наследник (буква H не читается!)", example: "Logan Lee returned to Korea as the billionaire heir.", show: "penthouse", showName: "Пентхаус" },
+            { id: 58, word: "Frame", transc: "[freɪm]", ru: "Подставить (невиновного), сфабриковать", example: "They tried to frame Oh Yoon-hee for a crime she didn't commit.", show: "penthouse", showName: "Пентхаус" },
+            { id: 59, word: "Frame-up", transc: "[ˈfreɪm ʌp]", ru: "Подстава, ложное обвинение", example: "The whole trial was a clever frame-up organized by Joo Dan-tae.", show: "penthouse", showName: "Пентхаус" },
+            { id: 60, word: "Corrupt", transc: "[kəˈrʌpt]", ru: "Коррумпированный, продажный", example: "Corrupt officials helped the rich families hide the truth.", show: "penthouse", showName: "Пентхаус" },
+            { id: 61, word: "Downfall", transc: "[ˈdaʊnfɔːl]", ru: "Крах, падение (с вершины власти)", example: "Greed and arrogance led to the ultimate downfall of the Hera Club.", show: "penthouse", showName: "Пентхаус" },
+            { id: 62, word: "Accomplice", transc: "[əˈkʌmplɪs]", ru: "Сообщник, соучастник", example: "The police arrested his secret accomplice at the airport.", show: "penthouse", showName: "Пентхаус" },
+            { id: 63, word: "Status", transc: "[ˈsteɪtəs]", ru: "Статус, положение в обществе", example: "Living on the 100th floor was the ultimate symbol of social status.", show: "penthouse", showName: "Пентхаус" },
+            { id: 64, word: "Backstab", transc: "[ˈbækstæb]", ru: "Ударить в спину, предать ради выгоды", example: "In Hera Palace, allies will backstab each other without hesitation.", show: "penthouse", showName: "Пентхаус" }
+
+
+        ];
+
+        // ================= БАЗА ТЕСТОВ (12 ВОПРОСОВ) =================
+        const quizData = [
+            { id: 1, cat: "vocab", q: "Что означает глагол «to compel» во вселенной «Дневников Вампира»?", options: ["Превратить в вампира", "Внушить / подчинить волю взглядом", "Изгнать из города", "Выпить вербену"], correct: 1, exp: "To compel — принуждать или внушать что-то человеку с помощью вампирского гипноза." },
+            { id: 2, cat: "vocab", q: "Какое слово лучше всего переводит «шантаж» (из «Отчаянных домохозяек»)?", options: ["Gossip", "Suburbia", "Blackmail", "Affair"], correct: 2, exp: "Blackmail — шантаж (как существительное и как глагол). Gossip — сплетни, Affair — роман на стороне." },
+            { id: 3, cat: "vocab", q: "Что значит сленговое выражение Дина Винчестера «Shut your piehole»?", options: ["Закрой дверь в Импалу", "Съешь свой пирог", "Закрой рот / заткнись", "Спрячь оружие"], correct: 2, exp: "Piehole (букв. «отверстие для пирога») — грубоватый американский сленг со значением «рот»." },
+            { id: 4, cat: "vocab", q: "Как переводится прилагательное «ruthless», описывающее героев дорамы «Пентхаус»?", options: ["Безжалостный, беспощадный", "Богатый и влиятельный", "Невиновный", "Гостеприимный"], correct: 0, exp: "Ruthless — безжалостный (от слова ruth — жалость + суффикс -less «без»)." },
+            { id: 5, cat: "vocab", q: "Выберите точный перевод слова «hypocrite»:", options: ["Преступник", "Двойник", "Лицемер", "Охотник"], correct: 2, exp: "Hypocrite [ˈhɪpəkrɪt] — человек, который притворяется моральным, но поступает наоборот (лицемер)." },
+            { id: 6, cat: "vocab", q: "Что означает фразовый глагол «to hunt down»?", options: ["Убежать из леса", "Выследить и поймать", "Сдаться без боя", "Потерять след"], correct: 1, exp: "Hunt down — не просто охотиться, а целенаправленно выследить и настигнуть цель." },
+            { id: 7, cat: "grammar", q: "«If I'm going to feel guilt, I ___ feel it about this.» (First Conditional). Что поставить в пропуск?", options: ["would", "will", "had", "was"], correct: 1, exp: "В реальном условии (1-й тип условных предложений) в главной части используется будущее время с will." },
+            { id: 8, cat: "grammar", q: "«If you ___ a secret on Wisteria Lane, someone will find out.» Выберите верную форму:", options: ["will hide", "hid", "hide", "hiding"], correct: 2, exp: "После союза If в First Conditional используется Present Simple (hide), даже если речь о будущем!" },
+            { id: 9, cat: "grammar", q: "«By the time the police arrived, the culprit ___ escaped.» (Past Perfect):", options: ["has", "have", "had", "was"], correct: 2, exp: "Past Perfect (had + V3) показывает действие, которое завершилось ДО другого момента в прошлом (до приезда полиции)." },
+            { id: 10, cat: "grammar", q: "«She admitted ___ the judges at the competition.» Какая форма идет после глагола admit?", options: ["to bribe", "bribing", "bribe", "bribed"], correct: 1, exp: "После глагола admit (признаваться в чем-то) в английском языке уровня B1 используется герундий (глагол с окончанием -ing): admitted bribing." },
+            { id: 11, cat: "grammar", q: "«You ___ make a deal at the crossroads — it's a terrible trap!» (Строгий запрет/совет):", options: ["mustn't", "don't have to", "might", "could"], correct: 0, exp: "Mustn't выражает строгий запрет («нельзя, ни в коем случае»), тогда как don't have to — «нет необходимости»." },
+            { id: 12, cat: " vocab", q: "Какое слово означает «неизбежный»?", options: ["Prestigious", "Suspicious", "Inevitable", "Possessed"], correct: 2, exp: "Inevitable [ɪnˈevɪtəbl] — неизбежный, то, чего невозможно избежать." }
+        ];
+
+        // ================= БАЗА УРОКОВ ПО СЕРИАЛАМ =================
+        const lessonsData = {
+            vampire: [
+                {
+                    quote: "If I'm going to feel guilty about something, I'm going to feel guilty about this.",
+                    ru: "«Если уж мне и суждено чувствовать вину за что-то, то я буду чувствовать вину за это» (Дэймон Сальваторе).",
+                    grammar: "Конструкция «be going to» внутри условного предложения с If. Обычно после If мы ставим простое настоящее, но когда герой говорит о своем осознанном намерении или неизбежном решении, «If I'm going to...» звучит гораздо эмоциональнее и драматичнее.",
+                    slang: "В быстрой американской речи «going to» превращается в разговорное «gonna» [ˈɡɒnə]. Попробуйте произнести фразу слитно: «If I'm gonna feel guilty...»"
+                },
+                {
+                    quote: "I wish you didn't have to forget, but you do.",
+                    ru: "«Я бы хотел, чтобы тебе не приходилось забывать, но так нужно» (Дэймон перед внушением Елене).",
+                    grammar: "Конструкция «I wish + Past Simple» (didn't have to) используется на уровне B1, когда мы сожалеем о настоящем и хотим, чтобы реальность прямо сейчас была другой.",
+                    slang: "В конце фразы стоит короткое «but you do» — вспомогательный глагол заменяет целую фразу «but you have to forget», чтобы избежать повтора."
+                }
+            ],
+            housewives: [
+                {
+                    quote: "Yes, I remember the look on your face when you told me what you'd done.",
+                    ru: "«Да, я помню выражение твоего лица, когда ты рассказала мне, что натворила» (Мэри Эллис Янг).",
+                    grammar: "Классический пример Past Perfect («what you'd done» = what you had done). Само воспоминание и разговор происходили в прошлом (told), а поступок случился еще раньше (had done).",
+                    slang: "«The look on your face» — устойчивое выражение B1 для описания эмоции, застывшей на лице человека в момент шока или разоблачения."
+                },
+                {
+                    quote: "Keep your friends close, and your secrets even closer.",
+                    ru: "«Держи друзей близко, а свои секреты — еще ближе».",
+                    grammar: "Сравнительная степень наречия (close → closer) с усилителем «even» (еще более). Отличный шаблон для создания контрастных ироничных фраз.",
+                    slang: "Переделка знаменитой поговорки «Keep your friends close, and your enemies closer» в духе тайн Вистерия Лейн."
+                }
+            ],
+            spn: [
+                {
+                    quote: "Driver picks the music, shotgun shuts his piehole.",
+                    ru: "«Водитель выбирает музыку, а пассажир спереди закрывает рот» (Дин Винчестер).",
+                    grammar: "Present Simple для формулировки нерушимых правил и законов жизни (как в пословицах или инструкциях). Опущены артикли перед существительными (Driver, shotgun) для хлесткости.",
+                    slang: "«Shotgun» (букв. дробовик) в США означает переднее пассажирское сиденье рядом с водителем. Крикнуть «I call shotgun!» — значит занять место спереди."
+                },
+                {
+                    quote: "Saving people, hunting things, the family business.",
+                    ru: "«Спасать людей, охотиться на нечисть — семейное дело».",
+                    grammar: "Использование герундия (глаголов с -ing: Saving, hunting) в роли существительных. Они называют процессы как род деятельности братьев.",
+                    slang: "«Things» здесь используется как эвфемизм для любых сверхъестественных монстров, призраков и демонов."
+                }
+            ],
+            penthouse: [
+                {
+                    quote: "Do you really think you can get away with what you did to my daughter?",
+                    ru: "«Ты правда думаешь, что тебе сойдет с рук то, что ты сделал с моей дочерью?» (Шим Су Рён).",
+                    grammar: "Придаточное предложение «what you did» выступает в роли единого дополнения после предлога with.",
+                    slang: "Фразовый глагол «get away with something» (уровень B1/B2) — выйти сухим из воды, избежать наказания за преступление или проступок."
+                },
+                {
+                    quote: "The higher you climb in Hera Palace, the harder you fall.",
+                    ru: "«Чем выше ты забираешься во дворце Гера, тем больнее падать».",
+                    grammar: "Золотая конструкция уровня B1: «The + сравнительная степень..., the + сравнительная степень...» (Чем..., тем...). Например: The more you practice, the better you speak.",
+                    slang: "Отсылка к идиоме «The bigger they are, the harder they fall»."
+                }
+            ]
+        };
+
+        // ================= СПИСОК ДОСТИЖЕНИЙ =================
+        const goalsList = [
+            { id: "g1", text: "Изучить все 8 слов по «Дневникам Вампира»" },
+            { id: "g2", text: "Изучить все 8 слов по «Отчаянным домохозяйкам»" },
+            { id: "g3", text: "Изучить все 8 слов по «Сверхъестественному»" },
+            { id: "g4", text: "Изучить все 8 слов по дораме «Пентхаус»" },
+            { id: "g5", text: "Прослушать произношение минимум 15 слов через кнопку 🔊" },
+            { id: "g6", text: "Набрать 12 из 12 баллов в разделе «Тесты»" }
+        ];
+
+        // ================= СОСТОЯНИЕ И ПАМЯТЬ =================
+        let currentDictFilter = 'all';
+        let currentQuizCategory = 'all';
+        let learnedWords = JSON.parse(localStorage.getItem('esh_learned') || '[]');
+        let quizAnswers = JSON.parse(localStorage.getItem('esh_quiz') || '{}');
+        let completedGoals = JSON.parse(localStorage.getItem('esh_goals') || '[]');
+        let savedTheme = localStorage.getItem('esh_theme') || 'cyber';
+
+        // ================= ИНИЦИАЛИЗАЦИЯ =================
+        function initApp() {
+            setTheme(savedTheme);
+            renderDictionary();
+            renderQuiz();
+            switchShowLesson('vampire', document.querySelector('#shows .filter-btn'));
+            renderChecklist();
+            updateStats();
+        }
+
+        // Переключение главных вкладок
+        function switchTab(tabId, btn) {
+            document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+            if (btn) btn.classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Быстрый переход с Главной к словарю конкретного сериала
+        function openShowDict(showKey) {
+            const dictTabBtn = document.querySelectorAll('nav button')[1];
+            switchTab('dict', dictTabBtn);
+            const filterBtns = document.querySelectorAll('#dict .filter-btn');
+            const mapIndex = { all: 0, vampire: 1, housewives: 2, spn: 3, penthouse: 4 };
+            setDictFilter(showKey, filterBtns[mapIndex[showKey]]);
+        }
+
+        // ================= ФУНКЦИИ СЛОВАРЯ =================
+        function setDictFilter(filter, btn) {
+            currentDictFilter = filter;
+            document.querySelectorAll('#dict .filter-btn').forEach(b => b.classList.remove('active'));
+            if (btn) btn.classList.add('active');
+            renderDictionary();
+        }
+
+        function renderDictionary() {
+            const container = document.getElementById('wordsContainer');
+            const query = document.getElementById('searchInput').value.toLowerCase().trim();
+            container.innerHTML = '';
+
+            const filtered = wordsData.filter(item => {
+                const isLearned = learnedWords.includes(item.id);
+                if (currentDictFilter === 'learned' && !isLearned) return false;
+                if (currentDictFilter !== 'all' && currentDictFilter !== 'learned' && item.show !== currentDictFilter) return false;
+                if (query) {
+                    const hay = `${item.word} ${item.ru} ${item.example} ${item.showName}`.toLowerCase();
+                    return hay.includes(query);
+                }
+                return true;
+            });
+
+            if (filtered.length === 0) {
+                container.innerHTML = `<p style="text-align:center; padding: 20px; color: var(--text-muted);">Ничего не найдено по вашему запросу.</p>`;
+                return;
+            }
+
+            filtered.forEach(item => {
+                const isLearned = learnedWords.includes(item.id);
+                const card = document.createElement('div');
+                card.className = `word-card ${isLearned ? 'learned' : ''}`;
+                card.innerHTML = `
+                    <div class="word-header">
+                        <div>
+                            <span class="word-title">${item.word}</span>
+                            <span class="word-transc">${item.transc}</span>
+                        </div>
+                        <div class="word-actions">
+                            <button class="icon-btn" onclick="speakText('${item.word.replace(/'/g, "\\'")}')" title="Озвучить">🔊</button>
+                            <button class="icon-btn learned-btn ${isLearned ? 'active' : ''}" onclick="toggleLearned(${item.id})">
+                                ${isLearned ? '⭐ Изучено' : '☆ Учить'}
+                            </button>
+                        </div>
+                    </div>
+                    <div class="word-translation">${item.ru}</div>
+                    <div class="word-example">"${item.example}"</div>
+                    <span class="tag">${item.showName}</span>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function toggleLearned(id) {
+            if (learnedWords.includes(id)) {
+                learnedWords = learnedWords.filter(item => item !== id);
+            } else {
+                learnedWords.push(id);
+            }
+            localStorage.setItem('esh_learned', JSON.stringify(learnedWords));
+            renderDictionary();
+            updateStats();
+        }
+
+        function speakText(text) {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+                const utter = new SpeechSynthesisUtterance(text);
+                utter.lang = 'en-US';
+                utter.rate = 0.92;
+                window.speechSynthesis.speak(utter);
+            } else {
+                alert('Озвучка не поддерживается вашим браузером.');
+            }
+        }
+
+        // ================= ФУНКЦИИ ТЕСТОВ =================
+        function setQuizCategory(cat, btn) {
+            currentQuizCategory = cat;
+            document.querySelectorAll('#tests .filter-btn').forEach(b => b.classList.remove('active'));
+            if (btn) btn.classList.add('active');
+            renderQuiz();
+        }
+
+        function renderQuiz() {
+            const container = document.getElementById('quizContainer');
+            container.innerHTML = '';
+
+            const list = quizData.filter(q => currentQuizCategory === 'all' || q.cat.trim() === currentQuizCategory);
+
+            list.forEach((q, idx) => {
+                const answered = quizAnswers[q.id];
+                const box = document.createElement('div');
+                box.className = 'quiz-question-box';
+
+                let optionsHtml = '';
+                q.options.forEach((opt, optIndex) => {
+                    let cls = 'quiz-option';
+                    let disabled = '';
+                    if (answered !== undefined) {
+                        disabled = 'disabled';
+                        if (optIndex === q.correct) cls += ' correct';
+                        else if (optIndex === answered) cls += ' wrong';
+                    }
+                    optionsHtml += `<button class="${cls}" ${disabled} onclick="answerQuiz(${q.id}, ${optIndex})">${opt}</button>`;
+                });
+
+                box.innerHTML = `
+                    <div class="quiz-q-title">${idx + 1}. ${q.q}</div>
+                    ${optionsHtml}
+                    <div class="quiz-explanation" style="display: ${answered !== undefined ? 'block' : 'none'}">
+                        💡 <b>Разбор:</b> ${q.exp}
+                    </div>
+                `;
+                container.appendChild(box);
+            });
+
+            updateQuizProgress();
+        }
+
+        function answerQuiz(qId, selectedIdx) {
+            quizAnswers[qId] = selectedIdx;
+            localStorage.setItem('esh_quiz', JSON.stringify(quizAnswers));
+            renderQuiz();
+            updateStats();
+        }
+
+        function updateQuizProgress() {
+            let correctCount = 0;
+            quizData.forEach(q => {
+                if (quizAnswers[q.id] === q.correct) correctCount++;
+            });
+            document.getElementById('quizScoreBadge').textContent = `Счет: ${correctCount} / ${quizData.length}`;
+            const percent = Math.round((Object.keys(quizAnswers).length / quizData.length) * 100);
+            document.getElementById('quizProgressBar').style.width = `${percent}%`;
+        }
+
+        function resetQuiz() {
+            quizAnswers = {};
+            localStorage.setItem('esh_quiz', JSON.stringify(quizAnswers));
+            renderQuiz();
+            updateStats();
+        }
+
+        // ================= ФУНКЦИИ СЕРИАЛОВ =================
+        function switchShowLesson(showKey, btn) {
+            document.querySelectorAll('#shows .filter-btn').forEach(b => b.classList.remove('active'));
+            if (btn) btn.classList.add('active');
+
+            const container = document.getElementById('lessonsContainer');
+            container.innerHTML = '';
+            const items = lessonsData[showKey] || [];
+
+            items.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'lesson-card';
+                div.innerHTML = `
+                    <div class="quote-box">"${item.quote}"</div>
+                    <div class="quote-ru">${item.ru}</div>
+                    <button class="icon-btn" onclick="speakText('${item.quote.replace(/'/g, "\\'")}')">🔊 Прослушать цитату</button>
+                    <div class="analysis-block">
+                        <div class="analysis-title">📐 Грамматика B1</div>
+                        <p>${item.grammar}</p>
+                    </div>
+                    <div class="analysis-block">
+                        <div class="analysis-title">🔥 Разговорный контекст и сленг</div>
+                        <p>${item.slang}</p>
+                    </div>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        // ================= ПРОГРЕСС И НАСТРОЙКИ =================
+        function renderChecklist() {
+            const container = document.getElementById('checklistContainer');
+            container.innerHTML = '';
+            goalsList.forEach(g => {
+                const checked = completedGoals.includes(g.id);
+                const label = document.createElement('label');
+                label.className = 'checklist-item';
+                label.innerHTML = `
+                    <input type="checkbox" ${checked ? 'checked' : ''} onchange="toggleGoal('${g.id}')">
+                    <span>${g.text}</span>
+                `;
+                container.appendChild(label);
+            });
+        }
+
+        function toggleGoal(goalId) {
+            if (completedGoals.includes(goalId)) {
+                completedGoals = completedGoals.filter(g => g !== goalId);
+            } else {
+                completedGoals.push(goalId);
+            }
+            localStorage.setItem('esh_goals', JSON.stringify(completedGoals));
+            updateStats();
+        }
+
+        function updateStats() {
+            document.getElementById('statWords').textContent = `${learnedWords.length} / ${wordsData.length}`;
+            let correctCount = 0;
+            quizData.forEach(q => {
+                if (quizAnswers[q.id] === q.correct) correctCount++;
+            });
+            document.getElementById('statTests').textContent = `${correctCount} / ${quizData.length}`;
+            document.getElementById('statGoals').textContent = `${completedGoals.length} / ${goalsList.length}`;
+        }
+
+        function setTheme(mode) {
+            if (mode === 'vampire') {
+                document.body.classList.add('theme-vampire');
+            } else {
+                document.body.classList.remove('theme-vampire');
+            }
+            localStorage.setItem('esh_theme', mode);
+        }
+
+        function clearAllProgress() {
+            if (confirm('Точно сбросить весь сохраненный прогресс?')) {
+                learnedWords = [];
+                quizAnswers = {};
+                completedGoals = [];
+                localStorage.removeItem('esh_learned');
+                localStorage.removeItem('esh_quiz');
+                localStorage.removeItem('esh_goals');
+                renderDictionary();
+                renderQuiz();
+                renderChecklist();
+                updateStats();
+            }
+        }
+
+        // Запуск при загрузке
+        window.onload = initApp;
+   // ================= ULTIMATE ТАЙМЕР И ПРЕДСКАЗАНИЯ B1 =================
+        const nyQuotes = [
+            {
+                en: "Winter is coming to Mystic Falls... Time to make your English progress inevitable before midnight!",
+                ru: "Зима близко к Мистик Фоллс... Пора сделать свой прогресс в английском неизбежным (inevitable) до полуночи!"
+            },
+            {
+                en: "New Year's resolution on Wisteria Lane: never pretend, keep your English sharp and your secrets safe.",
+                ru: "Обещание на Вистерия Лейн: никогда не притворяйся (pretend), держи английский острым, а секреты — в тайне."
+            },
+            {
+                en: "Even the Winchesters take a break on New Year's Eve. Grab some pie and hunt down 5 new phrasal verbs!",
+                ru: "Даже Винчестеры отдыхают под Новый год. Бери пирог и выследи (hunt down) 5 новых фразовых глаголов!"
+            },
+            {
+                en: "At the top of Hera Palace, true privilege belongs to those who never stop studying.",
+                ru: "На вершине дворца Гера настоящая привилегия (privilege) принадлежит тем, кто не перестает учиться."
+            },
+            {
+                en: "No need to compel anyone when you can charm them with fluent English.",
+                ru: "Не нужно никому ничего внушать (compel), когда можно очаровать свободным английским."
+            },
+            {
+                en: "Driver picks the festive music, shotgun learns the new vocabulary!",
+                ru: "Водитель выбирает праздничную музыку, а пассажир спереди учит новую лексику!"
+            },
+            {
+                en: "The clock is ticking like an ancient omen... Make every study session count!",
+                ru: "Часы тикают как древнее знамение (omen)... Пусть каждое занятие будет не зря!"
+            },
+            {
+                en: "Turn your obsession with great series into your ultimate superpower in English.",
+                ru: "Преврати свою одержимость (obsession) крутыми сериалами в свою главную суперсилу в английском."
+            }
+        ];
+        let currentQuoteIdx = 0;
+
+        function nextNyQuote() {
+            const box = document.getElementById('nyQuoteBox');
+            if (!box) return;
+            currentQuoteIdx = (currentQuoteIdx + 1) % nyQuotes.length;
+            const item = nyQuotes[currentQuoteIdx];
+            
+            box.style.opacity = '0';
+            setTimeout(() => {
+                box.innerHTML = `<b>"${item.en}"</b><br><span style="font-size:0.82rem; color:var(--text-muted); font-style:normal; display:block; margin-top:6px;">✨ ${item.ru} (Нажми на цитату для озвучки 🔊)</span>`;
+                box.style.opacity = '1';
+            }, 200);
+        }
+
+        function setupQuoteAudio() {
+            const box = document.getElementById('nyQuoteBox');
+            if (!box) return;
+            box.style.transition = 'opacity 0.25s ease, transform 0.2s ease';
+            box.style.cursor = 'pointer';
+            box.title = 'Нажми, чтобы прослушать на английском';
+            box.onclick = () => speakText(nyQuotes[currentQuoteIdx].en);
+            
+            // Загружаем первую цитату сразу с красивым оформлением
+            const first = nyQuotes[0];
+            box.innerHTML = `<b>"${first.en}"</b><br><span style="font-size:0.82rem; color:var(--text-muted); font-style:normal; display:block; margin-top:6px;">✨ ${first.ru} (Нажми на цитату для озвучки 🔊)</span>`;
+        }
+
+        function updateCountdown() {
+            const now = new Date();
+            const nextYear = now.getFullYear() + 1;
+            const newYearDate = new Date(`January 1, ${nextYear} 00:00:00`);
+            const diff = newYearDate - now;
+
+            if (diff > 0) {
+                const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+                const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
+                const m = Math.floor((diff / 1000 / 60) % 60);
+                const s = Math.floor((diff / 1000) % 60);
+
+                document.getElementById('cd-days').textContent = String(d).padStart(2, '0');
+                document.getElementById('cd-hours').textContent = String(h).padStart(2, '0');
+                document.getElementById('cd-mins').textContent = String(m).padStart(2, '0');
+                document.getElementById('cd-secs').textContent = String(s).padStart(2, '0');
+            }
+        }
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+        setTimeout(setupQuoteAudio, 100);
+
+
+    </script>
+</body>
+</html>
