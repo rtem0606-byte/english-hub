@@ -600,7 +600,72 @@
             margin-top: 10px;
         }
 
-
+/* ===== Detective Case Files ===== */
+.dcf-widget{position:fixed;right:18px;bottom:18px;z-index:9990;display:flex;align-items:center;gap:10px;padding:10px 16px 10px 12px;background:linear-gradient(145deg,#2a2018,#1a1612);color:#e8d9b0;border:1px solid #8a6d3b;border-left:6px solid #8c1c13;border-radius:4px 10px 10px 4px;cursor:pointer;font-family:'Courier New',monospace;box-shadow:0 6px 18px rgba(0,0,0,.55);animation:dcfPulse 3s ease-in-out infinite;transition:transform .25s}
+.dcf-widget:hover{transform:translateY(-4px) rotate(-1.5deg)}
+.dcf-widget .dcf-w-ico{font-size:26px;line-height:1}
+.dcf-widget .dcf-w-t{font-size:12px;font-weight:700;letter-spacing:1.5px;color:#d9a441}
+.dcf-widget .dcf-w-c{font-size:11px;color:#c9b88f;margin-top:2px}
+@keyframes dcfPulse{0%,100%{box-shadow:0 6px 18px rgba(0,0,0,.55),0 0 0 0 rgba(217,164,65,.45)}50%{box-shadow:0 6px 18px rgba(0,0,0,.55),0 0 16px 5px rgba(217,164,65,.35)}}
+.dcf-overlay{position:fixed;inset:0;z-index:9991;display:none;align-items:center;justify-content:center;background:rgba(10,7,4,.72);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);padding:12px}
+.dcf-overlay.dcf-open{display:flex;animation:dcfFade .3s}
+@keyframes dcfFade{from{opacity:0}to{opacity:1}}
+.dcf-modal{position:relative;width:min(900px,100%);max-height:92vh;overflow-y:auto;background:#1a1612;color:#e8d9b0;border:2px solid #8a6d3b;border-radius:8px;padding:22px;font-family:Georgia,serif;box-shadow:0 20px 60px rgba(0,0,0,.8),inset 0 0 40px rgba(0,0,0,.5)}
+.dcf-close{position:absolute;top:10px;right:14px;background:none;border:none;color:#d9a441;font-size:26px;cursor:pointer}
+.dcf-head{border-bottom:1px dashed #8a6d3b;padding-bottom:12px;margin-bottom:14px}
+.dcf-head h2{margin:0 0 6px;font-family:'Courier New',monospace;color:#d9a441;letter-spacing:2px;font-size:20px}
+.dcf-rank{font-family:'Courier New',monospace;font-size:14px;color:#e8d9b0}
+.dcf-rank b{color:#f2c46d}
+.dcf-bar{height:8px;background:#2e251c;border:1px solid #8a6d3b;border-radius:4px;margin-top:8px;overflow:hidden}
+.dcf-bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,#8c1c13,#d9a441);transition:width .6s}
+.dcf-filters{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px}
+.dcf-fbtn{background:#2a2018;color:#c9b88f;border:1px solid #6b5530;border-radius:3px;padding:6px 10px;font:12px 'Courier New',monospace;cursor:pointer}
+.dcf-fbtn.on,.dcf-fbtn:hover{background:#8c1c13;color:#fff;border-color:#d9a441}
+.dcf-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px}
+.dcf-folder{position:relative;background:#e3d3a8;color:#2b1f12;border-radius:2px 8px 4px 4px;padding:20px 10px 10px;cursor:pointer;box-shadow:2px 3px 8px rgba(0,0,0,.5);transition:transform .2s;font-family:'Courier New',monospace;min-height:110px}
+.dcf-folder:before{content:"";position:absolute;top:-8px;left:0;width:55%;height:10px;background:#e3d3a8;border-radius:6px 6px 0 0}
+.dcf-folder:hover{transform:translateY(-4px) rotate(-1deg)}
+.dcf-folder .n{font-size:11px;color:#8c1c13;font-weight:700}
+.dcf-folder .t{font:700 14px Georgia,serif;margin:4px 0}
+.dcf-folder .s{font-size:11px;opacity:.75}
+.dcf-folder .st{margin-top:8px;font-size:11px;font-weight:700}
+.dcf-folder.done{background:#cdd8b4}
+.dcf-sheet{background:#f4eee1;color:#2b2118;border-radius:4px;padding:20px;font-family:Georgia,serif;position:relative;box-shadow:inset 0 0 30px rgba(120,90,40,.25);background-image:repeating-linear-gradient(transparent 0 27px,rgba(120,90,40,.08) 27px 28px)}
+.dcf-back{background:none;border:1px solid #8a6d3b;color:#d9a441;padding:6px 12px;font:13px 'Courier New',monospace;cursor:pointer;margin-bottom:12px;border-radius:3px}
+.dcf-back:hover{background:#8c1c13;color:#fff}
+.dcf-sheet h3{margin:0;font-family:'Courier New',monospace;color:#8c1c13;font-size:18px}
+.dcf-meta{font:12px 'Courier New',monospace;opacity:.7;margin-bottom:10px}
+.dcf-brief{font-style:italic;border-left:3px solid #8c1c13;padding-left:10px;margin:10px 0}
+.dcf-steps{display:flex;gap:6px;margin:12px 0;font:12px 'Courier New',monospace}
+.dcf-steps span{flex:1;text-align:center;padding:4px;border:1px solid #8a6d3b;opacity:.5}
+.dcf-steps span.on{opacity:1;background:#2b2118;color:#f2c46d}
+.dcf-steps span.ok{opacity:1;background:#6e8b3d;color:#fff}
+.dcf-lbl{font:700 13px 'Courier New',monospace;color:#8c1c13;margin-bottom:6px}
+.dcf-text{font:16px/1.6 'Courier New',monospace;background:rgba(255,255,255,.45);border:1px dashed #8a6d3b;padding:12px;margin-bottom:12px}
+.dcf-q{font:700 16px Georgia,serif;margin:8px 0}
+.dcf-opts{display:flex;flex-direction:column;gap:8px}
+.dcf-opt{text-align:left;padding:10px 12px;background:#2b2118;color:#f4eee1;border:1px solid #8a6d3b;border-radius:3px;font:14px 'Courier New',monospace;cursor:pointer;transition:.2s}
+.dcf-opt:hover:not(:disabled){background:#4a3622;transform:translateX(4px)}
+.dcf-opt.right{background:#3f6b2a;border-color:#9ccf6a}
+.dcf-opt.wrong{background:#8c1c13;animation:dcfShake .4s}
+.dcf-opt:disabled{cursor:default}
+@keyframes dcfShake{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.dcf-play{background:#8c1c13;color:#fff;border:none;padding:10px 16px;font:14px 'Courier New',monospace;cursor:pointer;border-radius:3px;margin-bottom:10px}
+.dcf-play:hover{background:#a82a1e}
+.dcf-fb{min-height:22px;margin-top:10px;font:13px 'Courier New',monospace}
+.dcf-stamp{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) rotate(-14deg) scale(3);opacity:0;border:6px double #b3211a;color:#b3211a;padding:8px 20px;font:900 38px 'Courier New',monospace;letter-spacing:3px;pointer-events:none;background:rgba(244,238,225,.6);text-align:center}
+.dcf-stamp.show{animation:dcfStamp .6s forwards}
+@keyframes dcfStamp{to{transform:translate(-50%,-50%) rotate(-14deg) scale(1);opacity:.92}}
+.dcf-result{text-align:center;padding:14px 0 4px}
+.dcf-result p{margin:8px 0}
+@media(max-width:600px){
+.dcf-widget{right:10px;bottom:10px;padding:8px 10px;gap:6px}
+.dcf-widget .dcf-w-t{display:none}
+.dcf-widget .dcf-w-ico{font-size:22px}
+.dcf-modal{padding:14px;max-height:94vh}
+.dcf-grid{grid-template-columns:repeat(2,1fr)}
+.dcf-stamp{font-size:24px}
+}
     </style>
 </head>
 <body>
@@ -770,7 +835,20 @@
             </div>
         </div>
     </div>
+<div class="dcf-widget" id="dcfWidget" role="button" tabindex="0" aria-label="Открыть секретный архив дел">
+  <div class="dcf-w-ico">🕵️‍♂️</div>
+  <div>
+    <div class="dcf-w-t">CLASSIFIED // ARCHIVE</div>
+    <div class="dcf-w-c">📁 Раскрыто: <b id="dcfCounter">0/10</b></div>
+  </div>
+</div>
 
+<div class="dcf-overlay" id="dcfOverlay">
+  <div class="dcf-modal" role="dialog" aria-modal="true" aria-label="Секретный архив дел">
+    <button class="dcf-close" id="dcfClose" aria-label="Закрыть">×</button>
+    <div id="dcfView"></div>
+  </div>
+</div>
     <script>
         // ================= БАЗА СЛОВ (32 СЛОВА УРОВНЯ B1) =================
         const wordsData = [
@@ -1300,7 +1378,391 @@
         updateCountdown();
         setTimeout(setupQuoteAudio, 100);
 
+/* ===== Detective Case Files ===== */
+(function(){
+  var SAVE_KEY = 'esh_cases_save';
+  var SHOWS = {
+    ouat: 'Once Upon a Time',
+    tvd: 'The Vampire Diaries',
+    dh: 'Desperate Housewives',
+    spn: 'Supernatural',
+    ph: 'The Penthouse'
+  };
+  var RANKS = [
+    {xp:0, name:'Стажёр архива'},
+    {xp:200, name:'Младший детектив'},
+    {xp:400, name:'Детектив'},
+    {xp:600, name:'Старший инспектор'},
+    {xp:800, name:'Мастер-сыщик'},
+    {xp:1000, name:'Легенда архива'}
+  ];
 
+  var CASES = [
+    {
+      id:1, show:'ouat', title:'The Poisoned Apple',
+      brief:'Storybrooke, 3:00 a.m. A red apple was found on Henry\'s desk. One bite, and the sleeping curse begins.',
+      clue:{
+        text:'Sheriff Swan wrote in her report: "I must ___ the cause of the sleeping curse before midnight, or Henry will never wake up."',
+        opts:['look into','give up','run out'], ans:0
+      },
+      audio:{
+        text:'I did not bake that apple for Snow. I only carried the basket to the station because Mr. Gold asked me. He said it was a gift for the sheriff.',
+        q:'What does Regina really mean?',
+        opts:['She baked the apple and is proud of it.','Mr. Gold used her to deliver the poisoned apple.','She wanted to eat the apple herself.'], ans:1
+      },
+      verdict:{
+        q:'Who is really behind the poisoned apple?',
+        opts:['Mr. Gold, who manipulated Regina','Henry, who wanted a day off school','Emma, who wanted to be sheriff'], ans:0
+      },
+      outro:'Mr. Gold planned everything and let Regina take the blame. Remember: "All magic comes with a price."'
+    },
+    {
+      id:2, show:'ouat', title:'The Stolen Memories',
+      brief:'Half of Storybrooke cannot remember last week. Only one person in town sells memories: Mr. Gold.',
+      clue:{
+        text:'Mr. Gold smiled and said: "All magic comes with a ___, dearie. You want your memories back? Then give me something precious."',
+        opts:['holiday','price','birthday'], ans:1
+      },
+      audio:{
+        text:'I woke up in the library and could not remember my own name. The only thing I found was a small note. It said: Pay the price, dearie.',
+        q:'What happened to Belle?',
+        opts:['She lost her keys in the library.','She wrote the note to herself.','Her memories were taken in a magic deal.'], ans:2
+      },
+      verdict:{
+        q:'What is the thief\'s most likely motive?',
+        opts:['He was bored and hungry.','He wanted power over the town through deals.','He wanted to learn to read.'], ans:1
+      },
+      outro:'Memories were the payment for dark deals. Magic in Storybrooke is never free.'
+    },
+    {
+      id:3, show:'tvd', title:'Vervain in the Tea',
+      brief:'Mystic Falls Founders\' Council. Three guests felt sick after the party. Someone wants to expose the vampires.',
+      clue:{
+        text:'Sheriff Forbes wrote: "The Council must ___ the vampires who are hiding in our town. We have a list of suspects."',
+        opts:['put on','take off','hunt down'], ans:2
+      },
+      audio:{
+        text:'Someone made the waiter forget everything. He looks at me and sees nothing. That is compulsion, and only a vampire can do it.',
+        q:'What does Stefan conclude?',
+        opts:['The waiter is lying for money.','A vampire compelled the waiter.','The waiter is simply sick.'], ans:1
+      },
+      verdict:{
+        q:'How can a human protect himself from compulsion?',
+        opts:['Stay inside during the day','Drink a lot of coffee','Wear or drink vervain'], ans:2
+      },
+      outro:'Vervain blocks compulsion. The waiter had none, so the vampire easily wiped his mind.'
+    },
+    {
+      id:4, show:'tvd', title:'The Daylight Ring',
+      brief:'Stefan\'s daylight ring has disappeared from the Salvatore house. Without it, he cannot walk in the sun.',
+      clue:{
+        text:'Damon whispered: "The thief must have ___ the ring from the table while we were at the Founders\' party."',
+        opts:['stole','stealing','stolen'], ans:2
+      },
+      audio:{
+        text:'I felt a cold wind in the hall. The door was locked from inside, but the ring was gone. A vampire cannot enter a house without an invitation.',
+        q:'What is Bonnie\'s hidden hint?',
+        opts:['The thief was someone the owner had invited.','The door was broken by a storm.','Bonnie took the ring herself.'], ans:0
+      },
+      verdict:{
+        q:'Why would someone steal the ring?',
+        opts:['To sell it for a fashion show','To expose Stefan to the sun','To give it to the mayor as a gift'], ans:1
+      },
+      outro:'A trusted guest took the ring to put Stefan in danger. Never invite an enemy in.'
+    },
+    {
+      id:5, show:'dh', title:'The Anonymous Letter',
+      brief:'Wisteria Lane is quiet, but every mailbox hides a secret. Today, five neighbours received the same letter.',
+      clue:{
+        text:'The letter said: "This is not a joke. It is ___. Pay me five thousand dollars, or everybody will know your secret."',
+        opts:['friendship','blackmail','a vacation'], ans:1
+      },
+      audio:{
+        text:'I saw Bree near the mailbox at midnight, but she told the police she was at home. She even asked me to say that we were together all evening.',
+        q:'What does Bree want from Susan?',
+        opts:['A false alibi','A letter from the mailbox','A ride home'], ans:0
+      },
+      verdict:{
+        q:'Who most likely wrote the letters?',
+        opts:['A stranger from another city','The mailman who never visits the street','A neighbour who watches the street at night'], ans:2
+      },
+      outro:'Only someone who watches everyone could know so many secrets. On Wisteria Lane, curtains have eyes.'
+    },
+    {
+      id:6, show:'dh', title:'The Fake Alibi',
+      brief:'A diamond necklace vanished during a charity dinner. Gabrielle says she was far away.',
+      clue:{
+        text:'Gabrielle tried to ___ the truth by telling everyone she was at the spa all afternoon.',
+        opts:['cover up','cover in','cover with'], ans:0
+      },
+      audio:{
+        text:'The spa receipt shows three o\'clock. But the spa closes at two. Somebody wrote this receipt after the party, I am sure of it.',
+        q:'What does Lynette\'s discovery show?',
+        opts:['The spa is open late on Sundays.','Lynette lost her own receipt.','Gabrielle\'s alibi is fake.'], ans:2
+      },
+      verdict:{
+        q:'What should the detective do next?',
+        opts:['Check the spa records and ask the staff','Believe Gabrielle without questions','Throw the receipt away'], ans:0
+      },
+      outro:'The false receipt was part of a cover up. Real alibis always have witnesses.'
+    },
+    {
+      id:7, show:'spn', title:'The Broken Salt Circle',
+      brief:'From John Winchester\'s journal: "A family was attacked in a locked house. The salt line on the floor was broken."',
+      clue:{
+        text:'Dean read the journal aloud: "We have to ___ the monster before it kills again. The tracks lead to the old barn."',
+        opts:['fall down','turn down','track down'], ans:2
+      },
+      audio:{
+        text:'The salt line was broken on the window side. Nothing walked through it. A person with a key stepped on it and broke the circle from inside.',
+        q:'What does Dean imply?',
+        opts:['The wind blew the salt away.','The salt was fake.','Someone human broke the circle on purpose.'], ans:2
+      },
+      verdict:{
+        q:'What protects a room from a ghost or a demon?',
+        opts:['An unbroken salt circle','A bright lamp','A loud radio'], ans:0
+      },
+      outro:'Even the best salt circle is useless when a human helps the monster. Check the people first.'
+    },
+    {
+      id:8, show:'spn', title:'Agent Hamilton\'s Badge',
+      brief:'Two "federal agents" are asking strange questions in a small town. The local sheriff is not convinced.',
+      clue:{
+        text:'Dean showed a ___ FBI badge to the sheriff and said, "Agent Hamilton, ma\'am. We are here about the missing people."',
+        opts:['honest','false','broken'], ans:1
+      },
+      audio:{
+        text:'The two agents never called my office. Their phone number is a pizza place. Real agents do not do that. Something is wrong with these men.',
+        q:'What does the sheriff suspect?',
+        opts:['The agents love pizza.','The agents are late for work.','The agents\' IDs are not real.'], ans:2
+      },
+      verdict:{
+        q:'Why did the Winchesters use a false ID?',
+        opts:['To get access to the crime scene and ask questions','To win a prize at the police station','To rent a cheaper motel'], ans:0
+      },
+      outro:'The brothers hunt monsters, not criminals, but the badge opens every door. Still, a good sheriff checks the number.'
+    },
+    {
+      id:9, show:'ph', title:'The Frame-Up at Hera Palace',
+      brief:'A body was found in the Hera Palace garden. A bloody knife was discovered in Soo-ryeon\'s room.',
+      clue:{
+        text:'Soo-ryeon shouted: "This is a ___! Someone planted the knife in my room to make me look guilty!"',
+        opts:['promotion','holiday','frame-up'], ans:2
+      },
+      audio:{
+        text:'I saw Mrs. Cheon give a thick envelope to the judge before the trial. Then the judge smiled and the case was closed in five minutes.',
+        q:'What was in the envelope?',
+        opts:['A birthday card','A bribe','An invitation to dinner'], ans:1
+      },
+      verdict:{
+        q:'What crime did Mrs. Cheon commit?',
+        opts:['She bribed the judge to hide the truth.','She lost an important document.','She forgot to pay the electricity bill.'], ans:0
+      },
+      outro:'Money bought the judge, and the innocent person almost went to prison. In Hera Palace, status is everything.'
+    },
+    {
+      id:10, show:'ph', title:'The Silent Cameras',
+      brief:'Someone entered the secret room in the Penthouse. All the security cameras were off for exactly ten minutes.',
+      clue:{
+        text:'Logan said: "Nobody can do this alone. The killer needed an ___ inside the building to open the secret door."',
+        opts:['audience','architect','accomplice'], ans:2
+      },
+      audio:{
+        text:'The cameras were off for ten minutes. Only the head of security can do that. And the next day, he bought a brand new car.',
+        q:'What is the guard hinting at?',
+        opts:['The head of security helped the killer for money.','The cameras are old and broken.','The head of security likes cars.'], ans:0
+      },
+      verdict:{
+        q:'Who is the secret accomplice?',
+        opts:['The gardener','The head of security','The cook'], ans:1
+      },
+      outro:'The head of security switched off the cameras and was paid well. Every big crime needs a helping hand.'
+    }
+  ];
+
+  /* ---------- state ---------- */
+  var state = {solved:{}};
+  try {
+    var raw = localStorage.getItem(SAVE_KEY);
+    if (raw) { var p = JSON.parse(raw); if (p && p.solved) state = p; }
+  } catch(e){}
+  var filter = 'all';
+  var cur = null, step = 0, busy = false;
+
+  function save(){ try{ localStorage.setItem(SAVE_KEY, JSON.stringify(state)); }catch(e){} }
+  function solvedCount(){ return Object.keys(state.solved).length; }
+  function xp(){ return solvedCount()*100; }
+  function rank(){
+    var r = RANKS[0];
+    for (var i=0;i<RANKS.length;i++){ if (xp()>=RANKS[i].xp) r = RANKS[i]; }
+    return r;
+  }
+  function nextRank(){
+    for (var i=0;i<RANKS.length;i++){ if (RANKS[i].xp>xp()) return RANKS[i]; }
+    return null;
+  }
+  function $(id){ return document.getElementById(id); }
+  function updateCounter(){ $('dcfCounter').textContent = solvedCount()+'/10'; }
+
+  function say(text){
+    if (typeof speakText === 'function') { speakText(text); return; }
+    if ('speechSynthesis' in window){
+      window.speechSynthesis.cancel();
+      var u = new SpeechSynthesisUtterance(text); u.lang='en-US'; u.rate=0.9;
+      window.speechSynthesis.speak(u);
+    }
+  }
+
+  /* ---------- mode 1: file cabinet ---------- */
+  function renderGrid(){
+    cur = null;
+    var nr = nextRank();
+    var pct = nr ? Math.min(100, Math.round((xp()-rank().xp)/(nr.xp-rank().xp)*100)) : 100;
+    var h = '<div class="dcf-head"><h2>🕵️‍♂️ СЕКРЕТНЫЙ АРХИВ ДЕЛ</h2>'
+      + '<div class="dcf-rank">Звание: <b>'+rank().name+'</b> &nbsp;|&nbsp; XP: <b>'+xp()+'</b> / 1000'
+      + (nr ? ' &nbsp;|&nbsp; до звания «'+nr.name+'»: '+(nr.xp-xp())+' XP' : ' &nbsp;|&nbsp; максимальное звание!')
+      + '</div><div class="dcf-bar"><i style="width:'+pct+'%"></i></div></div>';
+    h += '<div class="dcf-filters">';
+    h += '<button class="dcf-fbtn'+(filter==='all'?' on':'')+'" data-f="all">Все дела</button>';
+    Object.keys(SHOWS).forEach(function(k){
+      h += '<button class="dcf-fbtn'+(filter===k?' on':'')+'" data-f="'+k+'">'+SHOWS[k]+'</button>';
+    });
+    h += '</div><div class="dcf-grid">';
+    CASES.forEach(function(c){
+      if (filter!=='all' && c.show!==filter) return;
+      var d = !!state.solved[c.id];
+      h += '<div class="dcf-folder'+(d?' done':'')+'" data-id="'+c.id+'">'
+        + '<div class="n">ДЕЛО №'+('0'+c.id).slice(-2)+'</div>'
+        + '<div class="t">'+c.title+'</div>'
+        + '<div class="s">'+SHOWS[c.show]+'</div>'
+        + '<div class="st">'+(d?'✅ Раскрыто':'🔒 Не раскрыто')+'</div></div>';
+    });
+    h += '</div>';
+    $('dcfView').innerHTML = h;
+    Array.prototype.forEach.call(document.querySelectorAll('#dcfView .dcf-fbtn'), function(b){
+      b.onclick = function(){ filter = b.getAttribute('data-f'); renderGrid(); };
+    });
+    Array.prototype.forEach.call(document.querySelectorAll('#dcfView .dcf-folder'), function(f){
+      f.onclick = function(){ openCase(parseInt(f.getAttribute('data-id'),10)); };
+    });
+  }
+
+  /* ---------- mode 2: investigation ---------- */
+  function openCase(id){
+    cur = CASES.filter(function(c){ return c.id===id; })[0];
+    step = 0; busy = false;
+    renderStep();
+  }
+
+  function stepsBar(){
+    var names = ['1. Письмо','2. Допрос','3. Вердикт'];
+    return '<div class="dcf-steps">' + names.map(function(n,i){
+      return '<span class="'+(i<step?'ok':(i===step?'on':''))+'">'+n+'</span>';
+    }).join('') + '</div>';
+  }
+
+  function renderStep(){
+    window.speechSynthesis && window.speechSynthesis.cancel();
+    var c = cur;
+    var h = '<button class="dcf-back" id="dcfBack">← Назад к картотеке</button><div class="dcf-sheet">'
+      + '<div class="dcf-stamp" id="dcfStamp">CASE SOLVED</div>'
+      + '<h3>ДЕЛО №'+('0'+c.id).slice(-2)+': '+c.title+'</h3>'
+      + '<div class="dcf-meta">'+SHOWS[c.show]+' · Level B1'+(state.solved[c.id]?' · ✅ уже раскрыто (повторное прохождение)':'')+'</div>'
+      + '<div class="dcf-brief">'+c.brief+'</div>' + stepsBar();
+    var s, opts;
+    if (step===0){
+      h += '<div class="dcf-lbl">🔎 УЛИКА 1 — ПИСЬМЕННАЯ. Выберите слово для пропуска:</div>'
+        + '<div class="dcf-text">'+c.clue.text.replace('___','<u>&nbsp;&nbsp;_______&nbsp;&nbsp;</u>')+'</div>';
+      opts = c.clue.opts;
+    } else if (step===1){
+      h += '<div class="dcf-lbl">🎧 УЛИКА 2 — АУДИО-ДОПРОС СВИДЕТЕЛЯ</div>'
+        + '<button class="dcf-play" id="dcfPlay">▶ Прослушать показания</button>'
+        + '<div class="dcf-q">'+c.audio.q+'</div>';
+      opts = c.audio.opts;
+    } else {
+      h += '<div class="dcf-lbl">⚖️ УЛИКА 3 — ФИНАЛЬНЫЙ ВЕРДИКТ</div>'
+        + '<div class="dcf-q">'+c.verdict.q+'</div>';
+      opts = c.verdict.opts;
+    }
+    h += '<div class="dcf-opts">' + opts.map(function(o,i){
+      return '<button class="dcf-opt" data-i="'+i+'">'+o+'</button>';
+    }).join('') + '</div><div class="dcf-fb" id="dcfFb"></div></div>';
+    $('dcfView').innerHTML = h;
+    $('dcfBack').onclick = renderGrid;
+    if ($('dcfPlay')) $('dcfPlay').onclick = function(){ say(c.audio.text); };
+    Array.prototype.forEach.call(document.querySelectorAll('#dcfView .dcf-opt'), function(b){
+      b.onclick = function(){ answer(b, parseInt(b.getAttribute('data-i'),10)); };
+    });
+  }
+
+  function answer(btn, i){
+    if (busy) return;
+    var c = cur;
+    var correct = step===0 ? c.clue.ans : (step===1 ? c.audio.ans : c.verdict.ans);
+    var fb = $('dcfFb');
+    if (i===correct){
+      busy = true;
+      btn.classList.add('right');
+      Array.prototype.forEach.call(document.querySelectorAll('#dcfView .dcf-opt'), function(b){ b.disabled = true; });
+      fb.style.color = '#3f6b2a';
+      fb.textContent = '✔ Улика принята!';
+      setTimeout(function(){
+        step++; busy = false;
+        if (step>=3) win(); else renderStep();
+      }, 900);
+    } else {
+      btn.classList.add('wrong');
+      btn.disabled = true;
+      fb.style.color = '#8c1c13';
+      fb.textContent = '✘ Это ложный след. Подумайте ещё раз.';
+    }
+  }
+
+  function win(){
+    var c = cur;
+    var first = !state.solved[c.id];
+    var before = rank().name;
+    if (first){ state.solved[c.id] = true; save(); updateCounter(); }
+    var after = rank().name;
+    var h = '<button class="dcf-back" id="dcfBack">← Назад к картотеке</button><div class="dcf-sheet" style="min-height:300px">'
+      + '<div class="dcf-stamp" id="dcfStamp">CASE SOLVED</div>'
+      + '<h3>ДЕЛО №'+('0'+c.id).slice(-2)+': '+c.title+'</h3>'
+      + '<div class="dcf-meta">'+SHOWS[c.show]+' · Level B1</div>' + stepsBarDone()
+      + '<div class="dcf-result"><p style="font-size:16px">'+c.outro+'</p>'
+      + '<p class="dcf-lbl">'+(first ? '+100 XP! Всего: '+xp()+' XP' : 'Дело уже было раскрыто ранее, XP не начисляется.')+'</p>'
+      + (first && after!==before ? '<p class="dcf-lbl">🎖 Новое звание: '+after+'!</p>' : '')
+      + '<button class="dcf-play" id="dcfAgain">Следующее дело →</button></div></div>';
+    $('dcfView').innerHTML = h;
+    $('dcfBack').onclick = renderGrid;
+    $('dcfAgain').onclick = function(){
+      var next = CASES.filter(function(x){ return !state.solved[x.id]; })[0];
+      if (next) openCase(next.id); else renderGrid();
+    };
+    setTimeout(function(){ var s=$('dcfStamp'); if (s) s.classList.add('show'); }, 150);
+  }
+
+  function stepsBarDone(){
+    return '<div class="dcf-steps"><span class="ok">1. Письмо</span><span class="ok">2. Допрос</span><span class="ok">3. Вердикт</span></div>';
+  }
+
+  /* ---------- open / close ---------- */
+  function openModal(){
+    $('dcfOverlay').classList.add('dcf-open');
+    renderGrid();
+  }
+  function closeModal(){
+    $('dcfOverlay').classList.remove('dcf-open');
+    window.speechSynthesis && window.speechSynthesis.cancel();
+  }
+  $('dcfWidget').onclick = openModal;
+  $('dcfWidget').onkeydown = function(e){ if (e.key==='Enter' || e.key===' ') { e.preventDefault(); openModal(); } };
+  $('dcfClose').onclick = closeModal;
+  $('dcfOverlay').addEventListener('click', function(e){ if (e.target===this) closeModal(); });
+  document.addEventListener('keydown', function(e){
+    if (e.key==='Escape' && $('dcfOverlay').classList.contains('dcf-open')) closeModal();
+  });
+  updateCounter();
+})();
     </script>
 </body>
 </html>
