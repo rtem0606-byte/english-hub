@@ -2414,68 +2414,53 @@ const UNIVERSE_FILES = {
         explain: "✅ ВЕРНО! 'Pull the strings' — тайно контролировать всех вокруг."
     }
 };
-
 let currentDossierKey = 'tvd';
-let activeAudio = null;
 
 const VOICE_PROFILES = {
-    tvd: { gender: 'male', pitch: 0.82, rate: 0.88, mp3: 'voice-tvd.mp3' }, // Дэймон: низкий, с хитринкой
-    dh: { gender: 'female', pitch: 1.06, rate: 0.89, mp3: 'voice-dh.mp3' }, // Мэри Элис: мягкий, загадочный
-    spn: { gender: 'male', pitch: 0.70, rate: 0.92, mp3: 'voice-spn.mp3' }, // Дин: глубокий, хрипловатый баритон
-    penthouse: { gender: 'female', pitch: 0.94, rate: 0.85, mp3: 'voice-penthouse.mp3' } // Шим Су Рён: сдержанный, властный
+    tvd: { gender: 'male', pitch: 0.80, rate: 0.88 }, // Дэймон: низкий, неспешный
+    dh: { gender: 'female', pitch: 1.08, rate: 0.90 }, // Мэри Элис: мягкий, плавный
+    spn: { gender: 'male', pitch: 0.68, rate: 0.92 }, // Дин: глубокий низкий тембр
+    penthouse: { gender: 'female', pitch: 0.94, rate: 0.85 } // Шим Су Рён: холодный, сдержанный
 };
 
-function speakDossierText(text, isMainQuote = false) {
-    const profile = VOICE_PROFILES[currentDossierKey] || VOICE_PROFILES.tvd;
-
-    // Останавливаем прошлый звук
-    if (activeAudio) { activeAudio.pause(); activeAudio = null; }
-    if ('speechSynthesis' in window) window.speechSynthesis.cancel();
-
-    // Если это главная цитата и в папке лежит настоящий MP3-файл героя — играем его!
-    if (isMainQuote && profile.mp3) {
-        const audio = new Audio(profile.mp3);
-        activeAudio = audio;
-        audio.play().catch(() => {
-            // Если MP3-файла пока нет в папке, включаем прокачанный синтезатор с тембром героя
-            runTunedSynth(text, profile);
-        });
-        return;
-    }
-
-    runTunedSynth(text, profile);
-}
-
-function runTunedSynth(text, profile) {
+function speakDossierText(text) {
     if (!('speechSynthesis' in window)) return;
+    
+    const profile = VOICE_PROFILES[currentDossierKey] || VOICE_PROFILES.tvd;
+    window.speechSynthesis.cancel();
+
     const u = new SpeechSynthesisUtterance(text);
     u.lang = 'en-US';
     u.pitch = profile.pitch;
     u.rate = profile.rate;
 
     const voices = window.speechSynthesis.getVoices();
-    const enVoices = voices.filter(v => v.lang.startsWith('en'));
+    const enVoices = voices.filter(v => v.lang && v.lang.toLowerCase().startsWith('en'));
 
     if (enVoices.length > 0) {
-        const maleHints = ['Guy', 'David', 'Mark', 'Christopher', 'Eric', 'Roger', 'Male', 'Daniel'];
-        const femaleHints = ['Aria', 'Zira', 'Jenny', 'Samantha', 'Victoria', 'Google US English', 'Female'];
+        const maleHints = ['guy', 'david', 'mark', 'christopher', 'eric', 'roger', 'male', 'daniel', 'english united kingdom'];
+        const femaleHints = ['aria', 'zira', 'jenny', 'samantha', 'victoria', 'google us english', 'female'];
         const hints = profile.gender === 'male' ? maleHints : femaleHints;
 
-        // Сначала ищем качественные Natural/Online голоса нужного пола
-        let bestVoice = enVoices.find(v => (v.name.includes('Natural') || v.name.includes('Online') || v.name.includes('Google')) && hints.some(h => v.name.includes(h)))
-                     || enVoices.find(v => hints.some(h => v.name.includes(h)))
-                     || enVoices[0];
+        let bestVoice = enVoices.find(v => {
+            const name = v.name.toLowerCase();
+            return (name.includes('natural') || name.includes('online') || name.includes('google') || name.includes('siri')) &&
+                   hints.some(h => name.includes(h));
+        }) || enVoices.find(v => hints.some(h => v.name.toLowerCase().includes(h))) || enVoices[0];
 
         u.voice = bestVoice;
     }
 
+    // Мгновенный запуск без задержек — телефоны это не блокируют!
     window.speechSynthesis.speak(u);
 }
 
-// Подгружаем список голосов заранее
 if ('speechSynthesis' in window) {
+    window.speechSynthesis.getVoices();
     window.speechSynthesis.onvoiceschanged = () => window.speechSynthesis.getVoices();
 }
+
+
 
 
 
