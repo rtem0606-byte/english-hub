@@ -894,17 +894,17 @@ input:focus, select:focus, textarea:focus {
                     <div class="universe-card" onclick="openShowDict('housewives')">
                         <h3>🏡 Отчаянные домохозяйки</h3>
                         <p>Desperate Housewives — ирония, скелеты в шкафу, сплетни и безупречный разговорный английский Вистерия Лейн.</p>
-                        <span class="universe-link">Открыть лексику (8) →</span>
+                        <span class="universe-link">Открыть лексику (16) →</span>
                     </div>
                     <div class="universe-card" onclick="openShowDict('spn')">
                         <h3>😈 Сверхъестественное</h3>
                         <p>Supernatural — дорожный сленг братьев Винчестеров, охота на демонов, сарказм и американские идиомы.</p>
-                        <span class="universe-link">Открыть лексику (8) →</span>
+                        <span class="universe-link">Открыть лексику (16) →</span>
                     </div>
                     <div class="universe-card" onclick="openShowDict('penthouse')">
                         <h3>🏢 Пентхаус</h3>
                         <p>The Penthouse — лексика высшего общества, амбиции, месть, судебные интриги и борьба за власть во дворце Гера.</p>
-                        <span class="universe-link">Открыть лексику (8) →</span>
+                        <span class="universe-link">Открыть лексику (16) →</span>
                     </div>
                 </div>
             </div>
@@ -1173,10 +1173,10 @@ input:focus, select:focus, textarea:focus {
 
         // ================= СПИСОК ДОСТИЖЕНИЙ =================
         const goalsList = [
-            { id: "g1", text: "Изучить все 8 слов по «Дневникам Вампира»" },
-            { id: "g2", text: "Изучить все 8 слов по «Отчаянным домохозяйкам»" },
-            { id: "g3", text: "Изучить все 8 слов по «Сверхъестественному»" },
-            { id: "g4", text: "Изучить все 8 слов по дораме «Пентхаус»" },
+            { id: "g1", text: "Изучить все 16 слов по «Дневникам Вампира»" },
+            { id: "g2", text: "Изучить все 16 слов по «Отчаянным домохозяйкам»" },
+            { id: "g3", text: "Изучить все 16 слов по «Сверхъестественному»" },
+            { id: "g4", text: "Изучить все 16 слов по дораме «Пентхаус»" },
             { id: "g5", text: "Прослушать произношение минимум 15 слов через кнопку 🔊" },
             { id: "g6", text: "Набрать 12 из 12 баллов в разделе «Тесты»" }
         ];
@@ -1954,447 +1954,448 @@ input:focus, select:focus, textarea:focus {
     }
 })();
 </script>
-
-<!-- ===== ВИТРИНА ПОЛАРОИДОВ + ИНТЕРАКТИВНЫЕ ДОСЬЕ ВСЕЛЕННЫХ ===== -->
+<!-- ===== NOIR DETECTIVE CORE v3.0: 5 ВСЕЛЕННЫХ, ЛАБОРАТОРИЯ И SRS (50 СЛОВ) ===== -->
 <style>
-.noir-showcase-wrap {
-    max-width: 920px;
+.noir-showcase-wrap, .noir-lab-wrap {
+    max-width: 980px;
     margin: 28px auto;
-    padding: 24px 22px 30px;
-    background: linear-gradient(145deg, rgba(28, 22, 19, 0.94), rgba(14, 11, 10, 0.98));
-    border: 1px solid rgba(212, 175, 55, 0.35);
+    padding: 24px 20px 30px;
+    background: linear-gradient(145deg, rgba(24, 18, 15, 0.97), rgba(11, 8, 7, 0.99));
+    border: 1px solid rgba(212, 175, 55, 0.45);
     border-radius: 12px;
-    box-shadow: 0 14px 35px rgba(0, 0, 0, 0.85), inset 0 0 25px rgba(158, 27, 27, 0.12);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.92), inset 0 0 30px rgba(158, 27, 27, 0.14);
     position: relative;
-}
-
-.noir-showcase-header {
-    text-align: center;
-    margin-bottom: 24px;
-}
-
-.noir-showcase-title {
-    font-family: 'Cormorant Garamond', Georgia, serif;
-    font-size: 1.75rem;
     color: #f4eee1;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    margin: 0 0 6px 0;
 }
 
-.noir-showcase-sub {
-    font-family: 'Courier Prime', 'Courier New', monospace;
-    font-size: 0.82rem;
-    color: #d4af37;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-}
-
-.noir-polaroid-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
-}
-
-@media (max-width: 820px) {
-    .noir-polaroid-grid { grid-template-columns: repeat(2, 1fr); }
-}
-@media (max-width: 480px) {
-    .noir-polaroid-grid { grid-template-columns: 1fr; }
-}
-
-.noir-polaroid-item {
-    background: #e8dec8;
-    padding: 10px 10px 18px 10px;
-    border-radius: 3px;
-    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.9), inset 0 0 14px rgba(139, 105, 60, 0.28);
-    position: relative;
-    transition: all 0.32s cubic-bezier(0.25, 0.8, 0.25, 1);
-    cursor: pointer;
-    transform: rotate(-1.5deg);
-}
-
-.noir-polaroid-item:nth-child(even) {
-    transform: rotate(1.5deg);
-}
-
-.noir-polaroid-item:hover {
-    transform: rotate(0deg) translateY(-8px) scale(1.04);
-    box-shadow: 0 18px 32px rgba(0, 0, 0, 0.95), 0 0 22px rgba(212, 175, 55, 0.6);
-    z-index: 10;
-}
-
-.noir-polaroid-img-box {
-    width: 100%;
-    aspect-ratio: 1 / 1;
-    overflow: hidden;
-    border: 1px solid #2a2019;
-    background: #120e0c;
-    position: relative;
-}
-
-.noir-polaroid-img-box img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-    filter: contrast(1.06) sepia(0.1);
-    transition: transform 0.4s ease;
-}
-
-.noir-polaroid-item:hover .noir-polaroid-img-box img {
-    transform: scale(1.08);
-}
-
-.noir-polaroid-badge {
-    position: absolute;
-    bottom: 6px;
-    right: 6px;
-    background: rgba(158, 27, 27, 0.92);
-    color: #f4eee1;
-    font-family: 'Courier Prime', monospace;
-    font-size: 0.62rem;
-    padding: 2px 6px;
-    border: 1px solid #d4af37;
-    letter-spacing: 1px;
-}
-
-.noir-polaroid-tag {
-    font-family: 'Courier Prime', 'Courier New', monospace;
-    color: #8b1818;
-    font-size: 0.68rem;
-    font-weight: 700;
-    text-align: center;
-    margin-top: 10px;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-}
-
-.noir-polaroid-name {
-    font-family: 'Cormorant Garamond', Georgia, serif;
-    color: #1e1510;
-    font-size: 1.1rem;
-    font-weight: 700;
-    text-align: center;
-    margin-top: 2px;
-}
-
-/* ===== МОДАЛЬНОЕ ОКНО СЕКРЕТНОГО ДОСЬЕ ===== */
-.uv-modal-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(8, 6, 5, 0.88);
-    backdrop-filter: blur(6px);
-    z-index: 10000;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    padding: 18px;
-    opacity: 0;
-    transition: opacity 0.28s ease;
-}
-
-.uv-modal-overlay.active {
-    display: flex;
-    opacity: 1;
-}
-
-.uv-dossier-box {
-    max-width: 780px;
-    width: 100%;
-    max-height: 90vh;
-    overflow-y: auto;
-    background: radial-gradient(circle at top right, rgba(158, 27, 27, 0.16), transparent 55%), #181310;
-    border: 2px solid #d4af37;
-    outline: 1px dashed rgba(212, 175, 55, 0.4);
-    outline-offset: -8px;
+/* HUD Агента */
+.agent-hud {
+    background: rgba(15, 11, 10, 0.92);
+    border: 1px solid rgba(212, 175, 55, 0.35);
+    border-left: 4px solid #d4af37;
     border-radius: 8px;
-    padding: 28px 26px;
-    color: #f4eee1;
-    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.95);
-    position: relative;
-}
-
-.uv-close-btn {
-    position: absolute;
-    top: 16px;
-    right: 18px;
-    background: #2a1f1a !important;
-    border: 1px solid #d4af37 !important;
-    color: #f4eee1 !important;
-    font-family: 'Courier Prime', monospace !important;
-    font-size: 0.85rem;
-    padding: 5px 12px;
-    cursor: pointer;
-    border-radius: 4px;
-}
-
-.uv-top-grid {
-    display: grid;
-    grid-template-columns: 180px 1fr;
-    gap: 22px;
-    align-items: center;
-    border-bottom: 1px dashed rgba(212, 175, 55, 0.35);
-    padding-bottom: 18px;
-}
-
-@media (max-width: 600px) {
-    .uv-top-grid { grid-template-columns: 1fr; text-align: center; }
-}
-
-.uv-mini-polaroid {
-    background: #e8dec8;
-    padding: 8px 8px 16px;
-    border-radius: 3px;
-    transform: rotate(-2deg);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.8);
-}
-
-.uv-mini-polaroid img {
-    width: 100%;
-    aspect-ratio: 1/1;
-    object-fit: cover;
-    border: 1px solid #2a2019;
-}
-
-.uv-stamp {
-    display: inline-block;
-    font-family: 'Courier Prime', monospace;
-    font-size: 0.72rem;
-    color: #d4af37;
-    border: 1px solid #d4af37;
-    padding: 2px 8px;
-    letter-spacing: 1.5px;
-    margin-bottom: 6px;
-}
-
-.uv-title {
-    font-family: 'Cormorant Garamond', Georgia, serif;
-    font-size: 2rem;
-    margin: 0 0 6px 0;
-    color: #f4eee1;
-}
-
-.uv-atmo {
-    font-family: 'Courier Prime', monospace;
-    font-size: 0.85rem;
-    color: #c9b7a3;
-    line-height: 1.45;
-}
-
-.uv-quote-box {
-    margin-top: 18px;
-    padding: 14px 16px;
-    background: rgba(12, 9, 8, 0.75);
-    border-left: 3px solid #9e1b1b;
-    border-radius: 4px;
-    font-family: 'Courier Prime', monospace;
-}
-
-.uv-quote-en {
-    font-size: 0.98rem;
-    color: #f4eee1;
-    font-style: italic;
-}
-
-.uv-quote-ru {
-    font-size: 0.82rem;
-    color: #b8a693;
-    margin-top: 5px;
-}
-
-.uv-section-label {
-    font-family: 'Cormorant Garamond', Georgia, serif;
-    font-size: 1.3rem;
-    color: #d4af37;
-    margin: 20px 0 10px;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-}
-
-.uv-evidence-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 12px;
-}
-
-@media (max-width: 620px) {
-    .uv-evidence-grid { grid-template-columns: 1fr; }
-}
-
-.uv-evidence-card {
-    background: #231b17;
-    border: 1px solid rgba(212, 175, 55, 0.3);
-    border-radius: 6px;
-    padding: 12px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-}
-
-.uv-evidence-card:hover {
-    border-color: #d4af37;
-    transform: translateY(-2px);
-    background: #2b211c;
-}
-
-.uv-ev-object {
-    font-family: 'Courier Prime', monospace;
-    font-size: 0.75rem;
-    color: #d4af37;
-    margin-bottom: 4px;
-}
-
-.uv-ev-phrase {
-    font-weight: 700;
-    font-size: 1rem;
-    color: #f4eee1;
-    margin-bottom: 4px;
-}
-
-.uv-ev-meaning {
-    font-size: 0.82rem;
-    color: #c9b7a3;
-}
-
-.uv-cipher-box {
-    margin-top: 20px;
-    padding: 16px;
-    background: linear-gradient(135deg, #241916, #17110f);
-    border: 1px solid rgba(212, 175, 55, 0.4);
-    border-radius: 6px;
-}
-
-.uv-cipher-q {
-    font-family: 'Courier Prime', monospace;
-    font-size: 0.95rem;
-    margin-bottom: 12px;
-    color: #f4eee1;
-}
-
-.uv-cipher-opts {
+    padding: 14px 18px;
+    margin-bottom: 24px;
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
 }
+.agent-info { display: flex; flex-direction: column; gap: 4px; }
+.agent-rank { font-family: 'Courier Prime', monospace; font-size: 0.95rem; color: #d4af37; font-weight: 700; letter-spacing: 1px; }
+.agent-stats { font-family: 'Courier Prime', monospace; font-size: 0.78rem; color: #c9b7a3; }
+.agent-xp-bar-wrap {
+    flex: 1; min-width: 160px; max-width: 260px;
+    background: #0d0a09; height: 10px; border-radius: 99px;
+    border: 1px solid rgba(212, 175, 55, 0.3); overflow: hidden;
+}
+.agent-xp-bar { height: 100%; width: 0%; background: linear-gradient(90deg, #9e1b1b, #d4af37); transition: width 0.4s ease; }
+.agent-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+.hud-btn {
+    background: #241a16 !important; border: 1px solid rgba(212, 175, 55, 0.5) !important;
+    color: #f4eee1 !important; font-family: 'Courier Prime', monospace !important;
+    font-size: 0.75rem !important; padding: 6px 11px !important; border-radius: 4px !important;
+    cursor: pointer; transition: all 0.2s ease;
+}
+.hud-btn:hover { border-color: #d4af37 !important; background: #33241e !important; }
 
-.uv-opt-btn {
-    font-family: 'Courier Prime', monospace !important;
-    font-size: 0.82rem !important;
-    padding: 7px 14px !important;
-    border-radius: 4px !important;
-    cursor: pointer;
-}
+.noir-showcase-header { text-align: center; margin-bottom: 22px; }
+.noir-showcase-title { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 1.85rem; color: #f4eee1; letter-spacing: 2px; text-transform: uppercase; margin: 0 0 6px 0; }
+.noir-showcase-sub { font-family: 'Courier Prime', monospace; font-size: 0.8rem; color: #d4af37; letter-spacing: 1.5px; text-transform: uppercase; }
 
-.uv-cipher-feedback {
-    margin-top: 10px;
-    font-family: 'Courier Prime', monospace;
-    font-size: 0.85rem;
-    font-weight: 700;
+/* Сетка на 5 полароидов */
+.noir-polaroid-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 16px;
 }
+@media (max-width: 900px) { .noir-polaroid-grid { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 580px) { .noir-polaroid-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 400px) { .noir-polaroid-grid { grid-template-columns: 1fr; } }
+
+.noir-polaroid-item {
+    background: #e8dec8; padding: 9px 9px 16px 9px; border-radius: 3px;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.9), inset 0 0 14px rgba(139, 105, 60, 0.28);
+    position: relative; transition: all 0.3s ease; cursor: pointer; transform: rotate(-1.2deg);
+}
+.noir-polaroid-item:nth-child(even) { transform: rotate(1.2deg); }
+.noir-polaroid-item:hover { transform: rotate(0deg) translateY(-6px) scale(1.03); box-shadow: 0 16px 30px rgba(0,0,0,0.95), 0 0 20px rgba(212,175,55,0.55); z-index: 10; }
+.noir-polaroid-img-box { width: 100%; aspect-ratio: 1 / 1; overflow: hidden; border: 1px solid #2a2019; background: #120e0c; position: relative; }
+.noir-polaroid-img-box img { width: 100%; height: 100%; object-fit: cover; display: block; filter: contrast(1.05) sepia(0.08); transition: transform 0.4s ease; }
+.noir-polaroid-item:hover .noir-polaroid-img-box img { transform: scale(1.07); }
+.noir-polaroid-badge { position: absolute; bottom: 5px; right: 5px; background: rgba(158, 27, 27, 0.92); color: #f4eee1; font-family: 'Courier Prime', monospace; font-size: 0.58rem; padding: 2px 5px; border: 1px solid #d4af37; }
+.solved-stamp {
+    position: absolute; top: 10px; left: 50%; transform: translateX(-50%) rotate(-12deg);
+    background: rgba(20, 110, 45, 0.94); color: #e9ffef; border: 2px solid #75f09c;
+    font-family: 'Courier Prime', monospace; font-size: 0.65rem; font-weight: 700;
+    padding: 2px 8px; letter-spacing: 1.5px; display: none; pointer-events: none;
+}
+.noir-polaroid-item.solved .solved-stamp { display: block; }
+.noir-polaroid-tag { font-family: 'Courier Prime', monospace; color: #8b1818; font-size: 0.62rem; font-weight: 700; text-align: center; margin-top: 8px; text-transform: uppercase; }
+.noir-polaroid-name { font-family: 'Cormorant Garamond', Georgia, serif; color: #1e1510; font-size: 1.02rem; font-weight: 700; text-align: center; margin-top: 2px; }
+
+/* Сейф собранных улик */
+.evidence-locker-box { margin-top: 22px; padding: 14px 16px; background: rgba(14, 11, 10, 0.85); border: 1px dashed rgba(212, 175, 55, 0.4); border-radius: 8px; }
+.locker-title { font-family: 'Courier Prime', monospace; font-size: 0.8rem; color: #d4af37; margin-bottom: 8px; text-transform: uppercase; }
+.locker-chips { display: flex; flex-wrap: wrap; gap: 7px; }
+.locker-chip { background: #231a16; border: 1px solid rgba(212, 175, 55, 0.4); color: #f4eee1; font-family: 'Courier Prime', monospace; font-size: 0.75rem; padding: 4px 9px; border-radius: 4px; cursor: pointer; }
+
+/* Модальное окно досье */
+.uv-modal-overlay { position: fixed; inset: 0; background: rgba(6, 5, 4, 0.9); backdrop-filter: blur(6px); z-index: 10000; display: none; align-items: center; justify-content: center; padding: 14px; }
+.uv-modal-overlay.active { display: flex; }
+.uv-dossier-box { max-width: 780px; width: 100%; max-height: 90vh; overflow-y: auto; background: radial-gradient(circle at top right, rgba(158, 27, 27, 0.18), transparent 55%), #181310; border: 2px solid #d4af37; border-radius: 10px; padding: 20px; color: #f4eee1; box-shadow: 0 25px 60px rgba(0, 0, 0, 0.95); position: relative; }
+.uv-close-btn { position: sticky; top: 0; z-index: 20; display: block !important; width: 100% !important; margin-bottom: 16px !important; background: linear-gradient(90deg, #8b1818, #5e1111) !important; border: 1px solid #d4af37 !important; color: #f4eee1 !important; font-family: 'Courier Prime', monospace !important; font-size: 0.88rem !important; font-weight: 700 !important; padding: 11px 16px !important; cursor: pointer; border-radius: 6px !important; text-align: center; letter-spacing: 1.5px; }
+.uv-top-grid { display: grid; grid-template-columns: 165px 1fr; gap: 18px; align-items: center; border-bottom: 1px dashed rgba(212, 175, 55, 0.35); padding-bottom: 16px; }
+@media (max-width: 600px) { .uv-top-grid { grid-template-columns: 1fr; text-align: center; } }
+.uv-mini-polaroid { background: #e8dec8; padding: 8px 8px 14px; border-radius: 3px; max-width: 170px; margin: 0 auto; }
+.uv-mini-polaroid img { width: 100%; aspect-ratio: 1/1; object-fit: cover; border: 1px solid #2a2019; }
+.uv-stamp { display: inline-block; font-family: 'Courier Prime', monospace; font-size: 0.7rem; color: #d4af37; border: 1px solid #d4af37; padding: 2px 8px; margin-bottom: 6px; }
+.uv-title { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 1.9rem; margin: 0 0 6px 0; color: #f4eee1; }
+.uv-atmo { font-family: 'Courier Prime', monospace; font-size: 0.82rem; color: #c9b7a3; line-height: 1.45; }
+.uv-quote-box { margin-top: 12px; padding: 11px 14px; background: rgba(12, 9, 8, 0.8); border-left: 3px solid #9e1b1b; border-radius: 4px; font-family: 'Courier Prime', monospace; }
+.uv-quote-en { font-size: 0.92rem; color: #f4eee1; font-style: italic; }
+.uv-quote-ru { font-size: 0.78rem; color: #b8a693; margin-top: 4px; }
+.uv-section-label { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 1.2rem; color: #d4af37; margin: 16px 0 10px; text-transform: uppercase; }
+.uv-evidence-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+@media (max-width: 620px) { .uv-evidence-grid { grid-template-columns: 1fr; } }
+.uv-evidence-card { background: #231b17; border: 1px solid rgba(212, 175, 55, 0.3); border-radius: 6px; padding: 11px; cursor: pointer; transition: all 0.2s; }
+.uv-evidence-card.collected { border-color: #6be38c; background: rgba(30, 55, 38, 0.45); }
+.uv-ev-object { font-family: 'Courier Prime', monospace; font-size: 0.7rem; color: #d4af37; margin-bottom: 4px; }
+.uv-ev-phrase { font-weight: 700; font-size: 0.96rem; color: #f4eee1; margin-bottom: 4px; }
+.uv-ev-meaning { font-size: 0.8rem; color: #c9b7a3; }
+.uv-cipher-box { margin-top: 18px; padding: 14px; background: linear-gradient(135deg, #241916, #17110f); border: 1px solid rgba(212, 175, 55, 0.45); border-radius: 6px; }
+.uv-cipher-q { font-family: 'Courier Prime', monospace; font-size: 0.9rem; margin-bottom: 10px; }
+.uv-cipher-opts { display: flex; flex-wrap: wrap; gap: 8px; }
+.uv-opt-btn { font-family: 'Courier Prime', monospace !important; font-size: 0.82rem !important; padding: 7px 14px !important; border-radius: 4px !important; cursor: pointer; }
+.uv-cipher-feedback { margin-top: 8px; font-family: 'Courier Prime', monospace; font-size: 0.84rem; font-weight: 700; }
+
+/* Лаборатория (4 вкладки) */
+.lab-tabs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 20px; }
+@media (max-width: 760px) { .lab-tabs { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 440px) { .lab-tabs { grid-template-columns: 1fr; } }
+.lab-tab-btn {
+    background: #1c1512 !important; border: 1px solid rgba(212, 175, 55, 0.35) !important;
+    color: #c9b7a3 !important; font-family: 'Courier Prime', monospace !important;
+    font-size: 0.78rem !important; font-weight: 700 !important; padding: 11px 10px !important;
+    border-radius: 6px !important; cursor: pointer; text-align: center;
+}
+.lab-tab-btn.active {
+    background: linear-gradient(135deg, #8b1818, #4a0e0e) !important;
+    border-color: #d4af37 !important; color: #f4eee1 !important;
+    box-shadow: 0 0 15px rgba(158, 27, 27, 0.55);
+}
+.lab-panel { display: none; }
+.lab-panel.active { display: block; }
+
+/* Чат */
+.chat-char-bar { display: flex; gap: 8px; margin-bottom: 12px; overflow-x: auto; padding-bottom: 4px; }
+.char-pill { background: #241b17 !important; border: 1px solid rgba(212, 175, 55, 0.3) !important; color: #e8dec8 !important; font-family: 'Courier Prime', monospace !important; font-size: 0.76rem !important; padding: 6px 12px !important; border-radius: 99px !important; cursor: pointer; white-space: nowrap; }
+.char-pill.active { background: #d4af37 !important; color: #140f0d !important; font-weight: 700 !important; }
+.noir-chat-window { background: #0e0b0a; border: 1px solid rgba(212, 175, 55, 0.35); border-radius: 8px; padding: 15px; }
+.chat-header-line { border-bottom: 1px dashed rgba(212, 175, 55, 0.25); padding-bottom: 8px; margin-bottom: 12px; display: flex; justify-content: space-between; font-family: 'Courier Prime', monospace; font-size: 0.76rem; color: #6be38c; }
+.chat-messages { display: flex; flex-direction: column; gap: 10px; min-height: 150px; margin-bottom: 14px; }
+.msg-bubble { max-width: 86%; padding: 10px 13px; border-radius: 8px; font-family: 'Courier Prime', monospace; font-size: 0.85rem; line-height: 1.45; }
+.msg-npc { align-self: flex-start; background: #221915; border-left: 3px solid #d4af37; }
+.msg-user { align-self: flex-end; background: #4a1212; border-right: 3px solid #ff6b6b; }
+.chat-reply-opts { display: flex; flex-direction: column; gap: 8px; }
+.chat-opt-btn { background: #1b1411 !important; border: 1px solid rgba(212, 175, 55, 0.4) !important; color: #f4eee1 !important; font-family: 'Courier Prime', monospace !important; font-size: 0.8rem !important; padding: 9px 12px !important; border-radius: 6px !important; text-align: left !important; cursor: pointer; }
+
+/* Доска нитей */
+.cork-board { position: relative; background: radial-gradient(circle, #2a1d17 0%, #160f0c 100%); border: 4px solid #3d2b1f; border-radius: 8px; padding: 18px 12px; overflow: hidden; }
+.board-svg { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 2; }
+.board-columns { position: relative; z-index: 3; display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+.board-col { display: flex; flex-direction: column; gap: 12px; }
+.pin-note { background: #e8dec8; color: #1c1410; padding: 11px 8px 9px; border-radius: 3px; font-family: 'Courier Prime', monospace; font-size: 0.76rem; font-weight: 700; box-shadow: 0 5px 12px rgba(0,0,0,0.75); position: relative; cursor: pointer; text-align: center; }
+.pin-note::before { content: ''; width: 10px; height: 10px; background: #b81d1d; border-radius: 50%; position: absolute; top: 3px; left: 50%; transform: translateX(-50%); }
+.pin-note.selected { outline: 3px solid #d4af37; transform: scale(1.03); }
+.pin-note.matched { background: #cdeccd; border: 1px solid #2b7a3d; }
+
+/* УФ-Фонарик */
+.uv-toolbar { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 12px; }
+.uv-toggle-btn { background: linear-gradient(90deg, #4b1d70, #2b0f42) !important; border: 1px solid #b57cff !important; color: #f3e8ff !important; font-family: 'Courier Prime', monospace !important; font-size: 0.82rem !important; font-weight: 700 !important; padding: 8px 14px !important; border-radius: 6px !important; cursor: pointer; }
+.uv-toggle-btn.uv-on { background: linear-gradient(90deg, #7e22ce, #4c1d95) !important; box-shadow: 0 0 18px rgba(192, 132, 252, 0.8); }
+.uv-diary-page { position: relative; background: #dfd3bc; color: #231914; padding: 22px 18px; border-radius: 6px; font-family: 'Cormorant Garamond', Georgia, serif; font-size: 1.2rem; line-height: 1.7; overflow: hidden; user-select: none; }
+.uv-diary-page.uv-mode { background: #0d0814; color: #4c3d63; cursor: crosshair; }
+.uv-diary-page.uv-mode::after {
+    content: ''; position: absolute; inset: 0; pointer-events: none;
+    background: radial-gradient(circle 110px at var(--uv-x, 50%) var(--uv-y, 50%), rgba(176, 96, 255, 0.28) 0%, rgba(104, 28, 176, 0.12) 55%, rgba(8, 5, 12, 0.94) 100%);
+    z-index: 4;
+}
+.uv-secret { display: inline-block; margin: 0 3px; padding: 0 5px; border-radius: 4px; font-family: 'Courier Prime', monospace; font-size: 0.88rem; color: transparent; }
+.uv-diary-page.uv-mode .uv-secret { color: #d8b4fe; text-shadow: 0 0 8px #c084fc; border: 1px dashed rgba(192, 132, 252, 0.5); background: rgba(88, 28, 135, 0.3); cursor: pointer; position: relative; z-index: 5; }
+.uv-secret.found { color: #6be38c !important; background: #193824 !important; border: 1px solid #6be38c !important; text-shadow: none !important; }
+
+/* === 4. ИНТЕРВАЛЬНОЕ ПОВТОРЕНИЕ (SRS 50 СЛОВ + SHUFFLE) === */
+.srs-controls { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 14px; }
+.srs-filter-select {
+    background: #1a1310; color: #f4eee1; border: 1px solid #d4af37;
+    font-family: 'Courier Prime', monospace; font-size: 0.8rem; padding: 7px 10px; border-radius: 5px;
+}
+.srs-stats-row { display: flex; gap: 12px; font-family: 'Courier Prime', monospace; font-size: 0.76rem; color: #c9b7a3; margin-bottom: 12px; flex-wrap: wrap; }
+.srs-card-stage {
+    background: radial-gradient(circle at center, #261c18, #120d0b);
+    border: 2px solid rgba(212, 175, 55, 0.55); border-radius: 10px;
+    min-height: 220px; padding: 24px 18px; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; text-align: center; cursor: pointer;
+    position: relative; box-shadow: inset 0 0 25px rgba(0,0,0,0.8);
+}
+.srs-series-tag { font-family: 'Courier Prime', monospace; font-size: 0.72rem; color: #d4af37; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 8px; }
+.srs-word-front { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 2.1rem; font-weight: 700; color: #f4eee1; margin-bottom: 8px; }
+.srs-word-context { font-family: 'Courier Prime', monospace; font-size: 0.82rem; color: #b8a693; font-style: italic; max-width: 600px; }
+.srs-word-back { margin-top: 14px; padding-top: 12px; border-top: 1px dashed rgba(212, 175, 55, 0.35); font-family: 'Courier Prime', monospace; font-size: 1rem; color: #6be38c; font-weight: 700; display: none; }
+.srs-card-stage.flipped .srs-word-back { display: block; }
+.srs-rate-btns { display: none; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 14px; }
+.srs-rate-btns.visible { display: grid; }
+@media (max-width: 520px) { .srs-rate-btns { grid-template-columns: repeat(2, 1fr); } }
+.srs-btn-again { background: #6e1414 !important; border: 1px solid #ff6b6b !important; color: #fff !important; font-family: 'Courier Prime', monospace !important; font-size: 0.76rem !important; padding: 9px !important; border-radius: 5px !important; cursor: pointer; }
+.srs-btn-hard  { background: #6e4814 !important; border: 1px solid #fbbf24 !important; color: #fff !important; font-family: 'Courier Prime', monospace !important; font-size: 0.76rem !important; padding: 9px !important; border-radius: 5px !important; cursor: pointer; }
+.srs-btn-good  { background: #195228 !important; border: 1px solid #6be38c !important; color: #fff !important; font-family: 'Courier Prime', monospace !important; font-size: 0.76rem !important; padding: 9px !important; border-radius: 5px !important; cursor: pointer; }
+.srs-btn-easy  { background: #164e63 !important; border: 1px solid #38bdf8 !important; color: #fff !important; font-family: 'Courier Prime', monospace !important; font-size: 0.76rem !important; padding: 9px !important; border-radius: 5px !important; cursor: pointer; }
 </style>
 
+<!-- ВИТРИНА 5 ВСЕЛЕННЫХ -->
 <div id="noirSeriesShowcase" class="noir-showcase-wrap">
+    <div class="agent-hud">
+        <div class="agent-info">
+            <div class="agent-rank" id="agentRankTitle">🕵️ ДОПУСК: ROOKIE AGENT (0 XP)</div>
+            <div class="agent-stats" id="agentStatsText">Дел: 0/5 | Улик: 0/15 | Освоено слов (SRS): 0/50</div>
+        </div>
+        <div class="agent-xp-bar-wrap">
+            <div class="agent-xp-bar" id="agentXpBar"></div>
+        </div>
+        <div class="agent-actions">
+            <button class="hud-btn" onclick="exportSaveCode()">💾 Код сохранения</button>
+            <button class="hud-btn" onclick="importSaveCode()">📥 Загрузить код</button>
+        </div>
+    </div>
+
     <div class="noir-showcase-header">
         <h2 class="noir-showcase-title">🗂️ Classified Universe Files</h2>
-        <div class="noir-showcase-sub">Нажми на улику-полароид, чтобы рассекретить досье вселенной</div>
+        <div class="noir-showcase-sub">Исследуй 5 засекреченных миров, собирай улики и закрывай дела</div>
     </div>
 
     <div class="noir-polaroid-grid">
-        <div class="noir-polaroid-item" onclick="openUniverseDossier('tvd')">
+        <div class="noir-polaroid-item" id="card-tvd" onclick="openUniverseDossier('tvd')">
             <div class="noir-polaroid-img-box">
                 <img src="tvd-card.jpg" alt="The Vampire Diaries">
+                <div class="solved-stamp">CASE SOLVED</div>
                 <span class="noir-polaroid-badge">OPEN FILE</span>
             </div>
             <div class="noir-polaroid-tag">FILE #01 // MYSTIC FALLS</div>
             <div class="noir-polaroid-name">The Vampire Diaries</div>
         </div>
 
-        <div class="noir-polaroid-item" onclick="openUniverseDossier('dh')">
+        <div class="noir-polaroid-item" id="card-dh" onclick="openUniverseDossier('dh')">
             <div class="noir-polaroid-img-box">
                 <img src="house-wives.jpg" alt="Desperate Housewives">
+                <div class="solved-stamp">CASE SOLVED</div>
                 <span class="noir-polaroid-badge">OPEN FILE</span>
             </div>
             <div class="noir-polaroid-tag">FILE #02 // WISTERIA LANE</div>
             <div class="noir-polaroid-name">Desperate Housewives</div>
         </div>
 
-        <div class="noir-polaroid-item" onclick="openUniverseDossier('spn')">
+        <div class="noir-polaroid-item" id="card-spn" onclick="openUniverseDossier('spn')">
             <div class="noir-polaroid-img-box">
                 <img src="spn-card.jpg" alt="Supernatural">
+                <div class="solved-stamp">CASE SOLVED</div>
                 <span class="noir-polaroid-badge">OPEN FILE</span>
             </div>
-            <div class="noir-polaroid-tag">FILE #03 // WINCHESTER JOURNAL</div>
+            <div class="noir-polaroid-tag">FILE #03 // WINCHESTER</div>
             <div class="noir-polaroid-name">Supernatural</div>
         </div>
 
-        <div class="noir-polaroid-item" onclick="openUniverseDossier('penthouse')">
+        <div class="noir-polaroid-item" id="card-penthouse" onclick="openUniverseDossier('penthouse')">
             <div class="noir-polaroid-img-box">
                 <img src="penthouse-card.jpg" alt="The Penthouse">
+                <div class="solved-stamp">CASE SOLVED</div>
                 <span class="noir-polaroid-badge">OPEN FILE</span>
             </div>
             <div class="noir-polaroid-tag">FILE #04 // HERA PALACE</div>
             <div class="noir-polaroid-name">The Penthouse</div>
         </div>
+
+        <div class="noir-polaroid-item" id="card-ouat" onclick="openUniverseDossier('ouat')">
+            <div class="noir-polaroid-img-box">
+                <img src="once-upon.jpg" alt="Once Upon a Time">
+                <div class="solved-stamp">CASE SOLVED</div>
+                <span class="noir-polaroid-badge">OPEN FILE</span>
+            </div>
+            <div class="noir-polaroid-tag">FILE #05 // STORYBROOKE</div>
+            <div class="noir-polaroid-name">Once Upon a Time</div>
+        </div>
+    </div>
+
+    <div class="evidence-locker-box">
+        <div class="locker-title">🗃️ Архив перехваченных идиом (нажми для прослушивания):</div>
+        <div class="locker-chips" id="lockerChipsContainer"></div>
     </div>
 </div>
 
-<!-- Модальное окно досье -->
+<!-- ЛАБОРАТОРИЯ + КАРТОЧКИ ИНТЕРВАЛЬНОГО ПОВТОРЕНИЯ (50 СЛОВ) -->
+<div id="noirDetectiveLab" class="noir-lab-wrap">
+    <div class="noir-showcase-header">
+        <h2 class="noir-showcase-title">🧪 Криминалистическая Лаборатория</h2>
+        <div class="noir-showcase-sub">Спец-инструменты агента и система умного запоминания (SRS)</div>
+    </div>
+
+    <div class="lab-tabs">
+        <button class="lab-tab-btn active" onclick="switchLabTab('srs', this)">🧠 1. Умные Карточки (50 слов)</button>
+        <button class="lab-tab-btn" onclick="switchLabTab('chat', this)">💬 2. Закрытый Чат Героев</button>
+        <button class="lab-tab-btn" onclick="switchLabTab('board', this)">🧶 3. Доска Красных Нитей</button>
+        <button class="lab-tab-btn" onclick="switchLabTab('uv', this)">🔦 4. Дневник под УФ-светом</button>
+    </div>
+
+    <!-- ВКЛАДКА 1: УМНОЕ ИНТЕРВАЛЬНОЕ ПОВТОРЕНИЕ (SRS + SHUFFLE) -->
+    <div id="lab-panel-srs" class="lab-panel active">
+        <div class="srs-controls">
+            <select id="srsSeriesFilter" class="srs-filter-select" onchange="filterSrsDeck()">
+                <option value="all">📁 Все 5 вселенных (50 слов)</option>
+                <option value="tvd">🩸 The Vampire Diaries (10)</option>
+                <option value="dh">🧁 Desperate Housewives (10)</option>
+                <option value="spn">🚗 Supernatural (10)</option>
+                <option value="penthouse">🥂 The Penthouse (10)</option>
+                <option value="ouat">🍎 Once Upon a Time (10)</option>
+            </select>
+            <div style="display:flex; gap:8px;">
+                <button class="hud-btn" onclick="shuffleSrsDeck()">🔀 Перемешать колоду</button>
+                <button class="hud-btn" onclick="speakCurrentSrsWord()">🔊 Озвучить</button>
+            </div>
+        </div>
+
+        <div class="srs-stats-row" id="srsStatsRow"></div>
+
+        <div id="srsCardStage" class="srs-card-stage" onclick="flipSrsCard()">
+            <div class="srs-series-tag" id="srsCardTag">SERIES ARCHIVE</div>
+            <div class="srs-word-front" id="srsCardFront">Нажми, чтобы начать</div>
+            <div class="srs-word-context" id="srsCardContext"></div>
+            <div class="srs-word-back" id="srsCardBack"></div>
+            <div style="margin-top:12px; font-family:'Courier Prime',monospace; font-size:0.72rem; color:#8c7b6b;">(Нажми на карточку, чтобы перевернуть и увидеть перевод)</div>
+        </div>
+
+        <div id="srsRateBtns" class="srs-rate-btns">
+            <button class="srs-btn-again" onclick="rateSrsWord(0)">❌ Снова (через 1 мин)</button>
+            <button class="srs-btn-hard" onclick="rateSrsWord(1)">😓 Трудно (+5 XP)</button>
+            <button class="srs-btn-good" onclick="rateSrsWord(2)">👍 Хорошо (+10 XP)</button>
+            <button class="srs-btn-easy" onclick="rateSrsWord(3)">⚡ Легко (+15 XP)</button>
+        </div>
+    </div>
+
+    <!-- ВКЛАДКА 2: ЧАТ С ГЕРОЯМИ (Включая Once Upon a Time) -->
+    <div id="lab-panel-chat" class="lab-panel">
+        <div class="chat-char-bar">
+            <button class="char-pill active" onclick="loadHeroChat('damon', this)">🩸 Damon Salvatore</button>
+            <button class="char-pill" onclick="loadHeroChat('bree', this)">🧁 Bree Van de Kamp</button>
+            <button class="char-pill" onclick="loadHeroChat('dean', this)">🚗 Dean Winchester</button>
+            <button class="char-pill" onclick="loadHeroChat('logan', this)">🥂 Hera VIP Club</button>
+            <button class="char-pill" onclick="loadHeroChat('regina', this)">🍎 Regina Mills (OUAT)</button>
+        </div>
+        <div class="noir-chat-window">
+            <div class="chat-header-line">
+                <span id="chatContactName">● ONLINE</span>
+                <span>ENCRYPTED CHANNEL</span>
+            </div>
+            <div class="chat-messages" id="chatMessagesBox"></div>
+            <div class="chat-reply-opts" id="chatOptionsBox"></div>
+        </div>
+    </div>
+
+    <!-- ВКЛАДКА 3: ДОСКА КРАСНЫХ НИТЕЙ -->
+    <div id="lab-panel-board" class="lab-panel">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; font-family:'Courier Prime',monospace; font-size:0.8rem; color:#c9b7a3;">
+            <span>Соедини английскую фразу слева с уликой справа:</span>
+            <button class="hud-btn" onclick="resetConspiracyBoard()">🔄 Сбросить нити</button>
+        </div>
+        <div class="cork-board" id="corkBoardArea">
+            <svg class="board-svg" id="boardSvgLines"></svg>
+            <div class="board-columns">
+                <div class="board-col" id="boardLeftCol"></div>
+                <div class="board-col" id="boardRightCol"></div>
+            </div>
+        </div>
+        <div id="boardStatusMsg" style="margin-top:10px; font-family:'Courier Prime',monospace; font-size:0.85rem; color:#6be38c; text-align:center; font-weight:700;"></div>
+    </div>
+
+    <!-- ВКЛАДКА 4: УФ-ФОНАРИК -->
+    <div id="lab-panel-uv" class="lab-panel">
+        <div class="uv-toolbar">
+            <button id="uvToggleBtn" class="uv-toggle-btn" onclick="toggleUvLight()">🔦 Включить УФ-фонарик (Blacklight OFF)</button>
+            <span id="uvCounterText" style="font-family:'Courier Prime',monospace; font-size:0.8rem; color:#d8b4fe;">Найдено тайных шифров: 0 / 5</span>
+        </div>
+        <div id="uvDiaryArea" class="uv-diary-page">
+            <b>Classified Archive — Storybrooke & Mystic Falls</b><br>
+            On Wisteria Lane, neighbors smile and 
+            <span class="uv-secret" onclick="revealUvNote(this, 'keep up appearances — соблюдать приличия')">[SECRET #1: keep up appearances]</span> 
+            behind locked doors. In Mystic Falls, the brothers tried to 
+            <span class="uv-secret" onclick="revealUvNote(this, 'turn over a new leaf — начать с чистого листа')">[SECRET #2: turn over a new leaf]</span>. 
+            When the witness 
+            <span class="uv-secret" onclick="revealUvNote(this, 'vanished into thin air — исчез без следа')">[SECRET #3: vanished into thin air]</span> 
+            near Hera Palace, we knew someone at the top 
+            <span class="uv-secret" onclick="revealUvNote(this, 'pulls the strings — дергает за ниточки')">[SECRET #4: pulls the strings]</span>. 
+            And in Storybrooke, every magic deal 
+            <span class="uv-secret" onclick="revealUvNote(this, 'comes with a price — имеет свою цену')">[SECRET #5: comes with a price]</span>.
+        </div>
+    </div>
+</div>
+
 <div id="uvModalOverlay" class="uv-modal-overlay" onclick="if(event.target===this) closeUniverseDossier()">
     <div class="uv-dossier-box" id="uvDossierContent"></div>
 </div>
 
 <script>
+// ================= 1. ДОСЬЕ 5 ВСЕЛЕННЫХ =================
 const UNIVERSE_FILES = {
     tvd: {
         code: "FILE #01 // MYSTIC FALLS ARCHIVE",
         title: "The Vampire Diaries",
         img: "tvd-card.jpg",
-        atmo: "Локация: Мистик Фоллс, Вирджиния. Старинные склепы, дневники Основателей, вербена в чае и вечное противостояние братьев Сальваторе.",
+        atmo: "Локация: Мистик Фоллс, Вирджиния. Старинные склепы, дневники Основателей, вербена и противостояние братьев Сальваторе.",
         quoteEn: "\"Hello, brother. Did you really think I'd leave Mystic Falls without saying goodbye?\"",
         quoteRu: "«Привет, братец. Ты правда думал, что я покину Мистик Фоллс, не попрощавшись?» — Damon Salvatore",
         evidence: [
-            { obj: "🌿 УЛИКА #1: ВЕРБЕНА", phrase: "keep someone at bay", meaning: "держать кого-то на расстоянии / не подпускать близко" },
-            { obj: "💍 УЛИКА #2: КОЛЬЦО С ЛАЗУРИТОМ", phrase: "blend in with the crowd", meaning: "слиться с толпой / не выдавать свою природу" },
-            { obj: "📓 УЛИКА #3: ДНЕВНИК СТЕФАНА", phrase: "turn over a new leaf", meaning: "начать жизнь с чистого листа" }
+            { id: "tvd1", obj: "🌿 УЛИКА #1: ВЕРБЕНА", phrase: "keep someone at bay", meaning: "держать на расстоянии / не подпускать" },
+            { id: "tvd2", obj: "💍 УЛИКА #2: КОЛЬЦО ДНЯ", phrase: "blend in with the crowd", meaning: "слиться с толпой / не выдавать себя" },
+            { id: "tvd3", obj: "📓 УЛИКА #3: ДНЕВНИК СТЕФАНА", phrase: "turn over a new leaf", meaning: "начать жизнь с чистого листа" }
         ],
         cipherQ: "Заполни пропуск в реплике Дэймона: \"When people see good, they expect good. And I don't want to ___ up to anyone's expectations.\"",
         options: ["live", "keep", "give"],
         answer: "live",
-        explain: "✅ ВЕРНО! 'Live up to expectations' — оправдывать чьи-либо ожидания."
+        explain: "✅ ДЕЛО РАСКРЫТО (+50 XP)! 'Live up to expectations' — оправдывать чьи-либо ожидания."
     },
     dh: {
         code: "FILE #02 // WISTERIA LANE SECRETS",
         title: "Desperate Housewives",
         img: "house-wives.jpg",
-        atmo: "Локация: Вистерия Лейн, Фэйрвью. Идеально подстриженные газоны, фирменные кексы Бри Ван де Камп и скелеты в каждом шкафу.",
+        atmo: "Локация: Вистерия Лейн, Фэйрвью. Идеально подстриженные газоны, фирменные кексы Бри и скелеты в каждом шкафу.",
         quoteEn: "\"Suburbia is a place where the prettiest smiles hide the darkest secrets.\"",
         quoteRu: "«Пригород — это место, где за самыми милыми улыбками прячутся самые темные тайны.» — Mary Alice Young",
         evidence: [
-            { obj: "🧁 УЛИКА #1: КОРЗИНКА С ВЫПЕЧКОЙ", phrase: "keep up appearances", meaning: "соблюдать приличия / делать вид, что всё идеально" },
-            { obj: "✉️ УЛИКА #2: ПИСЬМО БЕЗ ОБРАТНОГО АДРЕСА", phrase: "spill the beans", meaning: "выболтать секрет / проговориться" },
-            { obj: "🗝️ УЛИКА #3: ЗАПАСНОЙ КЛЮЧ СОСЕДЕЙ", phrase: "sweep under the rug", meaning: "замести следы / скрыть неприятную правду" }
+            { id: "dh1", obj: "🧁 УЛИКА #1: КОРЗИНКА БРИ", phrase: "keep up appearances", meaning: "соблюдать приличия / делать вид, что всё идеально" },
+            { id: "dh2", obj: "✉️ УЛИКА #2: ПИСЬМО ШАНТАЖИСТА", phrase: "spill the beans", meaning: "выболтать секрет / проговориться" },
+            { id: "dh3", obj: "🗝️ УЛИКА #3: КЛЮЧ СОСЕДЕЙ", phrase: "sweep under the rug", meaning: "замести следы / скрыть правду" }
         ],
         cipherQ: "Заполни пропуск в реплике Бри: \"No matter what happens inside this house, we must always ___ up appearances.\"",
         options: ["keep", "hold", "make"],
         answer: "keep",
-        explain: "✅ ВЕРНО! 'Keep up appearances' — сохранять видимость благополучия на людях."
+        explain: "✅ ДЕЛО РАСКРЫТО (+50 XP)! 'Keep up appearances' — сохранять видимость благополучия."
     },
     spn: {
         code: "FILE #03 // MEN OF LETTERS BUNKER",
         title: "Supernatural",
         img: "spn-card.jpg",
-        atmo: "Локация: Ночное шоссе США, Chevrolet Impala 1967 года. Каменная соль, фальшивые удостоверения ФБР и охота на сверхъестественное.",
+        atmo: "Локация: Ночное шоссе США, Chevrolet Impala 1967 года. Каменная соль, фальшивые удостоверения ФБР и охота на нечисть.",
         quoteEn: "\"Saving people, hunting things, the family business. We have work to do.\"",
         quoteRu: "«Спасать людей, охотиться на нечисть — семейное дело. У нас полно работы.» — Dean Winchester",
         evidence: [
-            { obj: "📓 УЛИКА #1: ДНЕВНИК ДЖОНА", phrase: "connect the dots", meaning: "сопоставить факты / сложить картину воедино" },
-            { obj: "🧂 УЛИКА #2: ПАТРОНЫ С СОЛЬЮ", phrase: "vanish into thin air", meaning: "исчезнуть без следа / раствориться в воздухе" },
-            { obj: "🚗 УЛИКА #3: КЛЮЧИ ОТ ИМПАЛЫ", phrase: "hit the road", meaning: "отправиться в путь / выехать на трассу" }
+            { id: "spn1", obj: "📓 УЛИКА #1: ДНЕВНИК ДЖОНА", phrase: "connect the dots", meaning: "сопоставить факты / сложить картину" },
+            { id: "spn2", obj: "🧂 УЛИКА #2: ПАТРОНЫ С СОЛЬЮ", phrase: "vanish into thin air", meaning: "исчезнуть без следа / раствориться в воздухе" },
+            { id: "spn3", obj: "🚗 УЛИКА #3: КЛЮЧИ ОТ ИМПАЛЫ", phrase: "hit the road", meaning: "отправиться в путь / выехать на трассу" }
         ],
         cipherQ: "Заполни пропуск в реплике Сэма: \"Three witnesses saw the ghost, and then it just vanished into ___ air.\"",
         options: ["thin", "dark", "cold"],
         answer: "thin",
-        explain: "✅ ВЕРНО! 'Vanish into thin air' — бесследно испариться."
+        explain: "✅ ДЕЛО РАСКРЫТО (+50 XP)! 'Vanish into thin air' — бесследно испариться."
     },
     penthouse: {
         code: "FILE #04 // HERA PALACE VIP FLOOR",
@@ -2404,90 +2405,239 @@ const UNIVERSE_FILES = {
         quoteEn: "\"At the top of Hera Palace, nobody gives you power—you take it behind closed doors.\"",
         quoteRu: "«На вершине дворца Гера власть не дарят — её забирают за закрытыми дверями.» — Shim Su-ryeon",
         evidence: [
-            { obj: "🏆 УЛИКА #1: ЗОЛОТОЙ ТРОФЕЙ ЧОНА", phrase: "pull the strings", meaning: "дергать за ниточки / тайно управлять ситуацией" },
-            { obj: "🥂 УЛИКА #2: БОКАЛ НА ПРИЕМЕ", phrase: "stab someone in the back", meaning: "ударить в спину / предать в решающий момент" },
-            { obj: "🎹 УЛИКА #3: ПАРТИТУРА СОПРАНО", phrase: "at all costs", meaning: "любой ценой / несмотря ни на что" }
+            { id: "ph1", obj: "🏆 УЛИКА #1: ТРОФЕЙ ЧОНА", phrase: "pull the strings", meaning: "дергать за ниточки / тайно управлять" },
+            { id: "ph2", obj: "🥂 УЛИКА #2: БОКАЛ НА ПРИЕМЕ", phrase: "stab someone in the back", meaning: "ударить в спину / предать" },
+            { id: "ph3", obj: "🎹 УЛИКА #3: ПАРТИТУРА", phrase: "at all costs", meaning: "любой ценой / несмотря ни на что" }
         ],
         cipherQ: "Заполни пропуск в досье Джу Дан Тхэ: \"He is the one who secretly ___ the strings in Hera Club.\"",
         options: ["pulls", "holds", "cuts"],
         answer: "pulls",
-        explain: "✅ ВЕРНО! 'Pull the strings' — тайно контролировать всех вокруг."
+        explain: "✅ ДЕЛО РАСКРЫТО (+50 XP)! 'Pull the strings' — тайно контролировать ситуацию."
+    },
+    ouat: {
+        code: "FILE #05 // STORYBROOKE CURSE ARCHIVE",
+        title: "Once Upon a Time",
+        img: "once-upon.jpg",
+        atmo: "Локация: Сторибрук, штат Мэн. Городская башня с застывшими часами, лавка мистера Голда, книга сказок Генри и темное проклятие.",
+        quoteEn: "\"All magic comes with a price, dearie. Are you ready to make a deal?\"",
+        quoteRu: "«У любого волшебства есть своя цена, дорогуша. Ты готов заключить сделку?» — Rumplestiltskin",
+        evidence: [
+            { id: "ouat1", obj: "📖 УЛИКА #1: КНИГА СКАЗОК", phrase: "break the curse", meaning: "разрушить проклятие / снять чары" },
+            { id: "ouat2", obj: "🍎 УЛИКА #2: ЯБЛОКО РЕДЖИНЫ", phrase: "hold a grudge", meaning: "таить обиду / затаить злобу на года" },
+            { id: "ouat3", obj: "🗡️ УЛИКА #3: КИНЖАЛ ТЕМНОГО", phrase: "come with a price", meaning: "иметь свою цену / требовать расплаты" }
+        ],
+        cipherQ: "Заполни пропуск в предупреждении мистера Голда: \"Remember, dearie: all magic ___ with a price.\"",
+        options: ["comes", "goes", "takes"],
+        answer: "comes",
+        explain: "✅ ДЕЛО РАСКРЫТО (+50 XP)! 'Come with a price' — иметь свою цену."
     }
 };
-let currentDossierKey = 'tvd';
 
-const VOICE_PROFILES = {
-    tvd: { gender: 'male', pitch: 0.80, rate: 0.88 }, // Дэймон: низкий, неспешный
-    dh: { gender: 'female', pitch: 1.08, rate: 0.90 }, // Мэри Элис: мягкий, плавный
-    spn: { gender: 'male', pitch: 0.68, rate: 0.92 }, // Дин: глубокий низкий тембр
-    penthouse: { gender: 'female', pitch: 0.94, rate: 0.85 } // Шим Су Рён: холодный, сдержанный
-};
+// ================= 2. БАЗА НА 50 СЛОВ И ИДИОМ (ПО 10 НА КАЖДЫЙ СЕРИАЛ) =================
+const VOCAB_50_DB = [
+    // The Vampire Diaries (10)
+    { id: "w1", s: "tvd", tag: "The Vampire Diaries", en: "compel someone", ru: "внушить / подчинить волю взглядом", ex: "Damon tried to compel the witness to forget everything." },
+    { id: "w2", s: "tvd", tag: "The Vampire Diaries", en: "keep at bay", ru: "держать на расстоянии / сдерживать", ex: "Vervain in the necklace keeps vampires at bay." },
+    { id: "w3", s: "tvd", tag: "The Vampire Diaries", en: "quench one's thirst", ru: "утолить жажду", ex: "Stefan struggled to quench his thirst in the woods." },
+    { id: "w4", s: "tvd", tag: "The Vampire Diaries", en: "turn over a new leaf", ru: "начать жизнь с чистого листа", ex: "Every century, he promises to turn over a new leaf." },
+    { id: "w5", s: "tvd", tag: "The Vampire Diaries", en: "blend in with the crowd", ru: "слиться с толпой", ex: "With a daylight ring, you can blend in with the crowd." },
+    { id: "w6", s: "tvd", tag: "The Vampire Diaries", en: "live up to expectations", ru: "оправдывать чьи-либо ожидания", ex: "I don't want to live up to anyone's expectations." },
+    { id: "w7", s: "tvd", tag: "The Vampire Diaries", en: "eternal damnation", ru: "вечное проклятие / обреченность", ex: "He chose love over eternal damnation." },
+    { id: "w8", s: "tvd", tag: "The Vampire Diaries", en: "ulterior motive", ru: "скрытый мотив / тайная выгода", ex: "Klaus never helps anyone without an ulterior motive." },
+    { id: "w9", s: "tvd", tag: "The Vampire Diaries", en: "caught off guard", ru: "застигнутый врасплох", ex: "The Sheriff was caught off guard by the council's secret." },
+    { id: "w10", s: "tvd", tag: "The Vampire Diaries", en: "out of control", ru: "вышедший из-под контроля", ex: "Without his humanity switch, he goes completely out of control." },
+
+    // Desperate Housewives (10)
+    { id: "w11", s: "dh", tag: "Desperate Housewives", en: "keep up appearances", ru: "соблюдать приличия / сохранять лицо", ex: "On Wisteria Lane, we must always keep up appearances." },
+    { id: "w12", s: "dh", tag: "Desperate Housewives", en: "spill the beans", ru: "выболтать секрет / проболтаться", ex: "Don't let Gabrielle spill the beans at the poker table." },
+    { id: "w13", s: "dh", tag: "Desperate Housewives", en: "sweep under the rug", ru: "замести под ковер / скрыть скандал", ex: "Bree tried to sweep the accident under the rug." },
+    { id: "w14", s: "dh", tag: "Desperate Housewives", en: "skeletons in the closet", ru: "скелеты в шкафу / постыдные тайны", ex: "Every family on this street has skeletons in the closet." },
+    { id: "w15", s: "dh", tag: "Desperate Housewives", en: "spread rumors", ru: "распускать слухи / сплетничать", ex: "Mrs. McCluskey knows who is spreading rumors." },
+    { id: "w16", s: "dh", tag: "Desperate Housewives", en: "blackmail someone", ru: "шантажировать кого-то", ex: "The mysterious note was used to blackmail Mary Alice." },
+    { id: "w17", s: "dh", tag: "Desperate Housewives", en: "behind closed doors", ru: "за закрытыми дверями / тайком", ex: "Nobody knows what happens behind closed doors." },
+    { id: "w18", s: "dh", tag: "Desperate Housewives", en: "poke one's nose into", ru: "совать свой нос в чужие дела", ex: "Stop poking your nose into the new neighbor's basement!" },
+    { id: "w19", s: "dh", tag: "Desperate Housewives", en: "make a scene", ru: "устроить сцену / скандал на людях", ex: "Please don't make a scene at the charity dinner." },
+    { id: "w20", s: "dh", tag: "Desperate Housewives", en: "jump to conclusions", ru: "делать поспешные выводы", ex: "Susan always jumps to conclusions before checking the facts." },
+
+    // Supernatural (10)
+    { id: "w21", s: "spn", tag: "Supernatural", en: "vanish into thin air", ru: "исчезнуть без следа / раствориться", ex: "The ghost vanished into thin air right before sunrise." },
+    { id: "w22", s: "spn", tag: "Supernatural", en: "connect the dots", ru: "сложить факты воедино", ex: "Sam used John's journal to connect the dots." },
+    { id: "w23", s: "spn", tag: "Supernatural", en: "hit the road", ru: "отправиться в путь / выехать на трассу", ex: "Pack the salt and iron, it's time to hit the road." },
+    { id: "w24", s: "spn", tag: "Supernatural", en: "urban legend", ru: "городская легенда", ex: "Every urban legend has a grain of truth in it." },
+    { id: "w25", s: "spn", tag: "Supernatural", en: "follow a lead", ru: "идти по следу / проверять зацепку", ex: "The brothers are following a new lead in Ohio." },
+    { id: "w26", s: "spn", tag: "Supernatural", en: "cross the line", ru: "перейти черту / зайти слишком далеко", ex: "Making a crossroads deal means crossing the line." },
+    { id: "w27", s: "spn", tag: "Supernatural", en: "in plain sight", ru: "у всех на виду", ex: "The demon was hiding in plain sight as a sheriff." },
+    { id: "w28", s: "spn", tag: "Supernatural", en: "twist of fate", ru: "ирония судьбы / поворот судьбы", ex: "By a strange twist of fate, Castiel arrived in time." },
+    { id: "w29", s: "spn", tag: "Supernatural", en: "narrow escape", ru: "спасение на волосок от гибели", ex: "That warehouse explosion was a narrow escape." },
+    { id: "w30", s: "spn", tag: "Supernatural", en: "watch someone's back", ru: "прикрывать спину / страховать", ex: "Out on the hunt, we always watch each other's back." },
+
+    // The Penthouse (10)
+    { id: "w31", s: "penthouse", tag: "The Penthouse", en: "pull the strings", ru: "дергать за ниточки / тайно управлять", ex: "Joo Dan-tae pulls the strings from the 100th floor." },
+    { id: "w32", s: "penthouse", tag: "The Penthouse", en: "stab in the back", ru: "ударить в спину / вероломно предать", ex: "In Hera Club, allies will stab you in the back for power." },
+    { id: "w33", s: "penthouse", tag: "The Penthouse", en: "at all costs", ru: "любой ценой", ex: "Cheon Seo-jin wanted the Cheong-ah trophy at all costs." },
+    { id: "w34", s: "penthouse", tag: "The Penthouse", en: "turn the tables", ru: "перевернуть игру / поменять расклад сил", ex: "Shim Su-ryeon returned to turn the tables on her enemies." },
+    { id: "w35", s: "penthouse", tag: "The Penthouse", en: "rig the competition", ru: "подтасовать результаты конкурса", ex: "Someone bribed the judges to rig the vocal competition." },
+    { id: "w36", s: "penthouse", tag: "The Penthouse", en: "frame someone for a crime", ru: "подставить кого-то / повесить чужую вину", ex: "They tried to frame an innocent witness for the fall." },
+    { id: "w37", s: "penthouse", tag: "The Penthouse", en: "ruthless ambition", ru: "беспощадная амбициозность", ex: "Her ruthless ambition blinded her to the truth." },
+    { id: "w38", s: "penthouse", tag: "The Penthouse", en: "cover up the evidence", ru: "скрыть / уничтожить улики", ex: "The security footage was deleted to cover up the evidence." },
+    { id: "w39", s: "penthouse", tag: "The Penthouse", en: "forge a document", ru: "подделать документ / контракт", ex: "Logan discovered that the real estate contract was forged." },
+    { id: "w40", s: "penthouse", tag: "The Penthouse", en: "walk on eggshells", ru: "ходить по тонкому льду / вести себя осторожно", ex: "Everyone in the penthouse walks on eggshells around him." },
+
+    // Once Upon a Time (10)
+    { id: "w41", s: "ouat", tag: "Once Upon a Time", en: "break the curse", ru: "разрушить проклятие / снять чары", ex: "Only true love's kiss can break the curse in Storybrooke." },
+    { id: "w42", s: "ouat", tag: "Once Upon a Time", en: "come with a price", ru: "иметь свою цену / требовать расплаты", ex: "All magic comes with a price, dearie." },
+    { id: "w43", s: "ouat", tag: "Once Upon a Time", en: "hold a grudge", ru: "таить обиду / годами хранить злобу", ex: "The Evil Queen held a grudge against Snow White for decades." },
+    { id: "w44", s: "ouat", tag: "Once Upon a Time", en: "strike a bargain", ru: "заключить сделку / уговор", ex: "Never strike a bargain with Rumplestiltskin without reading the fine print." },
+    { id: "w45", s: "ouat", tag: "Once Upon a Time", en: "lose one's memory", ru: "потерять память (о прошлом мире)", ex: "If you cross the town line, you might lose your memory." },
+    { id: "w46", s: "ouat", tag: "Once Upon a Time", en: "seek redemption", ru: "искать искупления вины", ex: "Regina proved that even a villain can seek redemption." },
+    { id: "w47", s: "ouat", tag: "Once Upon a Time", en: "rewrite destiny", ru: "переписать судьбу", ex: "The Author's pen has the power to rewrite destiny." },
+    { id: "w48", s: "ouat", tag: "Once Upon a Time", en: "cast a spell", ru: "наложить заклинание", ex: "Zelena cast a spell to freeze everyone in their tracks." },
+    { id: "w49", s: "ouat", tag: "Once Upon a Time", en: "leap of faith", ru: "прыжок веры / решительный шаг в неизвестность", ex: "Emma had to take a leap of faith and believe Henry's book." },
+    { id: "w50", s: "ouat", tag: "Once Upon a Time", en: "unfinished business", ru: "незавершенное дело из прошлого", ex: "Hook sailed back to Storybrooke to settle unfinished business." }
+];
+
+// ================= 3. СИСТЕМА ВЕЧНОГО СОХРАНЕНИЯ (ДЕЛА + УЛИКИ + SRS) =================
+const SAVE_KEY = 'english_hub_detective_v3';
+let agentState = { solved: [], clues: [], srs: {} };
+
+function loadAgentState() {
+    try {
+        // Подхватываем старый прогресс v2, если он есть, чтобы ничего не пропало
+        const rawV3 = localStorage.getItem(SAVE_KEY) || localStorage.getItem('english_hub_detective_v2');
+        if (rawV3) {
+            const parsed = JSON.parse(rawV3);
+            if (Array.isArray(parsed.solved)) agentState.solved = parsed.solved;
+            if (Array.isArray(parsed.clues)) agentState.clues = parsed.clues;
+            if (parsed.srs && typeof parsed.srs === 'object') agentState.srs = parsed.srs;
+        }
+    } catch (e) {}
+    updateDetectiveUI();
+}
+
+function saveAgentState() {
+    try {
+        localStorage.setItem(SAVE_KEY, JSON.stringify(agentState));
+    } catch (e) {}
+    updateDetectiveUI();
+}
+
+function getMasteredCount() {
+    return Object.values(agentState.srs || {}).filter(item => item.box >= 2).length;
+}
+
+function getAgentXP() {
+    const srsXP = Object.values(agentState.srs || {}).reduce((acc, v) => acc + (v.xp || 0), 0);
+    return (agentState.solved.length * 50) + (agentState.clues.length * 15) + srsXP;
+}
+
+function updateDetectiveUI() {
+    const xp = getAgentXP();
+    const mastered = getMasteredCount();
+    const pct = Math.min(100, Math.round((xp / 900) * 100));
+
+    let rank = "ROOKIE CADET";
+    if (xp >= 120) rank = "FIELD DETECTIVE";
+    if (xp >= 300) rank = "SPECIAL AGENT";
+    if (xp >= 550) rank = "CHIEF INVESTIGATOR";
+    if (xp >= 800) rank = "MASTERMIND ARCHIVIST 🏆";
+
+    const rankEl = document.getElementById('agentRankTitle');
+    const statsEl = document.getElementById('agentStatsText');
+    const barEl = document.getElementById('agentXpBar');
+
+    if (rankEl) rankEl.textContent = `🕵️ ДОПУСК: ${rank} (${xp} XP)`;
+    if (statsEl) statsEl.textContent = `Дел: ${agentState.solved.length}/5 | Улик: ${agentState.clues.length} | Освоено слов (SRS): ${mastered}/50`;
+    if (barEl) barEl.style.width = pct + '%';
+
+    ['tvd', 'dh', 'spn', 'penthouse', 'ouat'].forEach(k => {
+        const card = document.getElementById('card-' + k);
+        if (card) card.classList.toggle('solved', agentState.solved.includes(k));
+    });
+
+    const locker = document.getElementById('lockerChipsContainer');
+    if (locker) {
+        const allEv = Object.values(UNIVERSE_FILES).flatMap(u => u.evidence);
+        const collectedObjs = allEv.filter(e => agentState.clues.includes(e.id));
+        if (collectedObjs.length === 0) {
+            locker.innerHTML = `<span style="font-family:'Courier Prime',monospace; font-size:0.76rem; color:#8c7b6b;">Пока пусто. Открой любое из 5 досье выше и нажми на улики!</span>`;
+        } else {
+            locker.innerHTML = collectedObjs.map(e => `
+                <span class="locker-chip" onclick="speakDossierText('${e.phrase.replace(/'/g, "\\'")}')">
+                    🔊 <b>${e.phrase}</b> — ${e.meaning}
+                </span>
+            `).join('');
+        }
+    }
+}
+
+function exportSaveCode() {
+    const code = btoa(encodeURIComponent(JSON.stringify(agentState)));
+    prompt("Скопируй свой универсальный Код Агента (сохраняет все 5 дел, улики и прогресс 50 карточек SRS):", code);
+}
+
+function importSaveCode() {
+    const code = prompt("Вставь сюда свой Код Агента:");
+    if (!code) return;
+    try {
+        const decoded = JSON.parse(decodeURIComponent(atob(code.trim())));
+        if (decoded && Array.isArray(decoded.solved)) {
+            agentState = {
+                solved: decoded.solved || [],
+                clues: decoded.clues || [],
+                srs: decoded.srs || {}
+            };
+            saveAgentState();
+            renderSrsCard();
+            alert("✅ Весь прогресс и карточки SRS успешно восстановлены!");
+        }
+    } catch (e) {
+        alert("❌ Неверный код сохранения.");
+    }
+}
 
 function speakDossierText(text) {
     if (!('speechSynthesis' in window)) return;
-    
-    const profile = VOICE_PROFILES[currentDossierKey] || VOICE_PROFILES.tvd;
     window.speechSynthesis.cancel();
-
     const u = new SpeechSynthesisUtterance(text);
     u.lang = 'en-US';
-    u.pitch = profile.pitch;
-    u.rate = profile.rate;
-
-    const voices = window.speechSynthesis.getVoices();
-    const enVoices = voices.filter(v => v.lang && v.lang.toLowerCase().startsWith('en'));
-
-    if (enVoices.length > 0) {
-        const maleHints = ['guy', 'david', 'mark', 'christopher', 'eric', 'roger', 'male', 'daniel', 'english united kingdom'];
-        const femaleHints = ['aria', 'zira', 'jenny', 'samantha', 'victoria', 'google us english', 'female'];
-        const hints = profile.gender === 'male' ? maleHints : femaleHints;
-
-        let bestVoice = enVoices.find(v => {
-            const name = v.name.toLowerCase();
-            return (name.includes('natural') || name.includes('online') || name.includes('google') || name.includes('siri')) &&
-                   hints.some(h => name.includes(h));
-        }) || enVoices.find(v => hints.some(h => v.name.toLowerCase().includes(h))) || enVoices[0];
-
-        u.voice = bestVoice;
-    }
-
-    // Мгновенный запуск без задержек — телефоны это не блокируют!
+    u.rate = 0.92;
     window.speechSynthesis.speak(u);
 }
 
-if ('speechSynthesis' in window) {
-    window.speechSynthesis.getVoices();
-    window.speechSynthesis.onvoiceschanged = () => window.speechSynthesis.getVoices();
+function collectClue(id, phrase) {
+    speakDossierText(phrase);
+    if (!agentState.clues.includes(id)) {
+        agentState.clues.push(id);
+        saveAgentState();
+        const cardEl = document.getElementById('ev-card-' + id);
+        if (cardEl) cardEl.classList.add('collected');
+    }
 }
 
-
-
-
-
 function openUniverseDossier(key) {
-currentDossierKey = key;
     const data = UNIVERSE_FILES[key];
     if (!data) return;
 
-    const evidenceHtml = data.evidence.map(ev => `
-        <div class="uv-evidence-card" onclick="speakDossierText('${ev.phrase.replace(/'/g, "\\'")}')">
+    const evidenceHtml = data.evidence.map(ev => {
+        const isCollected = agentState.clues.includes(ev.id) ? 'collected' : '';
+        return `
+        <div id="ev-card-${ev.id}" class="uv-evidence-card ${isCollected}" onclick="collectClue('${ev.id}', '${ev.phrase.replace(/'/g, "\\'")}')">
             <div class="uv-ev-object">${ev.obj} 🔊</div>
             <div class="uv-ev-phrase">${ev.phrase}</div>
             <div class="uv-ev-meaning">${ev.meaning}</div>
-        </div>
-    `).join('');
+        </div>`;
+    }).join('');
 
     const optsHtml = data.options.map(opt => `
         <button class="uv-opt-btn" onclick="checkUniverseCipher('${key}', '${opt}')">${opt}</button>
     `).join('');
 
+    const isSolved = agentState.solved.includes(key);
     const box = document.getElementById('uvDossierContent');
     box.innerHTML = `
-        <button class="uv-close-btn" onclick="closeUniverseDossier()">✕ ЗАКРЫТЬ ДОСЬЕ</button>
+        <button class="uv-close-btn" onclick="closeUniverseDossier()">✕ ЗАКРЫТЬ СЕКРЕТНОЕ ДОСЬЕ И ВЕРНУТЬСЯ</button>
         <div class="uv-top-grid">
-            <div class="uv-mini-polaroid">
-                <img src="${data.img}" alt="${data.title}">
-            </div>
+            <div class="uv-mini-polaroid"><img src="${data.img}" alt="${data.title}"></div>
             <div>
                 <div class="uv-stamp">${data.code}</div>
                 <h2 class="uv-title">${data.title}</h2>
@@ -2495,22 +2645,19 @@ currentDossierKey = key;
                 <div class="uv-quote-box">
                     <div class="uv-quote-en">${data.quoteEn}</div>
                     <div class="uv-quote-ru">${data.quoteRu}</div>
-                    <button style="margin-top:8px; font-size:0.75rem; padding:4px 10px;" onclick="speakDossierText('${data.quoteEn.replace(/"/g, "").replace(/'/g, "\\'")}', true)">🔊 Прослушать аудио-перехват</button>
+                    <button style="margin-top:8px; font-size:0.75rem; padding:5px 12px;" onclick="speakDossierText('${data.quoteEn.replace(/"/g, "").replace(/'/g, "\\'")}')">🔊 Прослушать аудио-перехват</button>
                 </div>
             </div>
         </div>
-
-        <div class="uv-section-label">🔍 Секретные улики и фразы уровня B1–B2 (нажми для озвучки):</div>
+        <div class="uv-section-label">🔍 Ключевые улики досье (нажми для озвучки и сохранения +15 XP):</div>
         <div class="uv-evidence-grid">${evidenceHtml}</div>
-
         <div class="uv-cipher-box">
-            <div class="uv-stamp" style="margin-bottom:8px;">🔐 ДЕШИФРОВКА АУДИОЗАПИСИ</div>
+            <div class="uv-stamp" style="margin-bottom:8px;">🔐 ДЕШИФРОВКА АУДИОЗАПИСИ (+50 XP)</div>
             <div class="uv-cipher-q">${data.cipherQ}</div>
             <div class="uv-cipher-opts">${optsHtml}</div>
-            <div id="uvCipherFeedback" class="uv-cipher-feedback"></div>
+            <div id="uvCipherFeedback" class="uv-cipher-feedback" style="color:${isSolved ? '#6be38c' : '#f4eee1'}">${isSolved ? data.explain : ''}</div>
         </div>
     `;
-
     document.getElementById('uvModalOverlay').classList.add('active');
 }
 
@@ -2522,6 +2669,10 @@ function checkUniverseCipher(key, chosen) {
         fb.style.color = "#6be38c";
         fb.textContent = data.explain;
         speakDossierText(data.answer);
+        if (!agentState.solved.includes(key)) {
+            agentState.solved.push(key);
+            saveAgentState();
+        }
     } else {
         fb.style.color = "#ff6b6b";
         fb.textContent = "❌ Код не подошел. Попробуй другую улику!";
@@ -2533,22 +2684,1778 @@ function closeUniverseDossier() {
     if ('speechSynthesis' in window) window.speechSynthesis.cancel();
 }
 
+// ================= 4. УМНОЕ ИНТЕРВАЛЬНОЕ ПОВТОРЕНИЕ (SRS + ПЕРЕМЕШКА) =================
+let srsDeck = [...VOCAB_50_DB];
+let srsIndex = 0;
+
+function filterSrsDeck() {
+    const sel = document.getElementById('srsSeriesFilter').value;
+    const base = sel === 'all' ? [...VOCAB_50_DB] : VOCAB_50_DB.filter(w => w.s === sel);
+
+    // Сортируем по алгоритму SRS: сначала слова, которые пора повторить или новые
+    const now = Date.now();
+    base.sort((a, b) => {
+        const sa = agentState.srs[a.id] ? agentState.srs[a.id].due : 0;
+        const sb = agentState.srs[b.id] ? agentState.srs[b.id].due : 0;
+        return sa - sb;
+    });
+
+    srsDeck = base;
+    srsIndex = 0;
+    renderSrsCard();
+}
+
+function shuffleSrsDeck() {
+    for (let i = srsDeck.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [srsDeck[i], srsDeck[j]] = [srsDeck[j], srsDeck[i]];
+    }
+    srsIndex = 0;
+    renderSrsCard();
+}
+
+function renderSrsCard() {
+    if (srsDeck.length === 0) return;
+    if (srsIndex >= srsDeck.length) srsIndex = 0;
+
+    const item = srsDeck[srsIndex];
+    const stage = document.getElementById('srsCardStage');
+    const rateBtns = document.getElementById('srsRateBtns');
+    stage.classList.remove('flipped');
+    rateBtns.classList.remove('visible');
+
+    const mem = agentState.srs[item.id] || { box: 0 };
+    const statusLabel = mem.box === 0 ? "🆕 НОВОЕ СЛОВО" : (mem.box === 1 ? "🔄 НА ПОВТОРЕНИИ" : "✅ ОСВОЕНО (УРОВЕНЬ " + mem.box + ")");
+
+    document.getElementById('srsCardTag').textContent = `${item.tag} // Карточка ${srsIndex + 1} из ${srsDeck.length} • ${statusLabel}`;
+    document.getElementById('srsCardFront').textContent = item.en;
+    document.getElementById('srsCardContext').textContent = `"${item.ex}"`;
+    document.getElementById('srsCardBack').textContent = `Перевод: ${item.ru}`;
+
+    const dueCount = srsDeck.filter(w => !agentState.srs[w.id] || agentState.srs[w.id].due <= Date.now()).length;
+    const learnedCount = srsDeck.filter(w => agentState.srs[w.id] && agentState.srs[w.id].box >= 2).length;
+    document.getElementById('srsStatsRow').innerHTML = `
+        <span>📌 К повторению сейчас: <b style="color:#d4af37">${dueCount}</b></span>
+        <span>🏆 Прочно усвоено в этой колоде: <b style="color:#6be38c">${learnedCount} / ${srsDeck.length}</b></span>
+    `;
+}
+
+function flipSrsCard() {
+    const stage = document.getElementById('srsCardStage');
+    const rateBtns = document.getElementById('srsRateBtns');
+    stage.classList.add('flipped');
+    rateBtns.classList.add('visible');
+    speakCurrentSrsWord();
+}
+
+function speakCurrentSrsWord() {
+    const item = srsDeck[srsIndex];
+    if (item) speakDossierText(item.en);
+}
+
+function rateSrsWord(grade) {
+    const item = srsDeck[srsIndex];
+    if (!item) return;
+
+    const prev = agentState.srs[item.id] || { box: 0, xp: 0, due: 0 };
+    const now = Date.now();
+    // Интервалы: 0 = через 1 мин, 1 = через 10 мин, 2 = через 1 день, 3 = через 4 дня
+    const intervals = [60 * 1000, 10 * 60 * 1000, 24 * 3600 * 1000, 96 * 3600 * 1000];
+    const xpAdd = [0, 5, 10, 15][grade] || 0;
+
+    agentState.srs[item.id] = {
+        box: grade === 0 ? 0 : Math.min(5, prev.box + grade),
+        xp: Math.max(prev.xp || 0, xpAdd),
+        due: now + intervals[grade]
+    };
+
+    saveAgentState();
+    srsIndex = (srsIndex + 1) % srsDeck.length;
+    renderSrsCard();
+}
+
+// ================= 5. ЧАТ С ГЕРОЯМИ (5 ВСЕЛЕННЫХ) =================
+const HERO_CHATS = {
+    damon: {
+        name: "● ONLINE: Damon Salvatore (Mystic Grill)",
+        npcMsg: "Klaus is in town and Stefan is panicking. Whatever happens tonight, don't let anyone know our real plan at the Founder's party, got it?",
+        options: [
+            { text: "Don't worry, Damon. I won't spill the beans.", correct: true, reply: "Smart move. Maybe you'll actually survive a week in Mystic Falls. 🥃 (+XP)" },
+            { text: "I will vanish into thin air right now.", correct: false, reply: "Running away already? Pick the idiom that means 'keep a secret'!" },
+            { text: "Let's stab Stefan in the back.", correct: false, reply: "Whoa, easy! Even I'm not betraying my brother tonight. Try again." }
+        ]
+    },
+    bree: {
+        name: "● ONLINE: Bree Van de Kamp (Wisteria Lane)",
+        npcMsg: "Rex is making a scene right before the neighborhood dinner party! Tell me, what is the golden rule of surviving on Wisteria Lane?",
+        options: [
+            { text: "We must hit the road immediately!", correct: false, reply: "Leave my own dinner party?! Certainly not. Try another answer." },
+            { text: "Smile and keep up appearances at all costs.", correct: true, reply: "Precisely! Here is a basket of warm muffins for your discretion. 🧁 (+XP)" },
+            { text: "Let's spill the beans to Mrs. Huber.", correct: false, reply: "Goodness, no! Martha Huber is the biggest gossip on the street!" }
+        ]
+    },
+    dean: {
+        name: "● ONLINE: Dean Winchester (Impala 67)",
+        npcMsg: "Sammy checked the police reports—the ghost didn't leave a single trace in the motel room. One second it was there, the next...",
+        options: [
+            { text: "It completely vanished into thin air!", correct: true, reply: "Bingo! Grab the rock salt and get in the Impala, we're hunting it down. 🧂 (+XP)" },
+            { text: "It turned over a new leaf.", correct: false, reply: "Yeah, right, a spirit suddenly becoming polite? Try again, partner." },
+            { text: "It kept up appearances.", correct: false, reply: "Wrong vibe! Pick the idiom that means disappearing without a trace." }
+        ]
+    },
+    logan: {
+        name: "● ONLINE: Shim Su-ryeon & Logan (Hera Penthouse)",
+        npcMsg: "Joo Dan-tae thinks he controls every judge and VIP in Seoul from the 100th floor. Do you see how he operates?",
+        options: [
+            { text: "He secretly pulls the strings behind closed doors.", correct: true, reply: "Exactly. And now it's our turn to turn the tables on him. 🥂 (+XP)" },
+            { text: "He keeps everyone at bay with vervain.", correct: false, reply: "Wrong universe! Choose the idiom about secret manipulation." },
+            { text: "He hits the road every morning.", correct: false, reply: "No, he never leaves his penthouse empire. Pick another option." }
+        ]
+    },
+    regina: {
+        name: "● ONLINE: Regina Mills — Mayor's Office (Storybrooke)",
+        npcMsg: "Mr. Gold offered Emma a magical favor in his pawnshop, and she actually wants to accept it! Tell her the first law of Storybrooke before it's too late:",
+        options: [
+            { text: "Be careful! All magic comes with a price, and he never forgets a deal.", correct: true, reply: "Well said. Perhaps someone in this town actually has common sense. 🍎 (+XP)" },
+            { text: "Just sweep it under the rug and bake muffins.", correct: false, reply: "This isn't suburbia, dear. We are dealing with the Dark One!" },
+            { text: "Tell him to hit the road in his Impala.", correct: false, reply: "What on earth is an Impala? Choose the phrase about the cost of magic!" }
+        ]
+    }
+};
+
+function switchLabTab(tabId, btnEl) {
+    document.querySelectorAll('.lab-tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.lab-panel').forEach(p => p.classList.remove('active'));
+    btnEl.classList.add('active');
+    document.getElementById('lab-panel-' + tabId).classList.add('active');
+    if (tabId === 'board') setTimeout(drawRedStrings, 60);
+}
+
+function rewardLabAchievement(tagId) {
+    if (!agentState.clues.includes(tagId)) {
+        agentState.clues.push(tagId);
+        saveAgentState();
+    }
+}
+
+function loadHeroChat(heroKey, pillBtn) {
+    if (pillBtn) {
+        document.querySelectorAll('.char-pill').forEach(p => p.classList.remove('active'));
+        pillBtn.classList.add('active');
+    }
+    const data = HERO_CHATS[heroKey];
+    document.getElementById('chatContactName').textContent = data.name;
+    document.getElementById('chatMessagesBox').innerHTML = `<div class="msg-bubble msg-npc">${data.npcMsg} <button style="margin-left:6px; font-size:0.7rem; padding:2px 6px;" onclick="speakDossierText('${data.npcMsg.replace(/'/g, "\\'")}')">🔊</button></div>`;
+    document.getElementById('chatOptionsBox').innerHTML = data.options.map((o, idx) => `
+        <button class="chat-opt-btn" onclick="answerHeroChat('${heroKey}', ${idx})">➤ ${o.text}</button>
+    `).join('');
+}
+
+function answerHeroChat(heroKey, optIdx) {
+    const data = HERO_CHATS[heroKey];
+    const chosen = data.options[optIdx];
+    document.getElementById('chatMessagesBox').innerHTML = `
+        <div class="msg-bubble msg-npc">${data.npcMsg}</div>
+        <div class="msg-bubble msg-user">${chosen.text}</div>
+        <div class="msg-bubble msg-npc" style="border-left-color:${chosen.correct ? '#6be38c' : '#ff6b6b'}">${chosen.reply}</div>
+    `;
+    speakDossierText(chosen.text);
+    if (chosen.correct) rewardLabAchievement('chat_' + heroKey);
+}
+
+// ================= 6. ДОСКА КРАСНЫХ НИТЕЙ И УФ-ФОНАРИК =================
+const BOARD_PAIRS = [
+    { id: "p1", left: "SPILL THE BEANS", right: "Улика: Выболтать тайну соседей (Wisteria Lane)" },
+    { id: "p2", left: "PULL THE STRINGS", right: "Улика: Тайно управлять элитой (Hera Palace)" },
+    { id: "p3", left: "CONNECT THE DOTS", right: "Улика: Сопоставить факты в дневнике охотника" },
+    { id: "p4", left: "COME WITH A PRICE", right: "Улика: Расплата за сделку с Румпельштильцхеном" },
+    { id: "p5", left: "KEEP AT BAY", right: "Улика: Сдерживать вампиров вербеной" }
+];
+
+let selectedLeftId = null;
+let matchedBoardIds = [];
+
+function initConspiracyBoard() {
+    const leftCol = document.getElementById('boardLeftCol');
+    const rightCol = document.getElementById('boardRightCol');
+    if (!leftCol || !rightCol) return;
+    const shuffledRight = [...BOARD_PAIRS].sort(() => Math.random() - 0.5);
+
+    leftCol.innerHTML = BOARD_PAIRS.map(p => `<div class="pin-note" id="pin-left-${p.id}" onclick="selectLeftPin('${p.id}', '${p.left}')">${p.left} 🔊</div>`).join('');
+    rightCol.innerHTML = shuffledRight.map(p => `<div class="pin-note" id="pin-right-${p.id}" onclick="selectRightPin('${p.id}')">${p.right}</div>`).join('');
+    drawRedStrings();
+}
+
+function selectLeftPin(id, phrase) {
+    if (matchedBoardIds.includes(id)) return;
+    speakDossierText(phrase);
+    selectedLeftId = id;
+    document.querySelectorAll('#boardLeftCol .pin-note').forEach(el => el.classList.remove('selected'));
+    document.getElementById('pin-left-' + id).classList.add('selected');
+}
+
+function selectRightPin(id) {
+    if (!selectedLeftId || matchedBoardIds.includes(id)) return;
+    const msg = document.getElementById('boardStatusMsg');
+    if (selectedLeftId === id) {
+        matchedBoardIds.push(id);
+        document.getElementById('pin-left-' + id).classList.remove('selected');
+        document.getElementById('pin-left-' + id).classList.add('matched');
+        document.getElementById('pin-right-' + id).classList.add('matched');
+        selectedLeftId = null;
+        drawRedStrings();
+        if (matchedBoardIds.length === BOARD_PAIRS.length) {
+            msg.style.color = "#6be38c";
+            msg.textContent = "🕸️ ВСЕ 5 НИТЕЙ НАТЯНУТЫ! Паутина расследования собрана (+XP)!";
+            rewardLabAchievement('board_master_v3');
+        } else {
+            msg.style.color = "#d4af37";
+            msg.textContent = "📌 Нить закреплена! Соедини оставшиеся улики.";
+        }
+    } else {
+        msg.style.color = "#ff6b6b";
+        msg.textContent = "❌ Неверная связь. Попробуй другую карточку!";
+    }
+}
+
+function drawRedStrings() {
+    const svg = document.getElementById('boardSvgLines');
+    const board = document.getElementById('corkBoardArea');
+    if (!svg || !board) return;
+    const bRect = board.getBoundingClientRect();
+    svg.innerHTML = '';
+    matchedBoardIds.forEach(id => {
+        const lEl = document.getElementById('pin-left-' + id);
+        const rEl = document.getElementById('pin-right-' + id);
+        if (!lEl || !rEl) return;
+        const lRect = lEl.getBoundingClientRect();
+        const rRect = rEl.getBoundingClientRect();
+        const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+        line.setAttribute('x1', lRect.right - bRect.left - 8);
+        line.setAttribute('y1', lRect.top - bRect.top + (lRect.height / 2));
+        line.setAttribute('x2', rRect.left - bRect.left + 8);
+        line.setAttribute('y2', rRect.top - bRect.top + (rRect.height / 2));
+        line.setAttribute('stroke', '#d92626');
+        line.setAttribute('stroke-width', '3.5');
+        line.setAttribute('stroke-linecap', 'round');
+        svg.appendChild(line);
+    });
+}
+
+function resetConspiracyBoard() {
+    matchedBoardIds = [];
+    selectedLeftId = null;
+    document.getElementById('boardStatusMsg').textContent = '';
+    initConspiracyBoard();
+}
+
+window.addEventListener('resize', drawRedStrings);
+
+let uvActive = false;
+let uvFoundCount = 0;
+
+function toggleUvLight() {
+    uvActive = !uvActive;
+    const page = document.getElementById('uvDiaryArea');
+    const btn = document.getElementById('uvToggleBtn');
+    page.classList.toggle('uv-mode', uvActive);
+    btn.classList.toggle('uv-on', uvActive);
+    btn.textContent = uvActive ? "🔦 Выключить УФ-фонарик (Blacklight ON)" : "🔦 Включить УФ-фонарик (Blacklight OFF)";
+}
+
+function moveUvBeam(clientX, clientY) {
+    const page = document.getElementById('uvDiaryArea');
+    if (!page || !uvActive) return;
+    const rect = page.getBoundingClientRect();
+    page.style.setProperty('--uv-x', (clientX - rect.left) + 'px');
+    page.style.setProperty('--uv-y', (clientY - rect.top) + 'px');
+}
+
+function revealUvNote(el, translationText) {
+    if (!uvActive && !el.classList.contains('found')) return;
+    el.textContent = "✨ " + translationText;
+    if (!el.classList.contains('found')) {
+        el.classList.add('found');
+        uvFoundCount++;
+        document.getElementById('uvCounterText').textContent = `Найдено тайных шифров: ${uvFoundCount} / 5`;
+        rewardLabAchievement('uv_note_' + uvFoundCount);
+    }
+    speakDossierText(translationText.split('—')[0].trim());
+}
+
 (function() {
     const showcase = document.getElementById('noirSeriesShowcase');
-    if (!showcase) return;
-    const quoteEl = document.querySelector('.ny-quote');
-    const quoteCard = quoteEl ? quoteEl.closest('.card') : null;
-    if (quoteCard && quoteCard.parentNode) {
-        quoteCard.parentNode.insertBefore(showcase, quoteCard.nextSibling);
-    } else {
-        const allCards = document.querySelectorAll('.card');
-        if (allCards.length >= 2 && allCards[1].parentNode) {
-            allCards[1].parentNode.insertBefore(showcase, allCards[1].nextSibling);
+    const lab = document.getElementById('noirDetectiveLab');
+    if (showcase) {
+        const quoteEl = document.querySelector('.ny-quote');
+        const quoteCard = quoteEl ? quoteEl.closest('.card') : null;
+        if (quoteCard && quoteCard.parentNode) {
+            quoteCard.parentNode.insertBefore(showcase, quoteCard.nextSibling);
+        } else {
+            const allCards = document.querySelectorAll('.card');
+            if (allCards.length >= 2 && allCards[1].parentNode) {
+                allCards[1].parentNode.insertBefore(showcase, allCards[1].nextSibling);
+            }
         }
+        if (lab && showcase.parentNode) {
+            showcase.parentNode.insertBefore(lab, showcase.nextSibling);
+        }
+    }
+
+    const page = document.getElementById('uvDiaryArea');
+    if (page) {
+        page.addEventListener('mousemove', e => moveUvBeam(e.clientX, e.clientY));
+        page.addEventListener('touchmove', e => {
+            if (e.touches[0]) moveUvBeam(e.touches[0].clientX, e.touches[0].clientY);
+        }, { passive: true });
+    }
+
+    loadAgentState();
+    filterSrsDeck();
+    loadHeroChat('damon');
+    initConspiracyBoard();
+})();
+</script>
+<!-- ===== PRO DICTIONARY ENGINE: 114 СЛОВ, SRS, ФИЛЬТРЫ, SHUFFLE И АВТО-ОПТИМИЗАЦИЯ ===== -->
+<style>
+.pro-dict-wrap {
+    color: #f4eee1;
+    font-family: 'Courier Prime', 'Courier New', monospace;
+}
+
+.pro-dict-top {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 18px;
+    padding-bottom: 14px;
+    border-bottom: 1px dashed rgba(212, 175, 55, 0.35);
+}
+
+.pro-dict-title {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 1.85rem;
+    color: #f4eee1;
+    margin: 0;
+    letter-spacing: 1px;
+}
+
+.pro-dict-sub {
+    font-size: 0.82rem;
+    color: #c9b7a3;
+    margin-top: 4px;
+}
+
+.pro-dict-modes {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.pro-mode-btn {
+    background: #1c1512 !important;
+    border: 1px solid rgba(212, 175, 55, 0.45) !important;
+    color: #e8dec8 !important;
+    padding: 9px 14px !important;
+    border-radius: 6px !important;
+    font-size: 0.8rem !important;
+    font-weight: 700 !important;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.pro-mode-btn.active {
+    background: linear-gradient(135deg, #9e1b1b, #5e1111) !important;
+    border-color: #d4af37 !important;
+    color: #fff !important;
+    box-shadow: 0 0 15px rgba(158, 27, 27, 0.5);
+}
+
+/* Панель прогресса словаря */
+.pro-dict-progress-box {
+    background: rgba(14, 10, 9, 0.9);
+    border: 1px solid rgba(212, 175, 55, 0.35);
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin-bottom: 16px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.pro-prog-bar-bg {
+    flex: 1;
+    min-width: 180px;
+    height: 10px;
+    background: #090706;
+    border-radius: 99px;
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    overflow: hidden;
+}
+
+.pro-prog-bar-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #9e1b1b, #d4af37, #6be38c);
+    transition: width 0.35s ease;
+}
+
+/* Поиск и фильтры */
+.pro-dict-controls {
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    gap: 10px;
+    margin-bottom: 14px;
+}
+
+@media (max-width: 720px) {
+    .pro-dict-controls { grid-template-columns: 1fr; }
+}
+
+.pro-search-input {
+    width: 100%;
+    background: #120d0b !important;
+    border: 1px solid rgba(212, 175, 55, 0.45) !important;
+    color: #f4eee1 !important;
+    padding: 11px 14px !important;
+    border-radius: 6px !important;
+    font-family: 'Courier Prime', monospace !important;
+    font-size: 0.88rem !important;
+    box-sizing: border-box;
+}
+
+.pro-select {
+    background: #17110e !important;
+    border: 1px solid rgba(212, 175, 55, 0.45) !important;
+    color: #f4eee1 !important;
+    padding: 10px 12px !important;
+    border-radius: 6px !important;
+    font-family: 'Courier Prime', monospace !important;
+    font-size: 0.82rem !important;
+    cursor: pointer;
+}
+
+/* Пиллы сериалов */
+.pro-series-pills {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    padding-bottom: 8px;
+    margin-bottom: 16px;
+}
+
+.pro-pill {
+    background: #1c1512 !important;
+    border: 1px solid rgba(212, 175, 55, 0.3) !important;
+    color: #c9b7a3 !important;
+    padding: 7px 13px !important;
+    border-radius: 99px !important;
+    font-size: 0.76rem !important;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.pro-pill.active {
+    background: #d4af37 !important;
+    color: #120d0b !important;
+    font-weight: 700 !important;
+    border-color: #d4af37 !important;
+}
+
+/* Сетка карточек словаря */
+.pro-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(275px, 1fr));
+    gap: 14px;
+}
+
+.pro-vocab-card {
+    background: linear-gradient(155deg, #211814, #140f0c);
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    border-radius: 8px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: all 0.22s ease;
+    position: relative;
+}
+
+.pro-vocab-card:hover {
+    transform: translateY(-3px);
+    border-color: #d4af37;
+    box-shadow: 0 10px 22px rgba(0, 0, 0, 0.75);
+}
+
+.pro-vocab-card.learned {
+    border-color: rgba(107, 227, 140, 0.65);
+    background: linear-gradient(155deg, rgba(24, 45, 30, 0.65), #130f0d);
+}
+
+.pro-card-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+.pro-card-badge {
+    font-size: 0.66rem;
+    color: #d4af37;
+    border: 1px solid rgba(212, 175, 55, 0.4);
+    padding: 2px 7px;
+    border-radius: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+}
+
+.pro-card-actions {
+    display: flex;
+    gap: 6px;
+}
+
+.pro-icon-btn {
+    background: #2a1f1a !important;
+    border: 1px solid rgba(212, 175, 55, 0.35) !important;
+    color: #f4eee1 !important;
+    padding: 4px 8px !important;
+    border-radius: 5px !important;
+    font-size: 0.82rem !important;
+    cursor: pointer;
+}
+
+.pro-icon-btn.starred {
+    background: rgba(212, 175, 55, 0.25) !important;
+    border-color: #d4af37 !important;
+    color: #ffd700 !important;
+}
+
+.pro-card-en {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 1.45rem;
+    font-weight: 700;
+    color: #f4eee1;
+    margin-bottom: 4px;
+    cursor: pointer;
+}
+
+.pro-card-ru {
+    font-size: 0.88rem;
+    color: #6be38c;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.pro-card-ex {
+    font-size: 0.78rem;
+    color: #b8a693;
+    font-style: italic;
+    border-left: 2px solid #9e1b1b;
+    padding-left: 9px;
+    line-height: 1.4;
+}
+
+.pro-card-srs-tag {
+    margin-top: 10px;
+    font-size: 0.68rem;
+    color: #8c7b6b;
+    display: flex;
+    justify-content: space-between;
+}
+
+/* Режим умного тренажера SRS внутри словаря */
+.pro-srs-box {
+    display: none;
+    background: radial-gradient(circle at center, #251b16, #110c0a);
+    border: 2px solid #d4af37;
+    border-radius: 10px;
+    padding: 28px 20px;
+    text-align: center;
+    margin-bottom: 18px;
+}
+
+.pro-srs-box.active { display: block; }
+</style>
+
+<script>
+(function() {
+    // 1. Убираем упоминания "B1" из шапки и заголовков сайта, делая текст статусным
+    document.querySelectorAll('p, h1, h2, h3, div, span').forEach(el => {
+        if (el.children.length === 0 && el.textContent) {
+            if (el.textContent.includes('Твой продвинутый тренажер уровня B1')) {
+                el.textContent = 'Иммерсивная платформа изучения английского по культовым сериалам и дорамам';
+            }
+        }
+    });
+
+    // 2. База из 50 новых отборных слов и выражений по 5 сериалам (включая Once Upon a Time)
+    const EXTRA_50_WORDS = [
+        // The Vampire Diaries (10)
+        { s: "The Vampire Diaries", en: "compel someone", ru: "внушить / подчинить волю взглядом", ex: "Damon tried to compel the witness to forget everything." },
+        { s: "The Vampire Diaries", en: "keep at bay", ru: "держать на расстоянии / сдерживать", ex: "Vervain in the necklace keeps vampires at bay." },
+        { s: "The Vampire Diaries", en: "quench one's thirst", ru: "утолить жажду", ex: "Stefan struggled to quench his thirst in the woods." },
+        { s: "The Vampire Diaries", en: "turn over a new leaf", ru: "начать жизнь с чистого листа", ex: "Every century, he promises to turn over a new leaf." },
+        { s: "The Vampire Diaries", en: "blend in with the crowd", ru: "слиться с толпой", ex: "With a daylight ring, you can blend in with the crowd." },
+        { s: "The Vampire Diaries", en: "live up to expectations", ru: "оправдывать чьи-либо ожидания", ex: "I don't want to live up to anyone's expectations." },
+        { s: "The Vampire Diaries", en: "eternal damnation", ru: "вечное проклятие / обреченность", ex: "He chose love over eternal damnation." },
+        { s: "The Vampire Diaries", en: "ulterior motive", ru: "скрытый мотив / тайная выгода", ex: "Klaus never helps anyone without an ulterior motive." },
+        { s: "The Vampire Diaries", en: "caught off guard", ru: "застигнутый врасплох", ex: "The Sheriff was caught off guard by the council's secret." },
+        { s: "The Vampire Diaries", en: "humanity switch", ru: "переключатель человечности (эмоций)", ex: "When the pain gets too strong, they flip their humanity switch." },
+
+        // Desperate Housewives (10)
+        { s: "Desperate Housewives", en: "keep up appearances", ru: "соблюдать приличия / сохранять лицо", ex: "On Wisteria Lane, we must always keep up appearances." },
+        { s: "Desperate Housewives", en: "spill the beans", ru: "выболтать секрет / проговориться", ex: "Don't let Gabrielle spill the beans at the poker table." },
+        { s: "Desperate Housewives", en: "sweep under the rug", ru: "замести под ковер / скрыть скандал", ex: "Bree tried to sweep the accident under the rug." },
+        { s: "Desperate Housewives", en: "skeletons in the closet", ru: "скелеты в шкафу / постыдные тайны", ex: "Every family on this street has skeletons in the closet." },
+        { s: "Desperate Housewives", en: "spread rumors", ru: "распускать слухи / сплетничать", ex: "Mrs. McCluskey knows exactly who is spreading rumors." },
+        { s: "Desperate Housewives", en: "blackmail someone", ru: "шантажировать кого-то", ex: "The mysterious note was used to blackmail Mary Alice." },
+        { s: "Desperate Housewives", en: "behind closed doors", ru: "за закрытыми дверями / тайком", ex: "Nobody knows what really happens behind closed doors." },
+        { s: "Desperate Housewives", en: "poke one's nose into", ru: "совать свой нос в чужие дела", ex: "Stop poking your nose into the new neighbor's basement!" },
+        { s: "Desperate Housewives", en: "make a scene", ru: "устроить сцену / скандал на людях", ex: "Please don't make a scene at the charity dinner." },
+        { s: "Desperate Housewives", en: "jump to conclusions", ru: "делать поспешные выводы", ex: "Susan always jumps to conclusions before checking the facts." },
+
+        // Supernatural (10)
+        { s: "Supernatural", en: "vanish into thin air", ru: "исчезнуть без следа / раствориться", ex: "The ghost vanished into thin air right before sunrise." },
+        { s: "Supernatural", en: "connect the dots", ru: "сопоставить факты / сложить картину", ex: "Sam used John's journal to connect the dots." },
+        { s: "Supernatural", en: "hit the road", ru: "отправиться в путь / выехать на трассу", ex: "Pack the salt and iron, it's time to hit the road." },
+        { s: "Supernatural", en: "urban legend", ru: "городская легенда", ex: "Every urban legend has a grain of truth in it." },
+        { s: "Supernatural", en: "follow a lead", ru: "идти по следу / проверять зацепку", ex: "The brothers are following a new lead in Ohio." },
+        { s: "Supernatural", en: "cross the line", ru: "перейти черту / зайти слишком далеко", ex: "Making a crossroads deal means crossing the line." },
+        { s: "Supernatural", en: "in plain sight", ru: "у всех на виду", ex: "The demon was hiding in plain sight as a town sheriff." },
+        { s: "Supernatural", en: "twist of fate", ru: "ирония судьбы / поворот судьбы", ex: "By a strange twist of fate, Castiel arrived in time." },
+        { s: "Supernatural", en: "narrow escape", ru: "спасение на волосок от гибели", ex: "That warehouse explosion was a narrow escape." },
+        { s: "Supernatural", en: "watch someone's back", ru: "прикрывать спину / страховать", ex: "Out on the hunt, we always watch each other's back." },
+
+        // The Penthouse (10)
+        { s: "The Penthouse", en: "pull the strings", ru: "дергать за ниточки / тайно управлять", ex: "Joo Dan-tae pulls the strings from the 100th floor." },
+        { s: "The Penthouse", en: "stab in the back", ru: "ударить в спину / вероломно предать", ex: "In Hera Club, allies will stab you in the back for power." },
+        { s: "The Penthouse", en: "at all costs", ru: "любой ценой", ex: "Cheon Seo-jin wanted the Cheong-ah trophy at all costs." },
+        { s: "The Penthouse", en: "turn the tables", ru: "перевернуть игру / поменять расклад сил", ex: "Shim Su-ryeon returned to turn the tables on her enemies." },
+        { s: "The Penthouse", en: "rig the competition", ru: "подтасовать результаты конкурса", ex: "Someone bribed the judges to rig the vocal competition." },
+        { s: "The Penthouse", en: "frame someone", ru: "подставить невиновного", ex: "They tried to frame an innocent witness for the crime." },
+        { s: "The Penthouse", en: "ruthless ambition", ru: "беспощадная амбициозность", ex: "Her ruthless ambition blinded her to the truth." },
+        { s: "The Penthouse", en: "cover up the evidence", ru: "скрыть / зачистить улики", ex: "The security footage was deleted to cover up the evidence." },
+        { s: "The Penthouse", en: "forge a contract", ru: "подделать документ / контракт", ex: "Logan discovered that the real estate contract was forged." },
+        { s: "The Penthouse", en: "walk on eggshells", ru: "ходить по струнке / вести себя осторожно", ex: "Everyone in the penthouse walks on eggshells around him." },
+
+        // Once Upon a Time (10)
+        { s: "Once Upon a Time", en: "break the curse", ru: "разрушить проклятие / снять чары", ex: "Only true love's kiss can break the curse in Storybrooke." },
+        { s: "Once Upon a Time", en: "come with a price", ru: "иметь свою цену / требовать расплаты", ex: "All magic comes with a price, dearie." },
+        { s: "Once Upon a Time", en: "hold a grudge", ru: "таить обиду / годами хранить злобу", ex: "The Evil Queen held a grudge against Snow White for decades." },
+        { s: "Once Upon a Time", en: "strike a bargain", ru: "заключить сделку / уговор", ex: "Never strike a bargain with Rumplestiltskin lightly." },
+        { s: "Once Upon a Time", en: "lose one's memory", ru: "потерять память", ex: "If you cross the town line, you might lose your memory." },
+        { s: "Once Upon a Time", en: "seek redemption", ru: "искать искупления вины", ex: "Regina proved that even a villain can seek redemption." },
+        { s: "Once Upon a Time", en: "rewrite destiny", ru: "переписать судьбу", ex: "The Author's pen has the power to rewrite destiny." },
+        { s: "Once Upon a Time", en: "cast a spell", ru: "наложить заклинание", ex: "Zelena cast a spell to freeze everyone in their tracks." },
+        { s: "Once Upon a Time", en: "leap of faith", ru: "прыжок веры / шаг в неизвестность", ex: "Emma had to take a leap of faith and believe Henry." },
+        { s: "Once Upon a Time", en: "unfinished business", ru: "незавершенное дело из прошлого", ex: "Hook sailed back to Storybrooke to settle unfinished business." }
+    ];
+
+    // 3. Собираем существующие слова из твоего старого словаря (если они лежат в глобальном массиве или в DOM)
+    function extractExistingWords() {
+        const collected = [];
+        const seen = new Set();
+
+        // Проверяем популярные имена массивов в твоем коде
+        const possibleArrays = [window.vocabData, window.words, window.dictionary, window.cards, window.vocabList, window.VOCAB];
+        possibleArrays.forEach(arr => {
+            if (Array.isArray(arr)) {
+                arr.forEach(item => {
+                    const en = (item.word || item.en || item.term || item.phrase || '').trim();
+                    const ru = (item.translation || item.ru || item.meaning || '').trim();
+                    const ex = (item.example || item.quote || item.ex || item.context || '').trim();
+                    const s  = (item.series || item.show || item.category || item.s || 'Series Archive').trim();
+                    if (en && ru && !seen.has(en.toLowerCase())) {
+                        seen.add(en.toLowerCase());
+                        collected.push({ s, en, ru, ex: ex || `Example from ${s}: "${en}"` });
+                    }
+                });
+            }
+        });
+
+        // Дополнительно парсим scripts на случай, если массив объявлен через const
+        if (collected.length === 0) {
+            document.querySelectorAll('script').forEach(scr => {
+                const txt = scr.textContent || '';
+                const regex = /\{\s*(?:word|en)\s*:\s*["']([^"']+)["']\s*,\s*(?:translation|ru|meaning)\s*:\s*["']([^"']+)["'](?:[^}]*?(?:series|show|s)\s*:\s*["']([^"']+)["'])?(?:[^}]*?(?:example|quote|ex)\s*:\s*["']([^"']+)["'])?/gi;
+                let m;
+                while ((m = regex.exec(txt)) !== null) {
+                    const en = m[1].trim();
+                    const ru = m[2].trim();
+                    const s = (m[3] || 'Series Archive').trim();
+                    const ex = (m[4] || '').trim();
+                    if (en && !seen.has(en.toLowerCase())) {
+                        seen.add(en.toLowerCase());
+                        collected.push({ s, en, ru, ex });
+                    }
+                }
+            });
+        }
+
+        // Добавляем наши 50 новых слов (включая Once Upon a Time)
+        EXTRA_50_WORDS.forEach(w => {
+            if (!seen.has(w.en.toLowerCase())) {
+                seen.add(w.en.toLowerCase());
+                collected.push(w);
+            }
+        });
+
+        return collected.map((w, idx) => ({
+            id: 'dw_' + idx + '_' + w.en.toLowerCase().replace(/[^a-z0-9]/g, ''),
+            s: normalizeSeriesName(w.s),
+            en: w.en,
+            ru: w.ru,
+            ex: w.ex || `"${w.en}"`
+        }));
+    }
+
+    function normalizeSeriesName(raw) {
+        const l = (raw || '').toLowerCase();
+        if (l.includes('vampire') || l.includes('tvd') || l.includes('дневники')) return 'The Vampire Diaries';
+        if (l.includes('housewive') || l.includes('dh') || l.includes('домохозяйки')) return 'Desperate Housewives';
+        if (l.includes('supernatural') || l.includes('spn') || l.includes('сверхъестеств')) return 'Supernatural';
+        if (l.includes('penthouse') || l.includes('пентхаус')) return 'The Penthouse';
+        if (l.includes('once') || l.includes('ouat') || l.includes('сказк')) return 'Once Upon a Time';
+        return raw || 'Series Collection';
+    }
+
+    // 4. Система вечного сохранения прогресса словаря
+    const DICT_SAVE_KEY = 'english_hub_pro_dict_v1';
+    let dictState = { starred: [], srs: {} };
+
+    function loadDictState() {
+        try {
+            const raw = localStorage.getItem(DICT_SAVE_KEY);
+            if (raw) {
+                const p = JSON.parse(raw);
+                if (Array.isArray(p.starred)) dictState.starred = p.starred;
+                if (p.srs && typeof p.srs === 'object') dictState.srs = p.srs;
+            }
+        } catch (e) {}
+    }
+
+    function saveDictState() {
+        try {
+            localStorage.setItem(DICT_SAVE_KEY, JSON.stringify(dictState));
+        } catch (e) {}
+        updateDictStatsUI();
+    }
+
+    // 5. Находим контейнер раздела "Словарь" на твоем сайте и модернизируем его
+    function mountProDictionary() {
+        let dictContainer = null;
+        document.querySelectorAll('h2, h3').forEach(h => {
+            if (h.textContent.includes('Интерактивный словарь')) {
+                dictContainer = h.closest('.card') || h.parentElement;
+            }
+        });
+        if (!dictContainer) return;
+
+        loadDictState();
+        const ALL_WORDS = extractExistingWords();
+        let filteredWords = [...ALL_WORDS];
+        let activeSeries = 'ALL';
+        let activeStatus = 'ALL';
+        let searchQuery = '';
+        let currentSrsIdx = 0;
+
+        dictContainer.innerHTML = `
+            <div class="pro-dict-wrap">
+                <div class="pro-dict-top">
+                    <div>
+                        <h2 class="pro-dict-title">📚 Интерактивный Словарь Вселенных (<span id="proTotalCount">${ALL_WORDS.length}</span>)</h2>
+                        <div class="pro-dict-sub">Нажимай 🔊 для произношения, ⭐ — чтобы сохранить в выученные, или включи умное повторение SRS</div>
+                    </div>
+                    <div class="pro-dict-modes">
+                        <button id="btnModeGrid" class="pro-mode-btn active" onclick="window._proSetMode('grid')">🗂️ Все карточки</button>
+                        <button id="btnModeSrs" class="pro-mode-btn" onclick="window._proSetMode('srs')">🧠 Умный тренажер SRS</button>
+                        <button class="pro-mode-btn" onclick="window._proShuffleWords()">🔀 Перемешать</button>
+                    </div>
+                </div>
+
+                <!-- Шкала освоенных слов -->
+                <div class="pro-dict-progress-box">
+                    <div style="font-size:0.8rem;">
+                        ⭐ Изучено и сохранено: <b id="proLearnedStat" style="color:#6be38c">0 / ${ALL_WORDS.length}</b>
+                        <span style="margin-left:12px; color:#d4af37;" id="proDueStat"></span>
+                    </div>
+                    <div class="pro-prog-bar-bg">
+                        <div id="proDictProgFill" class="pro-prog-bar-fill"></div>
+                    </div>
+                </div>
+
+                <!-- Живой поиск и фильтр статуса -->
+                <div class="pro-dict-controls">
+                    <input type="text" id="proSearchInput" class="pro-search-input" placeholder="🔍 Поиск по-английски, по-русски или по цитате из сериала...">
+                    <select id="proStatusSelect" class="pro-select">
+                        <option value="ALL">📌 Статус: Все слова</option>
+                        <option value="UNLEARNED">⏳ Еще не выученные</option>
+                        <option value="DUE">🔥 Повторить сегодня (SRS)</option>
+                        <option value="STARRED">⭐ Избранные / Выученные</option>
+                    </select>
+                </div>
+
+                <!-- Быстрые вкладки по 5 сериалам -->
+                <div class="pro-series-pills" id="proSeriesPills">
+                    <button class="pro-pill active" data-s="ALL">🌐 Все 5 сериалов (${ALL_WORDS.length})</button>
+                    <button class="pro-pill" data-s="The Vampire Diaries">🩸 Vampire Diaries</button>
+                    <button class="pro-pill" data-s="Desperate Housewives">🧁 Desperate Housewives</button>
+                    <button class="pro-pill" data-s="Supernatural">🚗 Supernatural</button>
+                    <button class="pro-pill" data-s="The Penthouse">🥂 The Penthouse</button>
+                    <button class="pro-pill" data-s="Once Upon a Time">🍎 Once Upon a Time</button>
+                </div>
+
+                <!-- Блок интервального повторения (SRS) -->
+                <div id="proSrsArea" class="pro-srs-box">
+                    <div id="proSrsMeta" style="font-size:0.75rem; color:#d4af37; margin-bottom:8px; text-transform:uppercase;"></div>
+                    <div id="proSrsEn" style="font-family:'Cormorant Garamond',serif; font-size:2.2rem; font-weight:700; margin-bottom:8px; cursor:pointer;" onclick="window._proSpeakCurrent()"></div>
+                    <div id="proSrsEx" style="font-size:0.86rem; color:#b8a693; font-style:italic; max-width:620px; margin:0 auto 14px;"></div>
+                    <button id="proSrsShowBtn" class="pro-mode-btn" onclick="window._proRevealSrs()">👁️ Показать перевод</button>
+                    <div id="proSrsAnswerWrap" style="display:none; margin-top:14px; padding-top:14px; border-top:1px dashed rgba(212,175,55,0.35);">
+                        <div id="proSrsRu" style="font-size:1.1rem; color:#6be38c; font-weight:700; margin-bottom:14px;"></div>
+                        <div style="display:flex; justify-content:center; gap:8px; flex-wrap:wrap;">
+                            <button class="pro-mode-btn" style="background:#6e1414!important;" onclick="window._proRateSrs(0)">❌ Снова (1 мин)</button>
+                            <button class="pro-mode-btn" style="background:#6e4814!important;" onclick="window._proRateSrs(1)">😓 Трудно (10 мин)</button>
+                            <button class="pro-mode-btn" style="background:#195228!important;" onclick="window._proRateSrs(2)">👍 Хорошо (1 день)</button>
+                            <button class="pro-mode-btn" style="background:#164e63!important;" onclick="window._proRateSrs(3)">⚡ Легко (4 дня + ⭐)</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Сетка всех карточек -->
+                <div id="proCardsGrid" class="pro-cards-grid"></div>
+            </div>
+        `;
+
+        function applyFilters() {
+            const now = Date.now();
+            filteredWords = ALL_WORDS.filter(w => {
+                if (activeSeries !== 'ALL' && w.s !== activeSeries) return false;
+                if (activeStatus === 'STARRED' && !dictState.starred.includes(w.id)) return false;
+                if (activeStatus === 'UNLEARNED' && dictState.starred.includes(w.id)) return false;
+                if (activeStatus === 'DUE') {
+                    const rec = dictState.srs[w.id];
+                    if (rec && rec.due > now) return false;
+                }
+                if (searchQuery) {
+                    const q = searchQuery.toLowerCase();
+                    return w.en.toLowerCase().includes(q) || w.ru.toLowerCase().includes(q) || w.ex.toLowerCase().includes(q);
+                }
+                return true;
+            });
+            currentSrsIdx = 0;
+            renderGrid();
+            renderSrs();
+            updateDictStatsUI();
+        }
+
+        function renderGrid() {
+            const grid = document.getElementById('proCardsGrid');
+            if (!grid) return;
+            if (filteredWords.length === 0) {
+                grid.innerHTML = `<div style="grid-column:1/-1; text-align:center; padding:30px; color:#8c7b6b;">По твоему запросу ничего не найдено. Попробуй сбросить фильтр!</div>`;
+                return;
+            }
+            grid.innerHTML = filteredWords.map(w => {
+                const isStarred = dictState.starred.includes(w.id);
+                const srsInfo = dictState.srs[w.id];
+                const lvlText = srsInfo ? `SRS Уровень: ${srsInfo.lvl}/5` : `Новое выражение`;
+                return `
+                    <div class="pro-vocab-card ${isStarred ? 'learned' : ''}" id="pcard-${w.id}">
+                        <div>
+                            <div class="pro-card-head">
+                                <span class="pro-card-badge">${w.s}</span>
+                                <div class="pro-card-actions">
+                                    <button class="pro-icon-btn" title="Озвучить" onclick="window._proSpeak('${w.en.replace(/'/g, "\\'")}')">🔊</button>
+                                    <button class="pro-icon-btn ${isStarred ? 'starred' : ''}" title="Отметить выученным" onclick="window._proToggleStar('${w.id}')">⭐</button>
+                                </div>
+                            </div>
+                            <div class="pro-card-en" onclick="window._proSpeak('${w.en.replace(/'/g, "\\'")}')">${w.en}</div>
+                            <div class="pro-card-ru">${w.ru}</div>
+                            <div class="pro-card-ex">${w.ex}</div>
+                        </div>
+                        <div class="pro-card-srs-tag">
+                            <span>🧠 ${lvlText}</span>
+                            <span>${isStarred ? '✅ Выучено' : 'В процессе'}</span>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function renderSrs() {
+            if (filteredWords.length === 0) return;
+            if (currentSrsIdx >= filteredWords.length) currentSrsIdx = 0;
+            const w = filteredWords[currentSrsIdx];
+            document.getElementById('proSrsMeta').textContent = `${w.s} • Карточка ${currentSrsIdx + 1} из ${filteredWords.length}`;
+            document.getElementById('proSrsEn').textContent = `${w.en} 🔊`;
+            document.getElementById('proSrsEx').textContent = w.ex;
+            document.getElementById('proSrsRu').textContent = w.ru;
+            document.getElementById('proSrsShowBtn').style.display = 'inline-block';
+            document.getElementById('proSrsAnswerWrap').style.display = 'none';
+        }
+
+        window.updateDictStatsUI = function() {
+            const learned = dictState.starred.length;
+            const pct = Math.min(100, Math.round((learned / ALL_WORDS.length) * 100));
+            const dueNow = ALL_WORDS.filter(w => !dictState.srs[w.id] || dictState.srs[w.id].due <= Date.now()).length;
+
+            const statEl = document.getElementById('proLearnedStat');
+            const dueEl = document.getElementById('proDueStat');
+            const fillEl = document.getElementById('proDictProgFill');
+
+            if (statEl) statEl.textContent = `${learned} / ${ALL_WORDS.length} (${pct}%)`;
+            if (dueEl) dueEl.textContent = `• К повторению по SRS: ${dueNow}`;
+            if (fillEl) fillEl.style.width = pct + '%';
+        };
+
+        window._proSpeak = function(text) {
+            if (!('speechSynthesis' in window)) return;
+            window.speechSynthesis.cancel();
+            const u = new SpeechSynthesisUtterance(text);
+            u.lang = 'en-US';
+            u.rate = 0.92;
+            window.speechSynthesis.speak(u);
+        };
+
+        window._proToggleStar = function(id) {
+            const idx = dictState.starred.indexOf(id);
+            if (idx === -1) dictState.starred.push(id);
+            else dictState.starred.splice(idx, 1);
+            saveDictState();
+            renderGrid();
+        };
+
+        window._proShuffleWords = function() {
+            for (let i = filteredWords.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [filteredWords[i], filteredWords[j]] = [filteredWords[j], filteredWords[i]];
+            }
+            currentSrsIdx = 0;
+            renderGrid();
+            renderSrs();
+        };
+
+        window._proSetMode = function(mode) {
+            document.getElementById('btnModeGrid').classList.toggle('active', mode === 'grid');
+            document.getElementById('btnModeSrs').classList.toggle('active', mode === 'srs');
+            document.getElementById('proSrsArea').classList.toggle('active', mode === 'srs');
+            document.getElementById('proCardsGrid').style.display = mode === 'grid' ? 'grid' : 'none';
+        };
+
+        window._proRevealSrs = function() {
+            document.getElementById('proSrsShowBtn').style.display = 'none';
+            document.getElementById('proSrsAnswerWrap').style.display = 'block';
+            window._proSpeakCurrent();
+        };
+
+        window._proSpeakCurrent = function() {
+            const w = filteredWords[currentSrsIdx];
+            if (w) window._proSpeak(w.en);
+        };
+
+        window._proRateSrs = function(grade) {
+            const w = filteredWords[currentSrsIdx];
+            if (!w) return;
+            const prev = dictState.srs[w.id] || { lvl: 0, due: 0 };
+            const delays = [60 * 1000, 10 * 60 * 1000, 24 * 3600 * 1000, 96 * 3600 * 1000];
+            dictState.srs[w.id] = {
+                lvl: grade === 0 ? 0 : Math.min(5, prev.lvl + grade),
+                due: Date.now() + delays[grade]
+            };
+            if (grade === 3 && !dictState.starred.includes(w.id)) {
+                dictState.starred.push(w.id);
+            }
+            saveDictState();
+            currentSrsIdx = (currentSrsIdx + 1) % filteredWords.length;
+            renderSrs();
+            renderGrid();
+        };
+
+        document.getElementById('proSearchInput').addEventListener('input', e => {
+            searchQuery = e.target.value.trim();
+            applyFilters();
+        });
+
+        document.getElementById('proStatusSelect').addEventListener('change', e => {
+            activeStatus = e.target.value;
+            applyFilters();
+        });
+
+        document.querySelectorAll('#proSeriesPills .pro-pill').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('#proSeriesPills .pro-pill').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                activeSeries = btn.getAttribute('data-s');
+                applyFilters();
+            });
+        });
+
+        applyFilters();
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', mountProDictionary);
+    } else {
+        mountProDictionary();
     }
 })();
 </script>
+<!-- ===== MASTER VOCABULARY ENGINE: 200 ФРАЗ, SRS, SRS-ТРЕНАЖЕР И УБОРКА ГЛАВНОЙ ===== -->
+<style>
+/* Чистим главный экран от лишних нижних блоков лаборатории, оставляя только витрину */
+#noirDetectiveLab { display: none !important; }
 
+.pro-dict-wrap {
+    color: #f4eee1;
+    font-family: 'Courier Prime', 'Courier New', monospace;
+    max-width: 1050px;
+    margin: 0 auto;
+    padding: 10px;
+}
 
+.pro-dict-top {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+    border-bottom: 1px dashed rgba(212, 175, 55, 0.4);
+}
+
+.pro-dict-title {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 2.1rem;
+    color: #f4eee1;
+    margin: 0;
+    letter-spacing: 1px;
+}
+
+.pro-dict-sub {
+    font-size: 0.84rem;
+    color: #c9b7a3;
+    margin-top: 6px;
+}
+
+.pro-dict-modes {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.pro-mode-btn {
+    background: #1c1512 !important;
+    border: 1px solid rgba(212, 175, 55, 0.45) !important;
+    color: #e8dec8 !important;
+    padding: 10px 15px !important;
+    border-radius: 6px !important;
+    font-size: 0.82rem !important;
+    font-weight: 700 !important;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.pro-mode-btn.active {
+    background: linear-gradient(135deg, #9e1b1b, #5e1111) !important;
+    border-color: #d4af37 !important;
+    color: #fff !important;
+    box-shadow: 0 0 15px rgba(158, 27, 27, 0.5);
+}
+
+.pro-dict-progress-box {
+    background: rgba(14, 10, 9, 0.92);
+    border: 1px solid rgba(212, 175, 55, 0.35);
+    border-radius: 8px;
+    padding: 14px 18px;
+    margin-bottom: 18px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.pro-prog-bar-bg {
+    flex: 1;
+    min-width: 200px;
+    height: 10px;
+    background: #090706;
+    border-radius: 99px;
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    overflow: hidden;
+}
+
+.pro-prog-bar-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #9e1b1b, #d4af37, #6be38c);
+    transition: width 0.35s ease;
+}
+
+.pro-dict-controls {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 10px;
+    margin-bottom: 14px;
+}
+
+@media (max-width: 720px) {
+    .pro-dict-controls { grid-template-columns: 1fr; }
+}
+
+.pro-search-input {
+    width: 100%;
+    background: #120d0b !important;
+    border: 1px solid rgba(212, 175, 55, 0.45) !important;
+    color: #f4eee1 !important;
+    padding: 12px 14px !important;
+    border-radius: 6px !important;
+    font-family: 'Courier Prime', monospace !important;
+    font-size: 0.9rem !important;
+    box-sizing: border-box;
+}
+
+.pro-select {
+    background: #17110e !important;
+    border: 1px solid rgba(212, 175, 55, 0.45) !important;
+    color: #f4eee1 !important;
+    padding: 11px 14px !important;
+    border-radius: 6px !important;
+    font-family: 'Courier Prime', monospace !important;
+    font-size: 0.84rem !important;
+    cursor: pointer;
+}
+
+.pro-series-pills {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    padding-bottom: 8px;
+    margin-bottom: 18px;
+}
+
+.pro-pill {
+    background: #1c1512 !important;
+    border: 1px solid rgba(212, 175, 55, 0.3) !important;
+    color: #c9b7a3 !important;
+    padding: 8px 14px !important;
+    border-radius: 99px !important;
+    font-size: 0.78rem !important;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.pro-pill.active {
+    background: #d4af37 !important;
+    color: #120d0b !important;
+    font-weight: 700 !important;
+    border-color: #d4af37 !important;
+}
+
+.pro-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+    gap: 16px;
+}
+
+.pro-vocab-card {
+    background: linear-gradient(155deg, #211814, #140f0c);
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    border-radius: 8px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: all 0.22s ease;
+}
+
+.pro-vocab-card:hover {
+    transform: translateY(-3px);
+    border-color: #d4af37;
+    box-shadow: 0 12px 26px rgba(0, 0, 0, 0.8);
+}
+
+.pro-vocab-card.learned {
+    border-color: rgba(107, 227, 140, 0.65);
+    background: linear-gradient(155deg, rgba(24, 45, 30, 0.65), #130f0d);
+}
+
+.pro-card-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 8px;
+    margin-bottom: 10px;
+}
+
+.pro-card-badge {
+    font-size: 0.68rem;
+    color: #d4af37;
+    border: 1px solid rgba(212, 175, 55, 0.4);
+    padding: 2px 8px;
+    border-radius: 4px;
+    text-transform: uppercase;
+}
+
+.pro-card-actions { display: flex; gap: 6px; }
+
+.pro-icon-btn {
+    background: #2a1f1a !important;
+    border: 1px solid rgba(212, 175, 55, 0.35) !important;
+    color: #f4eee1 !important;
+    padding: 5px 9px !important;
+    border-radius: 5px !important;
+    font-size: 0.85rem !important;
+    cursor: pointer;
+}
+
+.pro-icon-btn.starred {
+    background: rgba(212, 175, 55, 0.25) !important;
+    border-color: #d4af37 !important;
+    color: #ffd700 !important;
+}
+
+.pro-card-en {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: #f4eee1;
+    margin-bottom: 4px;
+    cursor: pointer;
+}
+
+.pro-card-ru { font-size: 0.9rem; color: #6be38c; font-weight: 700; margin-bottom: 10px; }
+.pro-card-ex { font-size: 0.8rem; color: #b8a693; font-style: italic; border-left: 2px solid #9e1b1b; padding-left: 10px; line-height: 1.4; }
+.pro-card-srs-tag { margin-top: 12px; font-size: 0.7rem; color: #8c7b6b; display: flex; justify-content: space-between; }
+
+/* Умный SRS-тренажер */
+.pro-srs-box {
+    display: none;
+    background: radial-gradient(circle at center, #251b16, #110c0a);
+    border: 2px solid #d4af37;
+    border-radius: 10px;
+    padding: 32px 20px;
+    text-align: center;
+    margin-bottom: 20px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.9);
+}
+.pro-srs-box.active { display: block; }
+</style>
+
+<script>
+(function() {
+    // Авто-очистка надписей B1 на сайте
+    document.querySelectorAll('p, h1, h2, h3, div, span').forEach(el => {
+        if (el.children.length === 0 && el.textContent) {
+            if (el.textContent.includes('Твой продвинутый тренажер уровня B1') || el.textContent.includes('уровня B1')) {
+                el.textContent = el.textContent.replace(/уровня B1/gi, '').replace(/Твой продвинутый тренажер B1 по любимым сериалам и дорамам/gi, 'Иммерсивная платформа изучения английского по культовым сериалам');
+            }
+        }
+    });
+
+    // 200 ОТРЕСТАВРИРОВАННЫХ И РАСШИРЕННЫХ ФРАЗ И ЦИТАТ ПО 5 ВСЕЛЕННЫМ
+    const MASTER_200_DATABASE = [
+        // --- 1. THE VAMPIRE DIARIES (40 карточек) ---
+        { s: "The Vampire Diaries", en: "Winter is coming to Mystic Falls...", ru: "Зима близко к Мистик Фоллс... Пора сделать свой прогресс в английском неизбежным (inevitable) до полуночи!", ex: "Winter is coming to Mystic Falls... Time to make your English progress inevitable before midnight!" },
+        { s: "The Vampire Diaries", en: "No need to compel anyone", ru: "Не нужно никого принуждать, когда вы можете очаровать их беглым английским!", ex: "No need to compel anyone when you can charm them with fluent English!" },
+        { s: "The Vampire Diaries", en: "compel someone", ru: "внушить / подчинить волю взглядом", ex: "Damon tried to compel the witness to forget everything." },
+        { s: "The Vampire Diaries", en: "keep at bay", ru: "держать на расстоянии / сдерживать", ex: "Vervain in the necklace keeps vampires at bay." },
+        { s: "The Vampire Diaries", en: "quench one's thirst", ru: "утолить жажду", ex: "Stefan struggled to quench his thirst in the woods." },
+        { s: "The Vampire Diaries", en: "turn over a new leaf", ru: "начать жизнь с чистого листа", ex: "Every century, he promises to turn over a new leaf." },
+        { s: "The Vampire Diaries", en: "blend in with the crowd", ru: "слиться с толпой", ex: "With a daylight ring, you can blend in with the crowd." },
+        { s: "The Vampire Diaries", en: "live up to expectations", ru: "оправдывать ожидания", ex: "I don't want to live up to anyone's expectations." },
+        { s: "The Vampire Diaries", en: "eternal damnation", ru: "вечное проклятие", ex: "He chose love over eternal damnation." },
+        { s: "The Vampire Diaries", en: "ulterior motive", ru: "скрытый мотив / тайная выгода", ex: "Klaus never helps anyone without an ulterior motive." },
+        { s: "The Vampire Diaries", en: "caught off guard", ru: "застигнутый врасплох", ex: "The Sheriff was caught off guard by the council's secret." },
+        { s: "The Vampire Diaries", en: "humanity switch", ru: "переключатель человечности", ex: "When pain gets too strong, they flip their humanity switch." },
+        { s: "The Vampire Diaries", en: "inner circle", ru: "ближний круг / элита совета", ex: "Only trusted founders belong to the inner circle." },
+        { s: "The Vampire Diaries", en: "betrayal hurts most", ru: "предательство ранит сильнее всего", ex: "Coming from a brother, betrayal hurts most." },
+        { s: "The Vampire Diaries", en: "hold a grudge", ru: "таить злобу", ex: "Damon tends to hold a grudge for a century or two." },
+        { s: "The Vampire Diaries", en: "survive the night", ru: "пережить эту ночь", ex: "In Mystic Falls, surviving the night is an achievement." },
+        { s: "The Vampire Diaries", en: "hidden agenda", rx: "скрытая повестка / тайный план", ex: "Every visitor in town has a hidden agenda." },
+        { s: "The Vampire Diaries", en: "risky move", ru: "рискованный шаг", ex: "Drinking founder's tea was a very risky move." },
+        { s: "The Vampire Diaries", en: "make amends", ru: "загладить вину / искупить грехи", ex: "Stefan spent decades trying to make amends." },
+        { s: "The Vampire Diaries", en: "unspoken rule", ru: "негласное правило", ex: "Not crossing the Salvatore boarder is an unspoken rule." },
+        { s: "The Vampire Diaries", en: "face the consequences", ru: "столкнуться с последствиями", ex: "Actions have power; you must face the consequences." },
+        { s: "The Vampire Diaries", en: "deadly secret", ru: "смертельный секрет", ex: "Every tomb hides a deadly secret." },
+        { s: "The Vampire Diaries", en: "loyal friend", ru: "преданный друг", ex: "Bonnie proved to be the most loyal friend." },
+        { s: "The Vampire Diaries", en: "mysterious stranger", ru: "таинственный незнакомец", ex: "A mysterious stranger arrived at the Mystic Grill." },
+        { s: "The Vampire Diaries", en: "dark past", ru: "темное прошлое", ex: "You cannot outrun your dark past forever." },
+        { s: "The Vampire Diaries", en: "inner demons", ru: "внутренние демоны", ex: "Fighting inner demons is harder than fighting vampires." },
+        { s: "The Vampire Diaries", en: "seek revenge", ru: "искать мести", ex: "Katherine came back purely to seek revenge." },
+        { s: "The Vampire Diaries", en: "protect the innocent", ru: "защищать невинных", ex: "Alaric vowed to protect the innocent students." },
+        { s: "The Vampire Diaries", en: "ancient curse", ru: "древнее проклятие", ex: "The hybrid curse is broken under the full moon." },
+        { s: "The Vampire Diaries", en: "true intentions", ru: "истинные намерения", ex: "Reveal your true intentions or leave." },
+        { s: "The Vampire Diaries", en: "shattered trust", ru: "разрушенное доверие", ex: "Shattered trust is almost impossible to rebuild." },
+        { s: "The Vampire Diaries", en: "desperate times", ru: "отчаянные времена", ex: "Desperate times call for desperate alliances." },
+        { s: "The Vampire Diaries", en: "silent warning", ru: "безмолвное предупреждение", ex: "The dead crow on the porch was a silent warning." },
+        { s: "The Vampire Diaries", en: "forbidden love", ru: "запретная любовь", ex: "Their forbidden love shook the entire town." },
+        { s: "The Vampire Diaries", en: "sacrificial lamb", ru: "жертвенный ягненок", ex: "He refused to be anyone's sacrificial lamb." },
+        { s: "The Vampire Diaries", en: "ironic twist", ru: "ироничный поворот", ex: "By an ironic twist, she saved her enemy." },
+        { s: "The Vampire Diaries", en: "unstoppable force", ru: "неудержимая сила", ex: "An original vampire is an unstoppable force." },
+        { s: "The Vampire Diaries", en: "hidden threat", ru: "скрытая угроза", ex: "A hidden threat lurks in the boarding house." },
+        { s: "The Vampire Diaries", en: "final goodbye", ru: "прощальный взгляд / финал", ex: "They shared a quiet, final goodbye." },
+        { s: "The Vampire Diaries", en: "eternal bond", ru: "вечная связь", ex: "A doppelganger bond is an eternal bond." },
+
+        // --- 2. DESPERATE HOUSEWIVES (40 карточек) ---
+        { s: "Desperate Housewives", en: "keep up appearances", ru: "соблюдать приличия / сохранять лицо", ex: "On Wisteria Lane, we must always keep up appearances." },
+        { s: "Desperate Housewives", en: "spill the beans", ru: "выболтать секрет / проговориться", ex: "Don't let Gabrielle spill the beans at the poker table." },
+        { s: "Desperate Housewives", en: "sweep under the rug", ru: "замести под ковер / скрыть скандал", ex: "Bree tried to sweep the accident under the rug." },
+        { s: "Desperate Housewives", en: "skeletons in the closet", ru: "скелеты в шкафу / постыдные тайны", ex: "Every family on this street has skeletons in the closet." },
+        { s: "Desperate Housewives", en: "spread rumors", ru: "распускать слухи / сплетничать", ex: "Mrs. McCluskey knows exactly who is spreading rumors." },
+        { s: "Desperate Housewives", en: "blackmail someone", ru: "шантажировать кого-то", ex: "The mysterious note was used to blackmail Mary Alice." },
+        { s: "Desperate Housewives", en: "behind closed doors", ru: "за закрытыми дверями / тайком", ex: "Nobody knows what really happens behind closed doors." },
+        { s: "Desperate Housewives", en: "poke one's nose into", ru: "совать свой нос в чужие дела", ex: "Stop poking your nose into the new neighbor's basement!" },
+        { s: "Desperate Housewives", en: "make a scene", ru: "устроить сцену / скандал на людях", ex: "Please don't make a scene at the charity dinner." },
+        { s: "Desperate Housewives", en: "jump to conclusions", ru: "делать поспешные выводы", ex: "Susan always jumps to conclusions before checking the facts." },
+        { s: "Desperate Housewives", en: "suburban perfection", ru: "пригородное совершенство", ex: "She strives for suburban perfection every single day." },
+        { s: "Desperate Housewives", en: "邻居 secrets (hidden truths)", ru: "скрытые правды соседей", ex: "Peering through lace curtains reveals neighbors' secrets." },
+        { s: "Desperate Housewives", en: "clean the slate", ru: "начать с чистого листа", ex: "They decided to clean the slate after the storm." },
+        { s: "Desperate Housewives", en: "play innocent", ru: "притворяться невиновным", ex: "Edie loves to play innocent when trouble starts." },
+        { s: "Desperate Housewives", en: "host a dinner party", ru: "устраивать званый ужин", ex: "Bree prepared silver cutlery to host a dinner party." },
+        { s: "Desperate Housewives", en: "gossip mill", ru: "фабрика сплетен", ex: "The neighborhood gossip mill never stops turning." },
+        { s: "Desperate Housewives", en: "hidden weapon", ru: "скрытое оружие", ex: "A sharp tongue is her favorite hidden weapon." },
+        { s: "Desperate Housewives", en: "desperate measures", ru: "отчаянные меры", ex: "Desperate housewives take desperate measures." },
+        { s: "Desperate Housewives", en: "golden lawns", ru: "идеально подстриженные газоны", ex: "Golden lawns hide dark suburban tragedies." },
+        { s: "Desperate Housewives", en: "mysterious suicide", ru: "таинственное самоубийство", ex: "Mary Alice's mysterious suicide shook Wisteria Lane." },
+        { s: "Desperate Housewives", en: "baking muffins", ru: "выпечка кексов", ex: "Warm baking muffins disarm any suspicious guest." },
+        { s: "Desperate Housewives", en: "marital crisis", ru: "семейный кризис", ex: "Carlos and Gabrielle faced a severe marital crisis." },
+        { s: "Desperate Housewives", en: "neighborhood watch", ru: "соседский дозор", ex: "Karen McCluskey runs the neighborhood watch." },
+        { s: "Desperate Housewives", en: "flawless facade", ru: "безупречный фасад", ex: "A flawless facade hides deep inner chaos." },
+        { s: "Desperate Housewives", en: "unwelcome guest", ru: "незваный гость", ex: "An unwelcome guest appeared at the front door." },
+        { s: "Desperate Housewives", en: "sour relations", ru: "натянутые отношения", ex: "Their sour relations lasted for several seasons." },
+        { s: "Desperate Housewives", en: "dramatic twist", ru: "драматический поворот", ex: "A dramatic twist ended the neighborhood barbecue." },
+        { s: "Desperate Housewives", en: "hidden letter", ru: "скрытое письмо", ex: "The hidden letter contained a dangerous threat." },
+        { s: "Desperate Housewives", en: "social status", ru: "социальный статус", ex: "Maintaining high social status is her top priority." },
+        { s: "Desperate Housewives", en: "twisted web", ru: "запутанная паутина лжи", ex: "She got caught in a twisted web of deceit." },
+        { s: "Desperate Housewives", en: "charity auction", ru: "благотворительный аукцион", ex: "The charity auction turned into a fierce rivalry." },
+        { s: "Desperate Housewives", en: "storm shelter", ru: "убежище от бури", ex: "The tornado forced everyone into a storm shelter." },
+        { s: "Desperate Housewives", en: "bitter rivalry", ru: "ожесточенное соперничество", ex: "Their bitter rivalry started over recipe cards." },
+        { s: "Desperate Housewives", en: "suspicious glance", ru: "подозрительный взгляд", ex: "He cast a suspicious glance across the fence." },
+        { s: "Desperate Housewives", en: "reputation at stake", ru: "репутация на кону", ex: "With her reputation at stake, she had to lie." },
+        { s: "Desperate Housewives", en: "family heirloom", ru: "семейная реликвия", ex: "The porcelain tea set is a prized family heirloom." },
+        { s: "Desperate Housewives", en: "secret affair", ru: "тайный роман", ex: "A secret affair threatened to destroy the marriage." },
+        { s: "Desperate Housewives", en: "fake smile", ru: "фальшивая улыбка", ex: "She greeted her enemy with a brilliant fake smile." },
+        { s: "Desperate Housewives", en: "tragic accident", ru: "трагическая случайность", ex: "The car crash was labeled a tragic accident." },
+        { s: "Desperate Housewives", en: "peaceful suburb", ru: "миролюбивый пригород", ex: "Looks can deceive in a peaceful suburb." },
+
+        // --- 3. SUPERNATURAL (40 карточек) ---
+        { s: "Supernatural", en: "Driver picks the festive music, shotgun learns the new vocabulary!", ru: "Водитель выбирает праздничную музыку, а пассажир учит новый вокабуляр!", ex: "Driver picks the festive music, shotgun learns the new vocabulary!" },
+        { s: "Supernatural", en: "vanish into thin air", ru: "исчезнуть без следа", ex: "The ghost vanished into thin air right before sunrise." },
+        { s: "Supernatural", en: "connect the dots", ru: "сопоставить факты", ex: "Sam used John's journal to connect the dots." },
+        { s: "Supernatural", en: "hit the road", ru: "отправиться в путь", ex: "Pack the salt and iron, it's time to hit the road." },
+        { s: "Supernatural", en: "urban legend", ru: "городская легенда", ex: "Every urban legend has a grain of truth in it." },
+        { s: "Supernatural", en: "follow a lead", ru: "идти по следу / проверять зацепку", ex: "The brothers are following a new lead in Ohio." },
+        { s: "Supernatural", en: "cross the line", ru: "перейти черту", ex: "Making a crossroads deal means crossing the line." },
+        { s: "Supernatural", en: "in plain sight", ru: "у всех на виду", ex: "The demon was hiding in plain sight as a town sheriff." },
+        { s: "Supernatural", en: "twist of fate", ru: "поворот судьбы", ex: "By a strange twist of fate, Castiel arrived in time." },
+        { s: "Supernatural", en: "narrow escape", ru: "спасение на волосок", ex: "That warehouse explosion was a narrow escape." },
+        { s: "Supernatural", en: "watch someone's back", ru: "прикрывать спину", ex: "Out on the hunt, we always watch each other's back." },
+        { s: "Supernatural", en: "family business", ru: "семейный бизнес (охота)", ex: "Saving people, hunting things, the family business." },
+        { s: "Supernatural", en: "rock salt and iron", ru: "каменная соль и железо", ex: "Rock salt and iron are standard ghost-hunting gear." },
+        { s: "Supernatural", en: "fake FBI badge", ru: "поддельный значок ФБР", ex: "Dean flashed his fake FBI badge at the motel manager." },
+        { s: "Supernatural", en: "crossroads demon", ru: "демон перекрестка", ex: "Selling your soul requires a crossroads demon." },
+        { s: "Supernatural", en: "angelic grace", ru: "ангельская благодать", ex: "Castiel lost his angelic grace during the fall." },
+        { s: "Supernatural", en: "purgatory realm", ru: "чистилище", ex: "Monsters and souls inhabit the dark purgatory realm." },
+        { s: "Supernatural", en: "possess a vessel", ru: "вселиться в сосуд (тело)", ex: "Lucifer needs a willing human to possess a vessel." },
+        { s: "Supernatural", en: "holy water", ru: "святая вода", ex: "Splash holy water to expose a disguised demon." },
+        { s: "Supernatural", en: "hex bag", ru: "мешочек с проклятием", ex: "Find and burn the hex bag to break the witchcraft." },
+        { s: "Supernatural", en: "impala ride", ru: "поездка на Импале", ex: "Classic rock blares through the speakers on every impala ride." },
+        { s: "Supernatural", en: "monster hunt", ru: "охота на монстров", ex: "Another night, another dangerous monster hunt." },
+        { s: "Supernatural", en: "spectral entity", ru: "призрачная сущность", ex: "A spectral entity haunts the abandoned asylum." },
+        { s: "Supernatural", en: "protective warding", ru: "защитные знаки (символы)", ex: "Carve protective warding into the motel room walls." },
+        { s: "Supernatural", en: "suicidal bravery", ru: "безрассудная храбрость", ex: "Winchester bravery often borders on suicidal bravery." },
+        { s: "Supernatural", en: "secret bunker", ru: "секретный бункер Хранителей", ex: "The Men of Letters secret bunker keeps them safe." },
+        { s: "Supernatural", en: "ancient lore", ru: "древние предания", ex: "Consult ancient lore to identify the beast." },
+        { s: "Supernatural", en: "soul bargain", ru: "сделка на душу", ex: "Never make a soul bargain with crossroads entities." },
+        { s: "Supernatural", en: "brotherly bond", ru: "братская узы", ex: "Their unbreakable brotherly bond defies heaven and hell." },
+        { s: "Supernatural", en: "pie lover", ru: "любитель пирогов (Дин)", ex: "Dean never passes up a diner with cherry pie." },
+        { s: "Supernatural", en: "vampire nest", ru: "логово вампиров", ex: "Raid the vampire nest before midnight." },
+        { s: "Supernatural", en: "witchcraft spell", ru: "ведьминское заклинание", ex: "Reverse the witchcraft spell with counter-magic." },
+        { s: "Supernatural", en: "apocalypse averted", ru: "апокалипсис предотвращен", ex: "Another apocalypse averted just in time for breakfast." },
+        { s: "Supernatural", en: "ghostly chill", ru: "призрачный холод", ex: "A sudden ghostly chill signaled a spirit's presence." },
+        { s: "Supernatural", en: "hunting trip", ru: "охотничья поездка", ex: "Sorry honey, dad went on a hunting trip and hasn't returned." },
+        { s: "Supernatural", en: "silver blade", ru: "серебряный клинок", ex: "A silver blade is lethal against werewolves." },
+        { s: "Supernatural", en: "dark entity", ru: "темная сущность", ex: "A powerful dark entity awoke from the abyss." },
+        { s: "Supernatural", en: "motel room", ru: "мотельный номер", ex: "They sleep in a rundown motel room every night." },
+        { s: "Supernatural", en: "loyal angel", ru: "преданный ангел", ex: "Castiel proved to be a loyal angel to humanity." },
+        { s: "Supernatural", en: "legendary car", ru: "легендарный автомобиль", ex: "The 1967 Chevrolet Impala is practically family." },
+
+        // --- 4. THE PENTHOUSE (40 карточек) ---
+        { s: "The Penthouse", en: "At the top of Hera Palace, true privilege belongs to those who never stop studying.", ru: "На вершине дворца Гера настоящая привилегия принадлежит тем, кто не перестает учиться.", ex: "At the top of Hera Palace, true privilege belongs to those who never stop studying." },
+        { s: "The Penthouse", en: "pull the strings", ru: "дергать за ниточки / управлять из тени", ex: "Joo Dan-tae pulls the strings from the 100th floor." },
+        { s: "The Penthouse", en: "stab in the back", ru: "предать / ударить в спину", ex: "In Hera Club, allies will stab you in the back for power." },
+        { s: "The Penthouse", en: "at all costs", ru: "любой ценой", ex: "Cheon Seo-jin wanted the Cheong-ah trophy at all costs." },
+        { s: "The Penthouse", en: "turn the tables", ru: "переломить ход событий", ex: "Shim Su-ryeon returned to turn the tables on her enemies." },
+        { s: "The Penthouse", en: "rig the competition", ru: "подтасовать результаты конкурса", ex: "Someone bribed the judges to rig the vocal competition." },
+        { s: "The Penthouse", en: "frame someone", ru: "подставить невиновного", ex: "They tried to frame an innocent witness for the crime." },
+        { s: "The Penthouse", en: "ruthless ambition", ru: "беспощадные амбиции", ex: "Her ruthless ambition blinded her to the truth." },
+        { s: "The Penthouse", en: "cover up the evidence", ru: "замести следы / скрыть улики", ex: "The security footage was deleted to cover up the evidence." },
+        { s: "The Penthouse", en: "forge a contract", ru: "подделать документ", ex: "Logan discovered that the real estate contract was forged." },
+        { s: "The Penthouse", en: "walk on eggshells", ru: "ходить на цыпочках / бояться сбиться", ex: "Everyone in the penthouse walks on eggshells around him." },
+        { s: "The Penthouse", en: "elite club", ru: "элитный клуб", ex: "Membership in Hera Club grants supreme social status." },
+        { s: "The Penthouse", en: "opera soprano", ru: "оперная дива (сопрано)", ex: "Cheon Seo-jin is a fierce opera soprano." },
+        { s: "The Penthouse", en: "hidden staircase", ru: "потайная лестница", ex: "The study room features a hidden staircase to a secret vault." },
+        { s: "The Penthouse", en: "revenge plan", ru: "план мести", ex: "Su-ryeon prepared a meticulous revenge plan." },
+        { s: "The Penthouse", en: "bribery scandal", ru: "коррупционный скандал", ex: "The bribery scandal threatened real estate prices." },
+        { s: "The Penthouse", en: "gold statue", ru: "золотая статуя", ex: "A massive gold statue dominates the Hera lobby." },
+        { s: "The Penthouse", en: "fake identity", ru: "фальшивая личность", ex: "She assumed a fake identity to infiltrate the palace." },
+        { s: "The Penthouse", en: "betrayal of trust", ru: "предательство доверия", ex: "The betrayal of trust led to fatal consequences." },
+        { s: "The Penthouse", en: "secret room", ru: "секретная комната", ex: "Joo Dan-tae's secret room held terrifying secrets." },
+        { s: "The Penthouse", en: "vicious rumor", ru: "зловещий слух", ex: "A vicious rumor spread through the art high school." },
+        { s: "The Penthouse", en: "deadly fall", ru: "смертельное падение", ex: "The tragic fountain scene resulted in a deadly fall." },
+        { s: "The Penthouse", en: "inheritance war", ru: "война за наследство", ex: "The children were pawns in an inheritance war." },
+        { s: "The Penthouse", en: "masked villain", ru: "злодей под маской", ex: "Behind a refined smile hid a masked villain." },
+        { s: "The Penthouse", en: "shattered glass", ru: "разбитое стекло", ex: "Penthouse windows shattered during the violent confrontation." },
+        { s: "The Penthouse", en: "power struggle", ru: "борьба за власть", ex: "A ruthless power struggle consumes the 100th floor." },
+        { s: "The Penthouse", en: "double-cross", ru: "двойное предательство", ex: "Expect a double-cross in every business alliance." },
+        { s: "The Penthouse", en: "hidden recording", ru: "скрытая запись", ex: "A hidden recording exposed their criminal conspiracy." },
+        { s: "The Penthouse", en: "elite school", ru: "элитная школа искусств", ex: "Cheong-ah Arts School breeds fierce competition." },
+        { s: "The Penthouse", en: "cold revenge", ru: "холодная месть", ex: "Revenge served cold is a dish best eaten in the penthouse." },
+        { s: "The Penthouse", en: "corrupt politician", ru: "продажный политик", ex: "Politicians bow down to Hera Club wealth." },
+        { s: "The Penthouse", en: "bloody trophy", ru: "кровавый трофей", ex: "The arts trophy was stained with dark secrets." },
+        { s: "The Penthouse", en: "secret alliance", ru: "тайный союз", ex: "An unexpected secret alliance formed against Dan-tae." },
+        { s: "The Penthouse", en: "desperate plea", ru: "отчаянная мольба", ex: "Ignored by all, her desperate plea went unheard." },
+        { s: "The Penthouse", en: "luxurious interior", ru: "роскошный интерьер", ex: "A luxurious interior masks a moral wasteland." },
+        { s: "The Penthouse", en: "fatal trap", ru: "смертельная ловушка", ex: "She walked straight into a carefully set fatal trap." },
+        { s: "The Penthouse", en: "loyal butler", ru: "преданный дворецкий", ex: "The loyal butler carried out dangerous orders." },
+        { s: "The Penthouse", en: "hidden camera", ru: "скрытая камера", ex: "Every corner of the mansion had a hidden camera." },
+        { s: "The Penthouse", en: "darkest secret", ru: "самый темный секрет", ex: "The darkest secret remained buried in the foundation." },
+        { s: "The Penthouse", en: "ultimate victory", ru: "абсолютная победа", ex: "True justice arrived after a long battle for ultimate victory." },
+
+        // --- 5. ONCE UPON A TIME (40 карточек) ---
+        { s: "Once Upon a Time", en: "break the curse", ru: "разрушить проклятие / снять чары", ex: "Only true love's kiss can break the curse in Storybrooke." },
+        { s: "Once Upon a Time", en: "come with a price", ru: "иметь свою цену / требовать расплаты", ex: "All magic comes with a price, dearie." },
+        { s: "Once Upon a Time", en: "hold a grudge", ru: "таить обиду / годами хранить злобу", ex: "The Evil Queen held a grudge against Snow White for decades." },
+        { s: "Once Upon a Time", en: "strike a bargain", ru: "заключить сделку", ex: "Never strike a bargain with Rumplestiltskin lightly." },
+        { s: "Once Upon a Time", en: "lose one's memory", ru: "потерять память", ex: "If you cross the town line, you might lose your memory." },
+        { s: "Once Upon a Time", en: "seek redemption", ru: "искать искупления вины", ex: "Regina proved that even a villain can seek redemption." },
+        { s: "Once Upon a Time", en: "rewrite destiny", ru: "переписать судьбу", ex: "The Author's pen has the power to rewrite destiny." },
+        { s: "Once Upon a Time", en: "cast a spell", ru: "наложить заклинание", ex: "Zelena cast a spell to freeze everyone in their tracks." },
+        { s: "Once Upon a Time", en: "leap of faith", ru: "прыжок веры / решительный шаг", ex: "Emma had to take a leap of faith and believe Henry." },
+        { s: "Once Upon a Time", en: "unfinished business", ru: "незавершенное дело из прошлого", ex: "Hook sailed back to Storybrooke to settle unfinished business." },
+        { s: "Once Upon a Time", en: "enchanted forest", ru: "заколдованный лес", ex: "Heroes and villains originated in the enchanted forest." },
+        { s: "Once Upon a Time", en: "dark curse", ru: "темное проклятие", ex: "Regina's dark curse trapped everyone in Maine." },
+        { s: "Once Upon a Time", en: "true love's kiss", ru: "поцелуй истинной любви", ex: "True love's kiss is the most powerful magic of all." },
+        { s: "Once Upon a Time", en: "pawn shop", ru: "лавка старьевщика (мистера Голда)", ex: "Magical artifacts fill the shelves of the pawn shop." },
+        { s: "Once Upon a Time", en: "evil queen", ru: "злая королева", ex: "Regina Mills ruled Storybrooke as the feared evil queen." },
+        { s: "Once Upon a Time", en: "savior's power", ru: "сила Спасителя", ex: "Emma Swan holds the unique savior's power." },
+        { s: "Once Upon a Time", en: "magical dagger", ru: "волшебный кинжал Темного", ex: "Control the Dark One using his magical dagger." },
+        { s: "Once Upon a Time", en: "storybook page", ru: "страница из книги сказок", ex: "Henry's storybook page proved the curse was real." },
+        { s: "Once Upon a Time", en: "memory loss", ru: "амнезия / потеря памяти жителей", ex: "The dark curse caused a permanent memory loss." },
+        { s: "Once Upon a Time", en: "pirate hook", ru: "пиратский крюк (Киллюн Джонс)", ex: "Captain Hook traded his hand for a silver hook." },
+        { s: "Once Upon a Time", en: "fairy dust", ru: "волшебная пыльца феи", ex: "Blue Fairy keeps a jar of glowing fairy dust." },
+        { s: "Once Upon a Time", en: "royal blood", ru: "королевская кровь", ex: "Snow White and Prince Charming share royal blood." },
+        { s: "Once Upon a Time", en: "hidden portal", ru: "скрытый портал в другой мир", ex: "Step through the hat into a hidden portal." },
+        { s: "Once Upon a Time", en: "wicked sister", ru: "злая сводная сестра", ex: "Zelena is the green-skinned wicked sister." },
+        { s: "Once Upon a Time", en: "hero's journey", ru: "путь героя", ex: "Accepting your destiny is part of the hero's journey." },
+        { s: "Once Upon a Time", en: "villain's redemption", ru: "искупление злодея", ex: "A villain's redemption arc is the best story to watch." },
+        { s: "Once Upon a Time", en: "magic potion", ru: "волшебное зелье", ex: "Drink the potion to change your appearance." },
+        { s: "Once Upon a Time", en: "forgotten past", ru: "забытое прошлое", ex: "Unlocking a forgotten past breaks the illusion." },
+        { s: "Once Upon a Time", en: "clock tower", ru: "городская башня с часами", ex: "Time stood still at the clock tower until Emma arrived." },
+        { s: "Once Upon a Time", en: "valiant knight", ru: "доблестный рыцарь", ex: "Prince Charming acts as a valiant knight for his family." },
+        { s: "Once Upon a Time", en: "magical shield", ru: "волшебный щит", ex: "Activate the magical shield to block the fireball." },
+        { s: "Once Upon a Time", en: "destined path", ru: "предначертанный путь", ex: "No one can escape their destined path." },
+        { s: "Once Upon a Time", en: "mysterious author", ru: "таинственный Автор", ex: "The mysterious author writes the rules of realms." },
+        { s: "Once Upon a Time", en: "heart ripped out", ru: "вырванное сердце (контроль)", ex: "Control someone completely by having their heart ripped out." },
+        { s: "Once Upon a Time", en: "happy ending", ru: "счастливый конец", ex: "Evil shall not defeat our happy ending." },
+        { s: "Once Upon a Time", en: "magical realm", ru: "сказочное королевство / измерение", ex: "Travel between realms using magic beans." },
+        { s: "Once Upon a Time", en: "cunning deal", ru: "хитрая сделка", ex: "Rumpelstiltskin always wins a cunning deal." },
+        { s: "Once Upon a Time", en: "brave heart", ru: "храброе сердце", ex: "Emma's superpower is detecting lies with her brave heart." },
+        { s: "Once Upon a Time", en: "forgotten realm", ru: "забытое измерение", ex: "The underworld is a forgotten realm of unfinished business." },
+        { s: "Once Upon a Time", en: "final battle", ru: "финальная битва света и тьмы", ex: "The final battle will determine the fate of all stories." }
+    ];
+
+    const DICT_KEY = 'english_hub_master_dict_v2';
+    let dictState = { starred: [], srs: {} };
+
+    function loadState() {
+        try {
+            const raw = localStorage.getItem(DICT_KEY);
+            if (raw) {
+                const p = JSON.parse(raw);
+                if (Array.isArray(p.starred)) dictState.starred = p.starred;
+                if (p.srs && typeof p.srs === 'object') dictState.srs = p.srs;
+            }
+        } catch(e) {}
+    }
+
+    function saveState() {
+        try { localStorage.setItem(DICT_KEY, JSON.stringify(dictState)); } catch(e) {}
+        if (typeof window._proUpdateUI === 'function') window._proUpdateUI();
+    }
+
+    function mountDictionary() {
+        let container = null;
+        document.querySelectorAll('h2, h3').forEach(h => {
+            if (h.textContent.includes('Интерактивный словарь') || h.textContent.includes('Словарь')) {
+                container = h.closest('.card') || h.parentElement;
+            }
+        });
+        if (!container) return;
+
+        loadState();
+        
+        const ALL_WORDS = MASTER_200_DATABASE.map((w, idx) => ({
+            id: 'mw_' + idx + '_' + w.en.toLowerCase().replace(/[^a-z0-9]/g, '').slice(0, 10),
+            s: w.s,
+            en: w.en,
+            ru: w.ru,
+            ex: w.ex
+        }));
+
+        let filtered = [...ALL_WORDS];
+        let activeSeries = 'ALL';
+        let activeStatus = 'ALL';
+        let searchQuery = '';
+        let srsIndex = 0;
+
+        container.innerHTML = `
+            <div class="pro-dict-wrap">
+                <div class="pro-dict-top">
+                    <div>
+                        <h2 class="pro-dict-title">📚 Мастер-Словарь Вселенных (<span id="proTotalCount">${ALL_WORDS.length}</span>)</h2>
+                        <div class="pro-dict-sub">Полная база на 200 фраз: интерактивные карточки, озвучка и умное повторение (SRS)</div>
+                    </div>
+                    <div class="pro-dict-modes">
+                        <button id="btnModeGrid" class="pro-mode-btn active" onclick="window._proSetMode('grid')">🗂️ Все карточки</button>
+                        <button id="btnModeSrs" class="pro-mode-btn" onclick="window._proSetMode('srs')">🧠 Умный SRS-тренажер</button>
+                        <button class="pro-mode-btn" onclick="window._proShuffle()">🔀 Перемешать</button>
+                    </div>
+                </div>
+
+                <div class="pro-dict-progress-box">
+                    <div style="font-size:0.82rem;">
+                        ⭐ Освоено карточек: <b id="proLearnedStat" style="color:#6be38c">0 / ${ALL_WORDS.length}</b>
+                        <span style="margin-left:14px; color:#d4af37;" id="proDueStat"></span>
+                    </div>
+                    <div class="pro-prog-bar-bg">
+                        <div id="proDictProgFill" class="pro-prog-bar-fill"></div>
+                    </div>
+                </div>
+
+                <div class="pro-dict-controls">
+                    <input type="text" id="proSearchInput" class="pro-search-input" placeholder="🔍 Поиск по-английски, по-русски или по цитате...">
+                    <select id="proStatusSelect" class="pro-select">
+                        <option value="ALL">📌 Все статусы</option>
+                        <option value="UNLEARNED">⏳ В процессе</option>
+                        <option value="DUE">🔥 Повторить сейчас (SRS)</option>
+                        <option value="STARRED">⭐ Избранные (Выучено)</option>
+                    </select>
+                </div>
+
+                <div class="pro-series-pills" id="proSeriesPills">
+                    <button class="pro-pill active" data-s="ALL">🌐 Все 5 сериалов (200)</button>
+                    <button class="pro-pill" data-s="The Vampire Diaries">🩸 Vampire Diaries (40)</button>
+                    <button class="pro-pill" data-s="Desperate Housewives">🧁 Housewives (40)</button>
+                    <button class="pro-pill" data-s="Supernatural">🚗 Supernatural (40)</button>
+                    <button class="pro-pill" data-s="The Penthouse">🥂 Penthouse (40)</button>
+                    <button class="pro-pill" data-s="Once Upon a Time">🍎 Once Upon (40)</button>
+                </div>
+
+                <!-- SRS ТРЕНАЖЕР -->
+                <div id="proSrsArea" class="pro-srs-box">
+                    <div id="proSrsMeta" style="font-size:0.75rem; color:#d4af37; margin-bottom:8px; text-transform:uppercase;"></div>
+                    <div id="proSrsEn" style="font-family:'Cormorant Garamond',serif; font-size:2.2rem; font-weight:700; margin-bottom:8px; cursor:pointer;" onclick="window._proSpeakCurrent()"></div>
+                    <div id="proSrsEx" style="font-size:0.86rem; color:#b8a693; font-style:italic; max-width:640px; margin:0 auto 16px;"></div>
+                    <button id="proSrsShowBtn" class="pro-mode-btn" onclick="window._proRevealSrs()">👁️ Показать перевод</button>
+                    <div id="proSrsAnswerWrap" style="display:none; margin-top:16px; padding-top:16px; border-top:1px dashed rgba(212,175,55,0.4);">
+                        <div id="proSrsRu" style="font-size:1.15rem; color:#6be38c; font-weight:700; margin-bottom:16px;"></div>
+                        <div style="display:flex; justify-content:center; gap:8px; flex-wrap:wrap;">
+                            <button class="pro-mode-btn" style="background:#6e1414!important;" onclick="window._proRate(0)">❌ Снова</button>
+                            <button class="pro-mode-btn" style="background:#6e4814!important;" onclick="window._proRate(1)">😓 Трудно</button>
+                            <button class="pro-mode-btn" style="background:#195228!important;" onclick="window._proRate(2)">👍 Хорошо</button>
+                            <button class="pro-mode-btn" style="background:#164e63!important;" onclick="window._proRate(3)">⚡ Легко (+⭐)</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="proCardsGrid" class="pro-cards-grid"></div>
+            </div>
+        `;
+
+        function applyFilters() {
+            const now = Date.now();
+            filtered = ALL_WORDS.filter(w => {
+                if (activeSeries !== 'ALL' && w.s !== activeSeries) return false;
+                if (activeStatus === 'STARRED' && !dictState.starred.includes(w.id)) return false;
+                if (activeStatus === 'UNLEARNED' && dictState.starred.includes(w.id)) return false;
+                if (activeStatus === 'DUE') {
+                    const rec = dictState.srs[w.id];
+                    if (rec && rec.due > now) return false;
+                }
+                if (searchQuery) {
+                    const q = searchQuery.toLowerCase();
+                    return w.en.toLowerCase().includes(q) || w.ru.toLowerCase().includes(q) || w.ex.toLowerCase().includes(q);
+                }
+                return true;
+            });
+            srsIndex = 0;
+            renderGrid();
+            renderSrsCard();
+            window._proUpdateUI();
+        }
+
+        function renderGrid() {
+            const grid = document.getElementById('proCardsGrid');
+            if (!grid) return;
+            if (filtered.length === 0) {
+                grid.innerHTML = `<div style="grid-column:1/-1; text-align:center; padding:40px; color:#8c7b6b;">Ничего не найдено. Измените параметры поиска или фильтр.</div>`;
+                return;
+            }
+            grid.innerHTML = filtered.map(w => {
+                const starred = dictState.starred.includes(w.id);
+                const srs = dictState.srs[w.id];
+                const lvl = srs ? `Уровень SRS: ${srs.lvl}/5` : `Новое слово`;
+                return `
+                    <div class="pro-vocab-card ${starred ? 'learned' : ''}">
+                        <div>
+                            <div class="pro-card-head">
+                                <span class="pro-card-badge">${w.s}</span>
+                                <div class="pro-card-actions">
+                                    <button class="pro-icon-btn" onclick="window._proSpeak('${w.en.replace(/'/g, "\\'")}')">🔊</button>
+                                    <button class="pro-icon-btn ${starred ? 'starred' : ''}" onclick="window._proToggle('${w.id}')">⭐</button>
+                                </div>
+                            </div>
+                            <div class="pro-card-en" onclick="window._proSpeak('${w.en.replace(/'/g, "\\'")}')">${w.en}</div>
+                            <div class="pro-card-ru">${w.ru}</div>
+                            <div class="pro-card-ex">${w.ex}</div>
+                        </div>
+                        <div class="pro-card-srs-tag">
+                            <span>🧠 ${lvl}</span>
+                            <span>${starred ? '✅ Выучено' : 'В процессе'}</span>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function renderSrsCard() {
+            if (filtered.length === 0) return;
+            if (srsIndex >= filtered.length) srsIndex = 0;
+            const w = filtered[srsIndex];
+            document.getElementById('proSrsMeta').textContent = `${w.s} • Карточка ${srsIndex + 1} из ${filtered.length}`;
+            document.getElementById('proSrsEn').textContent = `${w.en} 🔊`;
+            document.getElementById('proSrsEx').textContent = w.ex;
+            document.getElementById('proSrsRu').textContent = w.ru;
+            document.getElementById('proSrsShowBtn').style.display = 'inline-block';
+            document.getElementById('proSrsAnswerWrap').style.display = 'none';
+        }
+
+        window._proUpdateUI = function() {
+            const learned = dictState.starred.length;
+            const pct = Math.min(100, Math.round((learned / ALL_WORDS.length) * 100));
+            const dueNow = ALL_WORDS.filter(w => !dictState.srs[w.id] || dictState.srs[w.id].due <= Date.now()).length;
+
+            const lEl = document.getElementById('proLearnedStat');
+            const dEl = document.getElementById('proDueStat');
+            const fEl = document.getElementById('proDictProgFill');
+
+            if (lEl) lEl.textContent = `${learned} / ${ALL_WORDS.length} (${pct}%)`;
+            if (dEl) dEl.textContent = `• К повторению: ${dueNow}`;
+            if (fEl) fEl.style.width = pct + '%';
+        };
+
+        window._proSpeak = function(txt) {
+            if (!('speechSynthesis' in window)) return;
+            window.speechSynthesis.cancel();
+            const u = new SpeechSynthesisUtterance(txt);
+            u.lang = 'en-US';
+            u.rate = 0.92;
+            window.speechSynthesis.speak(u);
+        };
+
+        window._proToggle = function(id) {
+            const idx = dictState.starred.indexOf(id);
+            if (idx === -1) dictState.starred.push(id);
+            else dictState.starred.splice(idx, 1);
+            saveState();
+            renderGrid();
+        };
+
+        window._proShuffle = function() {
+            for (let i = filtered.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [filtered[i], filtered[j]] = [filtered[j], filtered[i]];
+            }
+            srsIndex = 0;
+            renderGrid();
+            renderSrsCard();
+        };
+
+        window._proSetMode = function(mode) {
+            document.getElementById('btnModeGrid').classList.toggle('active', mode === 'grid');
+            document.getElementById('btnModeSrs').classList.toggle('active', mode === 'srs');
+            document.getElementById('proSrsArea').classList.toggle('active', mode === 'srs');
+            document.getElementById('proCardsGrid').style.display = mode === 'grid' ? 'grid' : 'none';
+        };
+
+        window._proRevealSrs = function() {
+            document.getElementById('proSrsShowBtn').style.display = 'none';
+            document.getElementById('proSrsAnswerWrap').style.display = 'block';
+            window._proSpeakCurrent();
+        };
+
+        window._proSpeakCurrent = function() {
+            const w = filtered[srsIndex];
+            if (w) window._proSpeak(w.en);
+        };
+
+        window._proRate = function(grade) {
+            const w = filtered[srsIndex];
+            if (!w) return;
+            const prev = dictState.srs[w.id] || { lvl: 0 };
+            const delays = [60 * 1000, 10 * 60 * 1000, 24 * 3600 * 1000, 96 * 3600 * 1000];
+            dictState.srs[w.id] = {
+                lvl: grade === 0 ? 0 : Math.min(5, prev.lvl + grade),
+                due: Date.now() + delays[grade]
+            };
+            if (grade === 3 && !dictState.starred.includes(w.id)) {
+                dictState.starred.push(w.id);
+            }
+            saveState();
+            srsIndex = (srsIndex + 1) % filtered.length;
+            renderSrsCard();
+            renderGrid();
+        };
+
+        document.getElementById('proSearchInput').addEventListener('input', e => {
+            searchQuery = e.target.value.trim();
+            applyFilters();
+        });
+
+        document.getElementById('proStatusSelect').addEventListener('change', e => {
+            activeStatus = e.target.value;
+            applyFilters();
+        });
+
+        document.querySelectorAll('#proSeriesPills .pro-pill').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('#proSeriesPills .pro-pill').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                activeSeries = btn.getAttribute('data-s');
+                applyFilters();
+            });
+        });
+
+        applyFilters();
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', mountDictionary);
+    } else {
+        mountDictionary();
+    }
+})();
+</script>
 </body>
 </html>
