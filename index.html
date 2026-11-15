@@ -5446,7 +5446,35 @@ function revealUvNote(el, translationText) {
     uniqEl.textContent = Math.max(19, Math.floor(localVisits * 0.45));
   }
 
-  // ГЛОБАЛЬНЫЙ ОБРАБОТЧИК КЛИКОВ ПО СЛОВАМ
+ function getWordAtPoint(x, y) {
+    let node = null, offset = 0;
+    if (document.caretRangeFromPoint) {
+      const range = document.caretRangeFromPoint(x, y);
+      if (range) { node = range.startContainer; offset = range.startOffset; }
+    } else if (document.caretPositionFromPoint) {
+      const pos = document.caretPositionFromPoint(x, y);
+      if (pos) { node = pos.offsetNode; offset = pos.offset; }
+    }
+    if (!node || node.nodeType !== Node.TEXT_NODE) return '';
+
+    const text = node.textContent || '';
+    let start = offset, end = offset;
+    while (start > 0 && /[A-Za-z’'-]/.test(text[start - 1])) start--;
+    while (end < text.length && /[A-Za-z’'-]/.test(text[end])) end++;
+
+    const rawWord = text.slice(start, end).replace(/^['’-]+|['’-]+$/g, '');
+    if (!/^[A-Za-z]{2,25}$/.test(rawWord)) return '';
+
+    const wordRange = document.createRange();
+    wordRange.setStart(node, start);
+    wordRange.setEnd(node, end);
+    const rect = wordRange.getBoundingClientRect();
+    if (x < rect.left - 3 || x > rect.right + 3 || y < rect.top - 3 || y > rect.bottom + 3) {
+      return '';
+    }
+    return rawWord;
+  }
+
   document.addEventListener('click', function(e) {
     const wordSpan = e.target.closest('.vn-word');
     if (wordSpan) {
@@ -5457,13 +5485,38 @@ function revealUvNote(el, translationText) {
       return;
     }
 
-    // Если включен перевод по клику на всем сайте — перевод выделенного слова двойным кликом/тапом
-    if (globalTranslatorEnabled && !e.target.closest('#eshWordPopup') && !e.target.closest('.esh-drawer')) {
-      const sel = window.getSelection ? window.getSelection().toString().trim() : '';
-      if (sel && /^[A-Za-z'-]{2,20}$/.test(sel)) {
-        translateAndShowPopup(sel);
-      }
+    if (!globalTranslatorEnabled) return;
+
+    if (e.target.closest('button, a, input, select, textarea, label, #eshWordPopup, #eshDrawer, #eshBurgerBtn, #eshVnModal, .dcf-widget, .dcf-overlay, .uv-modal-overlay, .universe-card, .pin-note, .srs-card-stage, .pro-card-en')) {
+      return;
     }
+
+    const sel = window.getSelection ? window.getSelection().toString().trim() : '';
+    if (sel && /^[A-Za-z'-]{2,25}$/.test(sel)) {
+      translateAndShowPopup(sel);
+      return;
+    }
+
+    const tappedWord = getWordAtPoint(e.clientX, e.clientY);
+    if (tappedWord) {
+      translateAndShowPopup(tappedWord);
+    }
+  });
+
+  let selTimer = null;
+  let lastSelectedWord = '';
+  document.addEventListener('selectionchange', function() {
+    if (!globalTranslatorEnabled) return;
+    clearTimeout(selTimer);
+    selTimer = setTimeout(function() {
+      const sel = window.getSelection ? window.getSelection().toString().trim() : '';
+      if (sel && /^[A-Za-z'-]{2,25}$/.test(sel) && sel.toLowerCase() !== lastSelectedWord) {
+        lastSelectedWord = sel.toLowerCase();
+        translateAndShowPopup(sel);
+      } else if (!sel) {
+        lastSelectedWord = '';
+      }
+    }, 450);
   });
 
   // КНОПКИ ВНУТРИ ВСПЛЫВАЮЩЕЙ КАРТОЧКИ ПЕРЕВОДА
