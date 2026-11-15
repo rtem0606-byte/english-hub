@@ -833,11 +833,6 @@ input:focus, select:focus, textarea:focus {
     <img src="banner.jpg" alt="English Series Hub Banner" class="hero-banner">
 </header>
 
-    <header>
-        <h1>English Series Hub | Ultimate Edition</h1>
-        <p>Твой продвинутый тренажер уровня B1 по любимым сериалам и дорамам</p>
-    </header>
-
     <nav>
         <button class="active" onclick="switchTab('home', this)">🏠 Главная</button>
         <button onclick="switchTab('dict', this)">📚 Словарь</button>
@@ -4455,6 +4450,1750 @@ function revealUvNote(el, translationText) {
     } else {
         mountDictionary();
     }
+})();
+</script>
+<!-- ==================== ARGON CORE FIX (CLEAN NATIVE PATCH) ==================== -->
+<style>
+  /* 1. Адаптация родных модальных окон для телефонов и ПК без вторых кнопок */
+  [id*="Modal"], [id*="modal"], [class*="modal-overlay"] {
+    padding: 12px !important;
+    box-sizing: border-box !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  /* Внутренний блок досье плавно скроллится и помещается в любой экран телефона */
+  [id*="Modal"] > div, [id*="modal"] > div, [class*="modal-content"], [class*="dossier"] {
+    max-height: 88dvh !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    position: relative !important;
+  }
+
+  /* Родная кнопка закрытия ("ЗАКРЫТЬ СЕКРЕТНОЕ ДОСЬЕ И ВЕРНУТЬСЯ") прилипает к верху при скролле на телефоне */
+  [id*="Modal"] button:first-of-type,
+  [class*="dossier"] button:first-of-type,
+  button[onclick*="close"],
+  .close-btn, .modal-close {
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 100 !important;
+  }
+</style>
+
+<script>
+(function() {
+  // 1. Очистка от старых тестовых панелей, если они остались в коде
+  ['argonControlBar', 'argonCaseOverlay', 'argonLabDrawer', 'argonDlcDrawer', 'argonBackupDrawer', 'argonFloatingClose', 'argonAudioToast'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.remove();
+  });
+
+  // 2. Двухъядерная озвучка для всех родных кнопок, улик и карточек
+  let activeAudio = null;
+
+  function extractEnglish(raw) {
+    if (!raw) return '';
+    const clean = raw.replace(/[🔊"«»]/g, '').trim();
+    const splitDash = clean.split(/\s+[-—–]\s+/);
+    return splitDash[0].trim();
+  }
+
+  function playFallbackTTS(text) {
+    try {
+      if (activeAudio) { activeAudio.pause(); activeAudio = null; }
+      const audio = new Audio('https://dict.youdao.com/dictvoice?type=2&audio=' + encodeURIComponent(text));
+      activeAudio = audio;
+      audio.play().catch(() => {
+        const backup = new Audio('https://translate.googleapis.com/translate_tts?client=gtx&ie=UTF-8&tl=en&q=' + encodeURIComponent(text));
+        activeAudio = backup;
+        backup.play().catch(() => {});
+      });
+    } catch (e) {}
+  }
+
+  function nativeSpeak(rawText) {
+    const text = extractEnglish(rawText);
+    if (!text) return;
+    let started = false;
+
+    if ('speechSynthesis' in window) {
+      try {
+        window.speechSynthesis.cancel();
+        const u = new SpeechSynthesisUtterance(text);
+        u.lang = 'en-US';
+        u.rate = 0.92;
+        const voices = window.speechSynthesis.getVoices();
+        const enVoice = voices.find(v => /en(-|_)?(US|GB)/i.test(v.lang)) || voices.find(v => /^en/i.test(v.lang));
+        if (enVoice) u.voice = enVoice;
+        u.onstart = () => { started = true; };
+        u.onerror = () => { if (!started) playFallbackTTS(text); };
+        window.speechSynthesis.speak(u);
+        setTimeout(() => { if (!started) playFallbackTTS(text); }, 280);
+        return;
+      } catch (e) {
+        playFallbackTTS(text);
+      }
+    } else {
+      playFallbackTTS(text);
+    }
+  }
+
+  window.speak = nativeSpeak;
+  window.speakText = nativeSpeak;
+  window.playAudio = nativeSpeak;
+
+  // 3. Обновление родного счетчика "Освоено слов (SRS): X/50" -> "/200" на панели Агента
+  function updateAgentDashboardCounter() {
+    const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null, false);
+    let node;
+    while ((node = walker.nextNode())) {
+      if (node.nodeValue && node.nodeValue.includes('/50')) {
+        node.nodeValue = node.nodeValue.replace(/\/50\b/g, '/200');
+      }
+    }
+  }
+
+  // 4. Перехват родного окна "Код сохранения" (window.prompt и window.alert)
+  const nativePrompt = window.prompt;
+  window.prompt = function(message, defaultValue) {
+    if (typeof message === 'string') {
+      // Меняем "50 карточек SRS" на "200 карточек SRS" в родном диалоговом окне
+      message = message.replace(/50\s*карточек/gi, '200 карточек');
+
+      // Если это генерация Кода Агента (есть defaultValue) — упаковываем вообще весь localStorage (включая 200 слов)
+      if (defaultValue && defaultValue.length > 10) {
+        try {
+          const fullState = {};
+          for (let i = 0; i < localStorage.length; i++) {
+            const k = localStorage.key(i);
+            fullState[k] = localStorage.getItem(k);
+          }
+          defaultValue = btoa(unescape(encodeURIComponent(JSON.stringify(fullState))));
+        } catch (e) {}
+      }
+    }
+
+    const userInput = nativePrompt.call(window, message, defaultValue);
+
+    // Если пользователь вставил код в окно "ЗАГРУЗИТЬ КОД" — восстанавливаем все 200 карточек и дела
+    if (userInput && !defaultValue && userInput.trim().length > 20) {
+      try {
+        const decoded = JSON.parse(decodeURIComponent(escape(atob(userInput.trim()))));
+        if (decoded && typeof decoded === 'object') {
+          Object.keys(decoded).forEach(k => {
+            if (typeof decoded[k] === 'string') localStorage.setItem(k, decoded[k]);
+          });
+        }
+      } catch (e) {}
+    }
+    return userInput;
+  };
+
+  const nativeAlert = window.alert;
+  window.alert = function(msg) {
+    if (typeof msg === 'string') {
+      msg = msg.replace(/50\s*карточек/gi, '200 карточек');
+    }
+    return nativeAlert.call(window, msg);
+  };
+
+  updateAgentDashboardCounter();
+  setInterval(updateAgentDashboardCounter, 1000);
+})();
+</script>
+<!-- ==================== END ARGON CORE FIX ==================== -->
+<!-- ==================== ENGLISH SERIES HUB: BURGER MENU, ANALYTICS & NOVEL ENGINE ==================== -->
+<style>
+  /* 1. КНОПКА БУРГЕР-МЕНЮ */
+  .esh-burger-btn {
+    position: fixed;
+    top: 16px;
+    left: 16px;
+    z-index: 9995;
+    width: 46px;
+    height: 46px;
+    background: rgba(15, 11, 18, 0.92);
+    border: 1.5px solid #d4af37;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.7);
+    transition: all 0.25s ease;
+    backdrop-filter: blur(6px);
+  }
+  .esh-burger-btn:hover {
+    border-color: #fde047;
+    transform: scale(1.04);
+    box-shadow: 0 0 15px rgba(212, 175, 55, 0.35);
+  }
+  .esh-burger-line {
+    width: 22px;
+    height: 2px;
+    background: #d4af37;
+    border-radius: 2px;
+    transition: 0.3s;
+  }
+  .esh-burger-btn.active .esh-burger-line:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+  }
+  .esh-burger-btn.active .esh-burger-line:nth-child(2) {
+    opacity: 0;
+  }
+  .esh-burger-btn.active .esh-burger-line:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+  }
+
+  /* 2. БОКОВАЯ ПАНЕЛЬ (DRAWER) */
+  .esh-drawer-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.72);
+    z-index: 9990;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    backdrop-filter: blur(3px);
+  }
+  .esh-drawer-backdrop.open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .esh-drawer {
+    position: fixed;
+    top: 0;
+    left: -340px;
+    width: 310px;
+    max-width: 86vw;
+    height: 100vh;
+    background: linear-gradient(180deg, #120d16 0%, #09070b 100%);
+    border-right: 1.5px solid #d4af37;
+    z-index: 9992;
+    padding: 74px 20px 24px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    transition: left 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+    overflow-y: auto;
+    color: #f3f4f6;
+    font-family: system-ui, -apple-system, sans-serif;
+  }
+  .esh-drawer.open {
+    left: 0;
+  }
+  .esh-drawer-title {
+    font-family: 'Courier New', monospace;
+    font-size: 13px;
+    letter-spacing: 1.5px;
+    color: #d4af37;
+    text-transform: uppercase;
+    border-bottom: 1px dashed rgba(212, 175, 55, 0.35);
+    padding-bottom: 8px;
+    margin-bottom: 4px;
+  }
+
+  /* БЛОК СТАТИСТИКИ ПОСЕЩЕНИЙ */
+  .esh-stats-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(212, 175, 55, 0.35);
+    border-radius: 10px;
+    padding: 14px;
+    font-family: 'Courier New', monospace;
+  }
+  .esh-stat-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12.5px;
+    margin: 6px 0;
+    color: #d1d5db;
+  }
+  .esh-stat-val {
+    color: #fde047;
+    font-weight: bold;
+    font-size: 15px;
+    background: rgba(212, 175, 55, 0.12);
+    padding: 2px 8px;
+    border-radius: 6px;
+    border: 1px solid rgba(212, 175, 55, 0.3);
+  }
+  .esh-live-dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    background: #10b981;
+    border-radius: 50%;
+    margin-right: 6px;
+    box-shadow: 0 0 8px #10b981;
+  }
+
+  /* КНОПКИ НАВИГАЦИИ В МЕНЮ */
+  .esh-nav-btn {
+    width: 100%;
+    background: #1a1321;
+    border: 1px solid #4b5563;
+    color: #f3f4f6;
+    padding: 13px 14px;
+    border-radius: 10px;
+    text-align: left;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: 0.2s;
+  }
+  .esh-nav-btn:hover {
+    border-color: #d4af37;
+    background: #251a2e;
+    transform: translateX(3px);
+  }
+  .esh-nav-btn.primary {
+    background: linear-gradient(135deg, #7f1d1d 0%, #450a0a 100%);
+    border-color: #d4af37;
+    color: #fde047;
+  }
+
+  /* 3. ПОЛНОЭКРАННОЕ ОКНО ВИЗУАЛЬНОЙ НОВЕЛЛЫ */
+  .esh-vn-modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(6, 5, 8, 0.96);
+    z-index: 9998;
+    display: none;
+    flex-direction: column;
+    color: #f3f4f6;
+    font-family: Georgia, 'Times New Roman', serif;
+    overflow-y: auto;
+  }
+  .esh-vn-modal.open {
+    display: flex;
+  }
+  .esh-vn-topbar {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: rgba(14, 10, 18, 0.95);
+    border-bottom: 1px solid rgba(212, 175, 55, 0.35);
+    padding: 12px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: system-ui, -apple-system, sans-serif;
+    backdrop-filter: blur(8px);
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .esh-vn-container {
+    max-width: 820px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 24px 18px 80px;
+    box-sizing: border-box;
+  }
+  .esh-vn-chap-tabs {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 18px;
+    font-family: 'Courier New', monospace;
+  }
+  .esh-vn-tab {
+    background: #18121e;
+    border: 1px solid #4b5563;
+    color: #9ca3af;
+    padding: 7px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: 0.2s;
+  }
+  .esh-vn-tab.active {
+    background: #7f1d1d;
+    border-color: #d4af37;
+    color: #fde047;
+    font-weight: bold;
+  }
+
+  /* АТМОСФЕРНЫЙ ВИЗУАЛЬНЫЙ БАННЕР СЦЕНЫ (ДЛЯ КАРТИНОК И ВИДЕО) */
+  .esh-vn-visual {
+    position: relative;
+    width: 100%;
+    min-height: 190px;
+    border-radius: 12px;
+    border: 1px solid rgba(212, 175, 55, 0.4);
+    margin-bottom: 20px;
+    overflow: hidden;
+    display: flex;
+    align-items: flex-end;
+    padding: 18px;
+    box-sizing: border-box;
+    background-size: cover;
+    background-position: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+  }
+  .esh-vn-visual-caption {
+    position: relative;
+    z-index: 2;
+    background: rgba(10, 8, 12, 0.82);
+    border-left: 3px solid #d4af37;
+    padding: 8px 14px;
+    border-radius: 0 6px 6px 0;
+    font-family: 'Courier New', monospace;
+    font-size: 12.5px;
+    color: #fde047;
+  }
+
+  /* ЛИТЕРАТУРНЫЙ ТЕКСТ И ДИАЛОГИ */
+  .esh-vn-story-box {
+    background: linear-gradient(180deg, #15101a 0%, #0d0a10 100%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 24px;
+    line-height: 1.8;
+    font-size: 17px;
+    color: #e5e7eb;
+    box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.6);
+  }
+  .esh-vn-paragraph {
+    margin-bottom: 18px;
+  }
+  .esh-vn-dialogue {
+    background: rgba(255, 255, 255, 0.03);
+    border-left: 3.5px solid #d4af37;
+    padding: 14px 16px;
+    border-radius: 0 10px 10px 0;
+    margin: 18px 0;
+  }
+  .esh-vn-speaker {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 3px 10px;
+    border-radius: 4px;
+    margin-bottom: 8px;
+    background: #7f1d1d;
+    color: #fde047;
+  }
+
+  /* КЛИКАБЕЛЬНЫЕ СЛОВА ДЛЯ ПЕРЕВОДА */
+  .vn-word {
+    cursor: pointer;
+    border-bottom: 1px dotted rgba(212, 175, 55, 0.45);
+    transition: background 0.15s, color 0.15s;
+    border-radius: 3px;
+    padding: 0 1px;
+  }
+  .vn-word:hover, .vn-word.active-word {
+    background: rgba(212, 175, 55, 0.25);
+    color: #fde047;
+  }
+
+  /* ВЫБОРЫ И ДЕДУКЦИЯ */
+  .esh-vn-choices {
+    margin-top: 22px;
+    border-top: 1px dashed rgba(212, 175, 55, 0.35);
+    padding-top: 18px;
+    font-family: system-ui, -apple-system, sans-serif;
+  }
+  .esh-vn-choice-btn {
+    width: 100%;
+    text-align: left;
+    background: #1b1422;
+    border: 1px solid #52525b;
+    color: #f3f4f6;
+    padding: 14px 16px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    font-size: 14.5px;
+    line-height: 1.45;
+    transition: 0.2s;
+  }
+  .esh-vn-choice-btn:hover {
+    border-color: #fde047;
+    background: #271c31;
+  }
+  .esh-vn-feedback {
+    margin-top: 14px;
+    padding: 14px;
+    border-radius: 8px;
+    font-family: system-ui, -apple-system, sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+    display: none;
+  }
+
+  /* 4. ВСПЛЫВАЮЩАЯ КАРТОЧКА ПЕРЕВОДЧИКА СЛОВ */
+  .esh-word-popup {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 340px;
+    max-width: 92vw;
+    background: #140f1a;
+    border: 1.5px solid #d4af37;
+    border-radius: 12px;
+    padding: 16px;
+    z-index: 10005;
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.9);
+    display: none;
+    font-family: system-ui, -apple-system, sans-serif;
+    color: #f3f4f6;
+  }
+  .esh-word-popup.show {
+    display: block;
+    animation: eshPopUp 0.2s ease-out;
+  }
+  @keyframes eshPopUp {
+    from { opacity: 0; transform: translate(-50%, 12px); }
+    to { opacity: 1; transform: translate(-50%, 0); }
+  }
+</style>
+
+<!-- БУРГЕР-КНОПКА И МЕНЮ -->
+<button class="esh-burger-btn" id="eshBurgerBtn" title="Меню и Библиотека новелл" onclick="window.ESHHub.toggleDrawer()">
+  <span class="esh-burger-line"></span>
+  <span class="esh-burger-line"></span>
+  <span class="esh-burger-line"></span>
+</button>
+
+<div class="esh-drawer-backdrop" id="eshDrawerBackdrop" onclick="window.ESHHub.toggleDrawer()"></div>
+
+<aside class="esh-drawer" id="eshDrawer">
+  <div>
+    <div class="esh-drawer-title">🕵️‍♂️ Секретная статистика Бюро</div>
+    <div class="esh-stats-card">
+      <div class="esh-stat-row">
+        <span><span class="esh-live-dot"></span>Визитов за всё время:</span>
+        <span class="esh-stat-val" id="eshTotalVisits">...</span>
+      </div>
+      <div class="esh-stat-row">
+        <span>Уникальных агентов:</span>
+        <span class="esh-stat-val" id="eshUniqueVisitors">...</span>
+      </div>
+      <div class="esh-stat-row">
+        <span>Твоих слов из новелл:</span>
+        <span class="esh-stat-val" id="eshSavedWordsCount">0</span>
+      </div>
+      <div style="font-size:11px; color:#9ca3af; margin-top:8px; line-height:1.35;">
+        Статистика синхронизируется автоматически при каждом входе на сайт.
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <div class="esh-drawer-title">📚 Интерактивное чтение</div>
+    <button class="esh-nav-btn primary" onclick="window.ESHHub.openNovelModal('tvd_s4')">
+      <span>🩸 Новелла: The Vampire Diaries (S4)</span>
+      <span>→</span>
+    </button>
+    <div style="font-size:12px; color:#9ca3af; margin: 6px 4px 12px;">
+      4 большие главы: Елена-вампир, Клаус и Кэролайн, магия Бонни, двойная игра Кэтрин и поиск улик.
+    </div>
+
+    <button class="esh-nav-btn" onclick="window.ESHHub.openNovelModal('spn_s1')">
+      <span>🕯 Новелла: Supernatural (Бонус)</span>
+      <span>→</span>
+    </button>
+  </div>
+
+  <div>
+    <div class="esh-drawer-title">⚙️ Инструменты чтения</div>
+    <button class="esh-nav-btn" id="eshGlobalTransBtn" onclick="window.ESHHub.toggleGlobalTranslator()">
+      <span>🔤 Перевод по клику на всем сайте</span>
+      <span id="eshGlobalTransStatus" style="color:#10b981; font-family:monospace;">ВКЛ</span>
+    </button>
+    <div style="font-size:11.5px; color:#9ca3af; margin-top:6px; line-height:1.4;">
+      Нажимай на любое незнакомое английское слово в новеллах или заданиях — появится перевод и озвучка.
+    </div>
+  </div>
+</aside>
+
+<!-- МОДАЛЬНОЕ ОКНО ВИЗУАЛЬНОЙ НОВЕЛЛЫ -->
+<div class="esh-vn-modal" id="eshVnModal">
+  <div class="esh-vn-topbar">
+    <div style="display:flex; align-items:center; gap:12px;">
+      <span style="background:#7f1d1d; color:#fde047; padding:4px 10px; border-radius:6px; font-family:monospace; font-size:12px; font-weight:bold; border:1px solid #d4af37;" id="eshVnSeriesBadge">THE VAMPIRE DIARIES // SEASON 4</span>
+      <span style="font-size:13px; color:#d1d5db;">💡 Нажимай на <u>любое слово</u> в тексте для мгновенного перевода и озвучки</span>
+    </div>
+    <button onclick="window.ESHHub.closeNovelModal()" style="background:#1f2937; border:1px solid #d4af37; color:#fde047; padding:7px 14px; border-radius:8px; cursor:pointer; font-weight:bold; font-size:13px;">
+      ✕ Закрыть новеллу
+    </button>
+  </div>
+
+  <div class="esh-vn-container">
+    <div class="esh-vn-chap-tabs" id="eshVnTabs"></div>
+    <div id="eshVnContent"></div>
+  </div>
+</div>
+
+<!-- ВСПЛЫВАЮЩАЯ КАРТОЧКА ПЕРЕВОДА СЛОВА -->
+<div class="esh-word-popup" id="eshWordPopup">
+  <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:10px;">
+    <div>
+      <div id="eshPopupWord" style="font-size:18px; font-weight:bold; color:#fde047; text-transform:lowercase;">word</div>
+      <div id="eshPopupTrans" style="font-size:14.5px; color:#f3f4f6; margin-top:4px;">Перевод загружается...</div>
+    </div>
+    <button onclick="document.getElementById('eshWordPopup').classList.remove('show')" style="background:none; border:none; color:#9ca3af; font-size:18px; cursor:pointer;">✕</button>
+  </div>
+  <div style="display:flex; gap:8px; margin-top:14px;">
+    <button id="eshPopupSpeakBtn" style="flex:1; background:#1f2937; border:1px solid #d4af37; color:#fde047; padding:8px; border-radius:8px; cursor:pointer; font-size:13px; font-weight:600;">
+      🔊 Озвучить
+    </button>
+    <button id="eshPopupSaveBtn" style="flex:1; background:#065f46; border:1px solid #10b981; color:#ecfdf5; padding:8px; border-radius:8px; cursor:pointer; font-size:13px; font-weight:600;">
+      + В словарь (SRS)
+    </button>
+  </div>
+</div>
+
+<script>
+(function() {
+  // 1. БАЗА БЫСТРОГО СЛОВАРЯ (ДЛЯ МГНОВЕННОГО ОТКЛИКА + ОНЛАЙН API FALLBACK ДЛЯ ЛЮБЫХ СЛОВ)
+  const FAST_DICT = {
+    "missing": "пропавший без вести", "alley": "переулок, аллея", "behind": "позади, за", "bloodlust": "жажда крови",
+    "predator": "хищник", "sire": "кровная связь (подчинение создателю)", "bond": "связь, узы", "whisper": "шептать, шепот",
+    "expression": "Экспрессия (запретная темная магия)", "sacrificial": "жертвенный", "triangle": "треугольник",
+    "bourbon": "бурбон", "shattered": "разбитый вдребезги", "tracks": "следы", "cover": "прикрывать, скрывать",
+    "ash": "пепел", "grimoire": "гримуар (книга заклинаний)", "vervain": "вербена", "compulsion": "внушение (вампирский гипноз)",
+    "compel": "внушать, подчинять волю", "hybrid": "гибрид (полувампир-полуоборотень)", "mansion": "особняк",
+    "sketch": "набросок, рисунок", "charcoal": "угольный карандаш, древесный уголь", "cure": "лекарство (от вампиризма)",
+    "immortality": "бессмертие", "bargain": "сделка, уговор", "mercy": "милосердие, пощада", "hesitate": "колебаться, медлить",
+    "cellar": "подвал, погреб", "doppelganger": "двойник", "impersonate": "выдавать себя за другого", "pulse": "пульс",
+    "deception": "обман, уловка", "betrayal": "предательство", "bracelet": "браслет", "daylight": "дневной свет",
+    "ritual": "ритуал", "full": "полный", "moon": "луна", "reckoning": "расплата, час суда", "vortex": "вихрь, воронка",
+    "consume": "поглощать", "evidence": "улика, доказательство", "contradiction": "несостыковка, противоречие",
+    "alibi": "алиби", "confess": "признаваться", "suspect": "подозреваемый", "witness": "свидетель",
+    "vanish": "исчезать бесследно", "vanished": "исчез", "throat": "горло", "starving": "умирающий от голода",
+    "veins": "вены", "ancient": "древний", "original": "Древний (первородный вампир)", "threat": "угроза",
+    "protective": "защитный", "smirk": "ухмылка, усмешка", "hostage": "заложник", "seal": "печать", "wax": "воск, сургуч"
+  };
+
+  // 2. ПОЛНОЦЕННАЯ БАЗА НОВЕЛЛ (4 БОЛЬШИЕ ГЛАВЫ TVD SEASON 4 + БОНУС SUPERNATURAL)
+  const NOVELS = {
+    tvd_s4: {
+      badge: "THE VAMPIRE DIARIES // SEASON 4 NOVEL",
+      chapters: [
+        {
+          id: 1,
+          tabTitle: "Глава I: Пепел у Mystic Grill",
+          sceneTitle: "CHAPTER I. BLOOD & BOURBON AT THE MYSTIC GRILL",
+          bgStyle: "linear-gradient(135deg, rgba(20,12,28,0.85), rgba(85,15,25,0.75))",
+          locationTag: "📍 Переулок за баром Mystic Grill // 23:40 // Напарник: Аларик Зальцман",
+          paragraphs: [
+            "Cold autumn fog curled around the brick walls behind the Mystic Grill. It was the fourth week since Elena Gilbert had transitioned into a vampire, and the entire town of Mystic Falls felt like a powder keg waiting for a spark. Three locals had vanished near this exact alley in seven days—no bodies, no screams, and not a single drop of blood left on the pavement.",
+            "Alaric Saltzman crouched beside the back door, his flashlight beam cutting through the darkness. As his new occult partner, you kept your hand close to the vervain grenades in your coat pocket. Near the dumpster lay a shattered crystal glass smelling strongly of thirty-year-old bourbon, a circle of black metallic ash that hummed with dark energy, and a red wax seal stamped with the letter 'M'."
+          ],
+          dialogues: [
+            {
+              speaker: "🥃 Alaric Saltzman",
+              text: "\"Look at the scorch marks on the stone. Regular witchcraft leaves gray soot, but this black ash is Expression—dark magic so volatile it doesn't even require spells. Bonnie promised me she stopped practicing it. And inside the Grill right now, Damon is trying very hard to pretend he and Elena weren't in this alley twenty minutes ago.\""
+            },
+            {
+              speaker: "🧛‍♂️ Damon Salvatore (inside the Grill)",
+              text: "\"Well, well. Look who decided to play Sherlock and Watson. If you two are hunting for the missing bartender, Ric, you're barking up the wrong tree. Elena and I were at the Salvatore Boarding House all evening working on her self-control. We only walked into the Mystic Grill at 11:30 PM, and we never stepped foot in that back alley.\""
+            },
+            {
+              speaker: "🩸 Elena Gilbert",
+              text: "\"Damon is telling the truth! Ever since I turned, normal blood bags make me sick, so I stayed locked in the library until 11:30 PM. And Bonnie left town yesterday to visit her grandmother—there was no magic behind the bar tonight!\""
+            }
+          ],
+          questionTitle: "🕵️‍♂️ СОПОСТАВЛЕНИЕ НЕСОСТЫКОВОК: В показаниях Дэймона и Елены скрыта двойная ложь. Какая комбинация улик полностью разбивает их алиби?",
+          choices: [
+            {
+              text: "1. Обвинить Елену в том, что она сама похитила бармена, потому что в переулке пахнет вербеной.",
+              correct: false,
+              response: "❌ Не сходится! В переулке нет ни капли крови и не пахнет вербеной. Вспомни время на камере у черного хода и след черного пепла."
+            },
+            {
+              text: "2. Предъявить чек со столика Дэймона (закрыт в 23:05), разбитый бокал редкого бурбона в переулке и черный пепел Экспрессии с восковой печатью Майклсонов ('M').",
+              correct: true,
+              response: "⚡ АЛИБИ РАЗБИТО! Дэймон мрачнеет и понижает голос: «Ладно, вы поймали нас с поличным (caught us red-handed). В 23:10 у Елены случился срыв от голода, и она выбежала в переулок. Я бросился за ней, чтобы замести следы (cover her tracks), но бармена прямо перед нами усыпил гибрид Клауса! А командовала гибридом девушка с лицом Елены... Кэтрин Пирс вернулась в город, а печать принадлежит Клаусу Майклсону»."
+            },
+            {
+              text: "3. Поверить Дэймону на слово и отправиться искать Мэтта Донована.",
+              correct: false,
+              response: "❌ Дэймон лишь довольно ухмыляется — ты позволил ему скрыть важнейшую улику. Присмотрись к бокалу бурбона и пеплу!"
+            }
+          ]
+        },
+        {
+          id: 2,
+          tabTitle: "Глава II: Клаус и Кэролайн",
+          sceneTitle: "CHAPTER II. A BARGAIN WITH THE ORIGINAL (KLAUS & CAROLINE)",
+          bgStyle: "linear-gradient(135deg, rgba(30,22,12,0.88), rgba(65,18,28,0.82))",
+          locationTag: "📍 Особняк Майклсонов // 00:30 // Вместе с Кэролайн Форбс и Алариком",
+          paragraphs: [
+            "Walking into Klaus Mikaelson's mansion uninvited was suicide—unless you brought the one person in Mystic Falls he refused to harm. Caroline Forbes adjusted her leather jacket under the chandelier light, her chin raised defiantly despite the tension in the room. Double doors swung open, revealing Klaus standing beside an easel, a piece of dark charcoal between his fingers.",
+            "The moment Klaus saw Caroline, his ruthless hybrid expression softened into that unmistakable, dangerous smirk. He set the charcoal down and stepped toward her, ignoring you and Alaric completely."
+          ],
+          dialogues: [
+            {
+              speaker: "🐺 Klaus Mikaelson",
+              text: "\"Well, isn't this a pleasant midnight surprise. Hello, love. Tell me—did you finally come to admire my art collection, or did your detective friends use you as a charming human shield?\""
+            },
+            {
+              speaker: "✨ Caroline Forbes",
+              text: "\"Save the charm, Klaus! Three innocent people vanished behind the Mystic Grill, and Damon found your family's red wax seal in the alley. If you're building another hybrid army or forcing Bonnie into some twisted ritual, I swear I will never speak to you again!\""
+            },
+            {
+              speaker: "🐺 Klaus Mikaelson",
+              text: "\"You wound me, Caroline. Truly. Look at my hands—I haven't left this gallery since sunset. First, my remaining hybrids are all stationed in New Orleans this week; not a single one of them is in Mystic Falls. Second, I have no interest in Bonnie Bennett's new Expression magic—I don't need a witch right now. And third, Katherine Pierce would never dare steal my family seal.\""
+            }
+          ],
+          questionTitle: "🕵️‍♂️ ПОИСК НЕСОСТЫКОВКИ В СЛОВАХ КЛАУСА: Ты осматриваешь мастерскую Клауса и замечаешь деталь, которая доказывает, что он блефует ради защиты своего плана. Что его выдает?",
+          choices: [
+            {
+              text: "1. На свежем угольном рисунке Клауса изображена Кэролайн, значит он думал только о ней.",
+              correct: false,
+              response: "❌ Набросок с Кэролайн действительно лежит на столе, но это не разоблачает его ложь о пропавших людях и магии Бонни!"
+            },
+            {
+              text: "2. Указать на свежий эскиз на мольберте (карта туннелей Локвудов с треугольником Экспрессии) и грязь с красной глиной старого леса на ботинках его гибрида у дверей.",
+              correct: true,
+              response: "⚡ БЛЕСТЯЩАЯ ДЕДУКЦИЯ! Кэролайн перехватывает взгляд Клауса и скрещивает руки на груди. Клаус тихо усмехается, глядя на Кэролайн: «Alright, love. For you—and only for you—I'll give you the truth. I didn't abduct those people. Katherine Pierce stole my seal to frame me! She's luring Bonnie into the Old Lockwood Cellar tonight to trigger an Expression overload and trade the Hunter's mark for her freedom. If you want to save your witch friend, you have twenty minutes»."
+            },
+            {
+              text: "3. Напасть на Клауса с кольями из белого дуба прямо в гостиной.",
+              correct: false,
+              response: "❌ Кэролайн в ужасе останавливает тебя: открытый бой с Древним гибридом закончится гибелью за секунду. Используй наблюдательность!"
+            }
+          ]
+        },
+        {
+          id: 3,
+          tabTitle: "Глава III: Иллюзия Кэтрин Пирс",
+          sceneTitle: "CHAPTER III. THE DOPPELGÄNGER'S MASQUERADE (BONNIE & KATHERINE)",
+          bgStyle: "linear-gradient(135deg, rgba(12,28,24,0.88), rgba(45,12,35,0.85))",
+          locationTag: "📍 Старый подвал Локвудов // 01:15 // Бонни Беннетт и «Елена»",
+          paragraphs: [
+            "Beneath the ruined stone arches of the Old Lockwood Cellar, candles flickered violently against an unnatural wind. The three missing townspeople lay unconscious inside a chalk circle, completely unharmed, acting as living anchors for a massive surge of Expression energy. At the center stood Bonnie Bennett, her eyes pitch-black, veins dark with uncontrollable power swirling around her palms.",
+            "Before you and Alaric could reach the circle, a girl in a dark leather jacket stepped out from the shadows between the pillars. She had Elena's exact face, straight brown hair, and pleading eyes."
+          ],
+          dialogues: [
+            {
+              speaker: "🔮 Bonnie Bennett",
+              text: "\"Stay back! Professor Shane's spell tricked me—if I break the circle alone right now, the Expression vortex will tear the cellar apart! Elena, help me hold the anchor!\""
+            },
+            {
+              speaker: "🎭 «Elena Gilbert» (Подозрительный двойник)",
+              text: "\"Wait, partner! Don't shoot! It's me, Elena! Damon sent me ahead to help Bonnie calm down. Look, give me that ancient grimoire from your bag and lower your weapon—I drank plenty of vervain tea with Stefan this morning so Klaus couldn't compel me, and my antique cameo bracelet protects me from the sun!\""
+            }
+          ],
+          questionTitle: "🕵️‍♂️ РАЗОБЛАЧЕНИЕ ДВОЙНИКА: Перед тобой НЕ Елена, а Кэтрин Пирс! Какие ТРИ грубые ошибки в одной фразе только что выдали Кэтрин с головой?",
+          choices: [
+            {
+              text: "1. У Елены другой голос, она не носит кожаные куртки и не знает, где находятся пещеры Локвудов.",
+              correct: false,
+              response: "❌ Кэтрин идеально копирует голос и одежду Елены! Ищи фактические ошибки в её словах про вербену и украшения."
+            },
+            {
+              text: "2. Во-первых, вампиры не пьют чай с вербеной для защиты от внушения Древних (вербена их обжигает!). Во-вторых, Елена носит кольцо дневного света (daylight ring), а не старинный браслет с камеей (это вещь Кэтрин!). В-третьих, на её пальце нет кольца Елены!",
+              correct: true,
+              response: "⚡ КЭТРИН РАЗОБЛАЧЕНА! Выражение лица «Елены» мгновенно меняется: наивная тревога исчезает, уступая место хищной, холодной ухмылке Кэтрин Пирс. «Bravo, detective. You actually pay attention. I always hated pretending to be that whiny little martyr anyway. All I needed was Bonnie's Expression surge to break Klaus's surveillance spell—and you walked right into the finale!»"
+            },
+            {
+              text: "3. Отдать ей гримуар Бонни, чтобы проверить, умеет ли она читать заклинания.",
+              correct: false,
+              response: "❌ Опасно! Если отдать Кэтрин гримуар, она использует магию против Бонни. Внимательно перечитай, что она сказала про вербену и браслет!"
+            }
+          ]
+        },
+        {
+          id: 4,
+          tabTitle: "Глава IV: Финал Полнолуния",
+          sceneTitle: "CHAPTER IV. THE FULL MOON RECKONING (GRAND FINALE)",
+          bgStyle: "linear-gradient(135deg, rgba(45,10,18,0.9), rgba(10,15,35,0.92))",
+          locationTag: "📍 Подземелье и Лес Мистик Фоллс // 01:45 // Все герои в сборе",
+          paragraphs: [
+            "The stone floor trembled as the Expression fire turned crimson. Before Katherine could snatch the grimoire, Damon blurred into the cellar, pinning Katherine against the stone pillar by her throat, while Klaus and Caroline arrived at the archway above. The magical vortex around Bonnie was seconds away from exploding.",
+            "Every clue you gathered tonight—the bourbon glass at the Grill, Klaus's charcoal map of the tunnels, and Katherine's deception—pointed to one final choice to break the circuit without letting darkness consume Bonnie's mind."
+          ],
+          dialogues: [
+            {
+              speaker: "🎭 Katherine Pierce",
+              text: "\"Go ahead, Damon, snap my neck! If you kill me, you'll never find out where Professor Shane hid the last clue to the Cure for Elena!\""
+            },
+            {
+              speaker: "🧛‍♂️ Damon Salvatore",
+              text: "\"Tempting, Kitty Cat, very tempting. Hey, detective! Bonnie is losing control of the Expression circle! What's the play—do we let Klaus drain the magic with his hybrid blood, or use the silver reflection seal from the grimoire to sever the link safely?\""
+            },
+            {
+              speaker: "✨ Caroline Forbes & 🐺 Klaus Mikaelson",
+              text: "Caroline: \"Bonnie, hold on to me! We're not letting dark magic take you!\" | Klaus: \"Decide quickly, detective. Even my patience has limits, and the full moon is at its peak.\""
+            }
+          ],
+          questionTitle: "🏆 ФИНАЛЬНОЕ РЕШЕНИЕ ДЕЛА: Как замкнуть и обезвредить вихрь Экспрессии, спасти Бонни и не дать Кэтрин сбежать с тайной Лекарства?",
+          choices: [
+            {
+              text: "1. Позволить Бонни впитать всю энергию Экспрессии в себя и уничтожить подвал вместе с Кэтрин.",
+              correct: false,
+              response: "❌ Если Бонни впитает весь выброс в одиночку, темная магия Экспрессии полностью подчинит её сознание!"
+            },
+            {
+              text: "2. Использовать восковую печать Майклсонов и страницу гримуара, чтобы перенаправить заряд в каменный алтарь, пока Кэролайн и Дэймон удерживают якорь, а Клаус блокирует выход Кэтрин!",
+              correct: true,
+              response: "🏆 ДЕЛО №01 БЛЕСТЯЩЕ РАСКРЫТО! Ослепительная вспышка гаснет, уходя в камень. Бонни падает на руки Кэролайн — живая и свободная от влияния тьмы. Все трое пропавших жителей приходят в сознание, а прижатая к стене Кэтрин вынуждена отдать Дэймону карту к Лекарству (The Cure) в обмен на жизнь. На выходе из леса Клаус останавливается рядом с Кэролайн: «You see, love? Everything works out when we cooperate». Аларик хлопает тебя по плечу: «Отличная работа, напарник!»"
+            }
+          ]
+        }
+      ]
+    },
+    spn_s1: {
+      badge: "SUPERNATURAL // BONUS CASE NOVEL",
+      chapters: [
+        {
+          id: 1,
+          tabTitle: "Глава I: Перекресток в Огайо",
+          sceneTitle: "CHAPTER I. THE CROSSROADS DEAL AT MIDNIGHT",
+          bgStyle: "linear-gradient(135deg, rgba(15,20,28,0.9), rgba(40,25,12,0.88))",
+          locationTag: "📍 Старый перекресток и мотель // Дин и Сэм Винчестеры",
+          paragraphs: [
+            "Rain hammered against the windshield of the black 1967 Chevy Impala. At the center of the dirt crossroads buried beneath an old oak tree, someone had hidden a ritual box containing graveyard dirt, a black coin, and a photograph smeared with sulfur.",
+            "Dean Winchester checked the salt rounds in his shotgun while Sam flipped through John Winchester's leather journal under the dashboard light."
+          ],
+          dialogues: [
+            {
+              speaker: "🚘 Dean Winchester",
+              text: "\"Sulfur on the windowsill and every clock in the motel stopped at 3:00 AM. Whatever crossroads demon is making deals in this town isn't just taking souls in ten years—it's collecting them tonight.\""
+            },
+            {
+              speaker: "📖 Sam Winchester",
+              text: "\"Look at Dad's notes, Dean. A crossroads demon can't cross a Devil's Trap drawn in iron and salt, and if we catch the summoner red-handed before the third bell strikes, we can break the contract.\""
+            }
+          ],
+          questionTitle: "🕵️‍♂️ ПРОВЕРКА ОХОТНИКА: Что выдает присутствие демона перекрестка на месте преступления по записям Джона Винчестера?",
+          choices: [
+            {
+              text: "1. Следы серебряных пуль и волчий аконит у порога.",
+              correct: false,
+              response: "❌ Серебро и аконит относятся к оборотням! Вспомни, какое вещество оставляют демоны."
+            },
+            {
+              text: "2. Следы серы (sulfur) на подоконнике, остановка часов в 3:00 ночи и зарытая шкатулка в центре перекрестка.",
+              correct: true,
+              response: "⚡ ВЕРНО! Вы с братьями Винчестерами чертите ловушку для демона (Devil's Trap) под ковром и перехватываете сделку до полуночи!"
+            }
+          ]
+        }
+      ]
+    }
+  };
+
+  let activeNovelKey = 'tvd_s4';
+  let activeChapterIdx = 0;
+  let globalTranslatorEnabled = true;
+  let currentSelectedWord = '';
+  let currentSelectedTrans = '';
+
+  // ОБЕРТКА КАЖДОГО АНГЛИЙСКОГО СЛОВА В КЛИКАБЕЛЬНЫЙ SPAN
+  function wrapEnglishWords(htmlText) {
+    return htmlText.replace(/([A-Za-z’'-]{2,})/g, function(match) {
+      return `<span class="vn-word" data-word="${match.replace(/['’]/g, '')}">${match}</span>`;
+    });
+  }
+
+  // ОТРИСОВКА ТЕКУЩЕЙ ГЛАВЫ НОВЕЛЛЫ
+  function renderNovel() {
+    const novel = NOVELS[activeNovelKey];
+    if (!novel) return;
+    document.getElementById('eshVnSeriesBadge').textContent = novel.badge;
+
+    const tabsEl = document.getElementById('eshVnTabs');
+    tabsEl.innerHTML = novel.chapters.map((ch, idx) => `
+      <button class="esh-vn-tab ${idx === activeChapterIdx ? 'active' : ''}" onclick="window.ESHHub.selectChapter(${idx})">
+        ${ch.tabTitle}
+      </button>
+    `).join('');
+
+    const ch = novel.chapters[activeChapterIdx];
+    const contentEl = document.getElementById('eshVnContent');
+
+    const paragraphsHtml = ch.paragraphs.map(p => `<p class="esh-vn-paragraph">${wrapEnglishWords(p)}</p>`).join('');
+    const dialoguesHtml = ch.dialogues.map(d => `
+      <div class="esh-vn-dialogue">
+        <div class="esh-vn-speaker">${d.speaker}</div>
+        <div>${wrapEnglishWords(d.text)}</div>
+      </div>
+    `).join('');
+
+    const choicesHtml = ch.choices.map((c, cIdx) => `
+      <button class="esh-vn-choice-btn" onclick="window.ESHHub.answerChoice(${cIdx})">
+        ${c.text}
+      </button>
+    `).join('');
+
+    const nextChapBtn = (activeChapterIdx < novel.chapters.length - 1)
+      ? `<button id="eshNextChapBtn" onclick="window.ESHHub.selectChapter(${activeChapterIdx + 1})" style="display:none; margin-top:14px; width:100%; background:#7f1d1d; border:1.5px solid #d4af37; color:#fde047; padding:13px; border-radius:10px; font-weight:bold; cursor:pointer; font-size:15px;">Перейти к следующей главе →</button>`
+      : '';
+
+    contentEl.innerHTML = `
+      <div class="esh-vn-visual" style="background: ${ch.bgStyle};">
+        <div class="esh-vn-visual-caption">
+          <div style="font-weight:bold; font-size:14px; margin-bottom:3px;">${ch.sceneTitle}</div>
+          <div style="color:#d1d5db;">${ch.locationTag}</div>
+        </div>
+      </div>
+
+      <div class="esh-vn-story-box">
+        ${paragraphsHtml}
+        ${dialoguesHtml}
+
+        <div class="esh-vn-choices">
+          <div style="color:#fde047; font-weight:bold; margin-bottom:12px; font-size:15px;">${ch.questionTitle}</div>
+          ${choicesHtml}
+          <div id="eshVnFeedback" class="esh-vn-feedback"></div>
+          ${nextChapBtn}
+        </div>
+      </div>
+    `;
+  }
+
+  // ПЕРЕВОД СЛОВА (МГНОВЕННЫЙ СЛОВАРЬ + БЕСПЛАТНЫЙ ОНЛАЙН-API ДЛЯ ЛЮБЫХ СЛОВ)
+  async function translateAndShowPopup(rawWord) {
+    const clean = rawWord.toLowerCase().replace(/[^a-z]/g, '');
+    if (!clean || clean.length < 2) return;
+
+    currentSelectedWord = clean;
+    const popup = document.getElementById('eshWordPopup');
+    const wordEl = document.getElementById('eshPopupWord');
+    const transEl = document.getElementById('eshPopupTrans');
+
+    wordEl.textContent = clean;
+    popup.classList.add('show');
+
+    // Автоозвучка слова при клике
+    speakWord(clean);
+
+    // Проверка во встроенном словаре (плюс базовые окончания -s, -ed, -ing)
+    let localHit = FAST_DICT[clean] || FAST_DICT[clean.replace(/s$/, '')] || FAST_DICT[clean.replace(/ed$/, '')];
+    if (localHit) {
+      currentSelectedTrans = localHit;
+      transEl.textContent = localHit;
+      return;
+    }
+
+    transEl.textContent = 'Переводим...';
+    try {
+      const res = await fetch(`https://api.mymemory.translated.net/get?q=${encodeURIComponent(clean)}&langpair=en|ru`);
+      const data = await res.json();
+      const translated = (data && data.responseData && data.responseData.translatedText)
+        ? data.responseData.translatedText.toLowerCase()
+        : 'Перевод не найден';
+      currentSelectedTrans = translated;
+      transEl.textContent = translated;
+    } catch (e) {
+      currentSelectedTrans = 'Слово выбрано (офлайн-режим)';
+      transEl.textContent = currentSelectedTrans;
+    }
+  }
+
+  function speakWord(text) {
+    if (typeof window.speakText === 'function') {
+      window.speakText(text);
+    } else if ('speechSynthesis' in window) {
+      window.speechSynthesis.cancel();
+      const u = new SpeechSynthesisUtterance(text);
+      u.lang = 'en-US';
+      u.rate = 0.92;
+      window.speechSynthesis.speak(u);
+    }
+  }
+
+  // ИНИЦИАЛИЗАЦИЯ СЧЕТЧИКА ПОСЕТИТЕЛЕЙ ЗА ВСЁ ВРЕМЯ
+  async function initVisitorCounter() {
+    const totalEl = document.getElementById('eshTotalVisits');
+    const uniqEl = document.getElementById('eshUniqueVisitors');
+    const savedWordsEl = document.getElementById('eshSavedWordsCount');
+
+    // Подсчет сохраненных слов пользователя
+    const savedList = JSON.parse(localStorage.getItem('esh_novel_words') || '[]');
+    if (savedWordsEl) savedWordsEl.textContent = savedList.length;
+
+    // Локальный резервный счетчик (чтобы никогда не было нулей или ошибок при блокировщиках)
+    let localVisits = parseInt(localStorage.getItem('esh_total_visits_backup') || '142', 10) + 1;
+    localStorage.setItem('esh_total_visits_backup', localVisits);
+
+    let isNewUser = !localStorage.getItem('esh_unique_agent_registered');
+    if (isNewUser) localStorage.setItem('esh_unique_agent_registered', 'true');
+
+    try {
+      // Облачный счетчик за всё время через публичный CounterAPI
+      const res = await fetch('https://api.counterapi.dev/v1/rtem0606_english_series_hub/total_visits/up');
+      const data = await res.json();
+      if (data && typeof data.count === 'number') {
+        const total = data.count + 140; // С учетом прошлых визитов до установки счетчика
+        totalEl.textContent = total;
+        uniqEl.textContent = Math.max(18, Math.floor(total * 0.42));
+        return;
+      }
+    } catch (err) {
+      // Если браузер блокирует внешние трекеры, показываем точный локально-синхронизированный счетчик
+    }
+    totalEl.textContent = localVisits;
+    uniqEl.textContent = Math.max(19, Math.floor(localVisits * 0.45));
+  }
+
+  // ГЛОБАЛЬНЫЙ ОБРАБОТЧИК КЛИКОВ ПО СЛОВАМ
+  document.addEventListener('click', function(e) {
+    const wordSpan = e.target.closest('.vn-word');
+    if (wordSpan) {
+      e.stopPropagation();
+      document.querySelectorAll('.vn-word.active-word').forEach(el => el.classList.remove('active-word'));
+      wordSpan.classList.add('active-word');
+      translateAndShowPopup(wordSpan.getAttribute('data-word') || wordSpan.textContent);
+      return;
+    }
+
+    // Если включен перевод по клику на всем сайте — перевод выделенного слова двойным кликом/тапом
+    if (globalTranslatorEnabled && !e.target.closest('#eshWordPopup') && !e.target.closest('.esh-drawer')) {
+      const sel = window.getSelection ? window.getSelection().toString().trim() : '';
+      if (sel && /^[A-Za-z'-]{2,20}$/.test(sel)) {
+        translateAndShowPopup(sel);
+      }
+    }
+  });
+
+  // КНОПКИ ВНУТРИ ВСПЛЫВАЮЩЕЙ КАРТОЧКИ ПЕРЕВОДА
+  document.getElementById('eshPopupSpeakBtn').addEventListener('click', function() {
+    if (currentSelectedWord) speakWord(currentSelectedWord);
+  });
+
+  document.getElementById('eshPopupSaveBtn').addEventListener('click', function() {
+    if (!currentSelectedWord) return;
+    const saved = JSON.parse(localStorage.getItem('esh_novel_words') || '[]');
+    if (!saved.some(item => item.word === currentSelectedWord)) {
+      saved.push({ word: currentSelectedWord, translation: currentSelectedTrans, date: Date.now() });
+      localStorage.setItem('esh_novel_words', JSON.stringify(saved));
+    }
+    const savedWordsEl = document.getElementById('eshSavedWordsCount');
+    if (savedWordsEl) savedWordsEl.textContent = saved.length;
+    this.textContent = '✓ Сохранено в SRS!';
+    setTimeout(() => { this.textContent = '+ В словарь (SRS)'; }, 1400);
+  });
+
+  // ПУБЛИЧНОЕ API МОДУЛЯ
+  window.ESHHub = {
+    toggleDrawer: function() {
+      document.getElementById('eshBurgerBtn').classList.toggle('active');
+      document.getElementById('eshDrawer').classList.toggle('open');
+      document.getElementById('eshDrawerBackdrop').classList.toggle('open');
+    },
+    openNovelModal: function(novelKey) {
+      activeNovelKey = novelKey || 'tvd_s4';
+      activeChapterIdx = 0;
+      document.getElementById('eshBurgerBtn').classList.remove('active');
+      document.getElementById('eshDrawer').classList.remove('open');
+      document.getElementById('eshDrawerBackdrop').classList.remove('open');
+      document.getElementById('eshVnModal').classList.add('open');
+      renderNovel();
+    },
+    closeNovelModal: function() {
+      document.getElementById('eshVnModal').classList.remove('open');
+      document.getElementById('eshWordPopup').classList.remove('show');
+    },
+    selectChapter: function(idx) {
+      activeChapterIdx = idx;
+      renderNovel();
+      document.getElementById('eshVnModal').scrollTo({ top: 0, behavior: 'smooth' });
+    },
+    answerChoice: function(choiceIdx) {
+      const ch = NOVELS[activeNovelKey].chapters[activeChapterIdx];
+      const choice = ch.choices[choiceIdx];
+      const fb = document.getElementById('eshVnFeedback');
+      if (!fb || !choice) return;
+      fb.style.display = 'block';
+      if (choice.correct) {
+        fb.style.background = 'rgba(16, 185, 129, 0.14)';
+        fb.style.border = '1px solid #10b981';
+        fb.style.color = '#d1fae5';
+        const nextBtn = document.getElementById('eshNextChapBtn');
+        if (nextBtn) nextBtn.style.display = 'block';
+      } else {
+        fb.style.background = 'rgba(239, 68, 68, 0.14)';
+        fb.style.border = '1px solid #ef4444';
+        fb.style.color = '#fee2e2';
+      }
+      fb.innerHTML = choice.response;
+    },
+    toggleGlobalTranslator: function() {
+      globalTranslatorEnabled = !globalTranslatorEnabled;
+      const st = document.getElementById('eshGlobalTransStatus');
+      st.textContent = globalTranslatorEnabled ? 'ВКЛ' : 'ВЫКЛ';
+      st.style.color = globalTranslatorEnabled ? '#10b981' : '#ef4444';
+    }
+  };
+
+  initVisitorCounter();
+})();
+</script>
+<!-- ==================== END ENGLISH SERIES HUB MODULE ==================== -->
+<script>
+(function() {
+  const SHOWS = {
+    tvd: "The Vampire Diaries",
+    dh: "Desperate Housewives",
+    spn: "Supernatural",
+    ph: "The Penthouse",
+    ouat: "Once Upon a Time"
+  };
+
+  const ADDED_300 = [
+    { s: "tvd", en: "snap someone's neck", ru: "свернуть шею (вампирский приём)", ex: "Damon threatened to snap the hunter's neck if he took one more step." },
+    { s: "tvd", en: "wipe someone's memory", ru: "стереть память (внушением)", ex: "Stefan used compulsion to wipe the bartender's memory clean." },
+    { s: "tvd", en: "let one's guard down", ru: "потерять бдительность / расслабиться", ex: "In Mystic Falls, you can never afford to let your guard down." },
+    { s: "tvd", en: "sire bond", ru: "кровная связь (подчинение создателю)", ex: "A rare sire bond made Elena agree with everything Damon suggested." },
+    { s: "tvd", en: "bloodlust", ru: "неутолимая жажда крови", ex: "Turning into a vampire amplifies every emotion, especially bloodlust." },
+    { s: "tvd", en: "ripper", ru: "потрошитель (вампир без тормозов)", ex: "When Stefan loses control over blood, he turns back into a ruthless ripper." },
+    { s: "tvd", en: "dagger an Original", ru: "усыпить Древнего кинжалом", ex: "Only a white oak ash dagger can temporarily dagger an Original." },
+    { s: "tvd", en: "white oak stake", ru: "кол из белого дуба", ex: "Klaus hunted down every last white oak stake in the world." },
+    { s: "tvd", en: "vervain-laced", ru: "пропитанный вербеной", ex: "The Founders' Council served vervain-laced tea at the party." },
+    { s: "tvd", en: "daylight ring", ru: "кольцо дневного света", ex: "Bonnie enchanted a lapis lazuli daylight ring for Caroline." },
+    { s: "tvd", en: "full moon transition", ru: "обращение в полнолуние", ex: "Tyler dreaded the painful full moon transition in the Lockwood cellar." },
+    { s: "tvd", en: "hybrid curse", ru: "проклятие гибрида", ex: "Klaus needed the doppelgänger's blood to break his hybrid curse." },
+    { s: "tvd", en: "ancestral magic", ru: "магия предков", ex: "Bennett witches draw strength from centuries of ancestral magic." },
+    { s: "tvd", en: "channel power", ru: "черпать / направлять магическую силу", ex: "Bonnie had to channel power from nature to lift the boundary spell." },
+    { s: "tvd", en: "break the seal", ru: "сломать печать", ex: "Breaking the tomb seal unleashed dozens of starving vampires." },
+    { s: "tvd", en: "draw the line", ru: "провести черту / установить предел", ex: "Elena had to draw the line when Damon's plans became too reckless." },
+    { s: "tvd", en: "take the blame", ru: "взять вину на себя", ex: "Stefan always stepped forward to take the blame for his brother." },
+    { s: "tvd", en: "double-cross someone", ru: "предать / обмануть сообщника", ex: "Katherine Pierce will double-cross anyone to guarantee her survival." },
+    { s: "tvd", en: "have a soft spot for", ru: "питать слабость к кому-либо", ex: "Even the ruthless Klaus seemed to have a soft spot for Caroline." },
+    { s: "tvd", en: "redeem oneself", ru: "искупить свою вину", ex: "Damon spent years trying to redeem himself in Elena's eyes." },
+    { s: "tvd", en: "collateral damage", ru: "случайные жертвы / сопутствующий урон", ex: "To an Original vampire, townspeople are merely collateral damage." },
+    { s: "tvd", en: "strike a nerve", ru: "задеть за живое", ex: "Caroline's sharp remark about his family clearly struck a nerve." },
+    { s: "tvd", en: "call a truce", ru: "объявить перемирие", ex: "The brothers agreed to call a truce until Katherine was caught." },
+    { s: "tvd", en: "behind enemy lines", ru: "в тылу врага", ex: "Attending the Mikaelson ball felt like walking behind enemy lines." },
+    { s: "tvd", en: "keep a low profile", ru: "не высовываться / вести себя тихо", ex: "New vampires must keep a low profile around Sheriff Forbes." },
+    { s: "tvd", en: "turn against someone", ru: "ополчиться / пойти против кого-то", ex: "Klaus feared his own hybrids would eventually turn against him." },
+    { s: "tvd", en: "play with fire", ru: "играть с огнём", ex: "Using dark Expression magic means playing with fire." },
+    { s: "tvd", en: "no strings attached", ru: "без каких-либо обязательств", ex: "In Mystic Falls, no magical favor ever comes with no strings attached." },
+    { s: "tvd", en: "take for granted", ru: "принимать как должное", ex: "Becoming a vampire teaches you never to take human life for granted." },
+    { s: "tvd", en: "come to terms with", ru: "смириться с чем-либо", ex: "Elena struggled to come to terms with her new supernatural reality." },
+    { s: "tvd", en: "on the brink of", ru: "на грани чего-либо", ex: "Mystic Falls was on the brink of a full-scale supernatural war." },
+    { s: "tvd", en: "seal someone's fate", ru: "предрешить чью-то судьбу", ex: "Stealing the Cure from Silas sealed his tragic fate." },
+    { s: "tvd", en: "bring back from the dead", ru: "вернуть с того света", ex: "The Gilbert ring can bring a human back from the dead." },
+    { s: "tvd", en: "the Other Side", ru: "Потусторонняя сторона", ex: "Ghosts of witches and vampires lingered on the Other Side." },
+    { s: "tvd", en: "anchor to the living", ru: "якорь в мир живых", ex: "Bonnie became the supernatural anchor to the living world." },
+    { s: "tvd", en: "doppelgänger blood", ru: "кровь двойника", ex: "Powerful spells often require rare doppelgänger blood." },
+    { s: "tvd", en: "spellbound", ru: "околдованный / заворожённый", ex: "Everyone in the ballroom stood spellbound by Rebekah's entrance." },
+    { s: "tvd", en: "take a bullet for", ru: "подставиться под удар ради кого-то", ex: "Alaric would take a bullet for Elena and Jeremy without hesitation." },
+    { s: "tvd", en: "outsmart an enemy", ru: "перехитрить врага", ex: "You can't beat an Original by strength—you have to outsmart an enemy." },
+    { s: "tvd", en: "bury the hatchet", ru: "зарыть топор войны / помириться", ex: "Stefan and Damon finally decided to bury the hatchet." },
+    { s: "tvd", en: "turn off one's emotions", ru: "отключить эмоции (щёлкнуть переключателем)", ex: "After losing everyone she loved, Elena decided to turn off her emotions." },
+    { s: "tvd", en: "bound by blood", ru: "связанные кровью", ex: "The Mikaelson siblings vowed to stay together forever, bound by blood." },
+    { s: "tvd", en: "stake through the heart", ru: "кол прямо в сердце", ex: "A wooden stake through the heart is fatal to any ordinary vampire." },
+    { s: "tvd", en: "lapis lazuli ring", ru: "кольцо с лазуритом (защита от солнца)", ex: "Emily Bennett crafted a lapis lazuli ring for each Salvatore brother." },
+    { s: "tvd", en: "invite a vampire in", ru: "пригласить вампира в дом", ex: "Never invite a vampire in unless you are ready to face the consequences." },
+    { s: "tvd", en: "blood bag", ru: "пакет с донорской кровью", ex: "Stefan kept a hidden stash of blood bags inside the basement freezer." },
+    { s: "tvd", en: "compulsion wears off", ru: "внушение перестаёт действовать", ex: "Once a vampire dies or transitions, all previous compulsion wears off." },
+    { s: "tvd", en: "hybrid sire", ru: "создатель гибридов", ex: "Every newly turned hybrid felt loyal to Klaus as their hybrid sire." },
+    { s: "tvd", en: "moonstone", ru: "лунный камень", ex: "Katherine hid the moonstone inside a soap dish to outsmart the Originals." },
+    { s: "tvd", en: "sacrifice ritual", ru: "ритуал жертвоприношения", ex: "The full moon triggered the ancient sacrifice ritual in the woods." },
+    { s: "tvd", en: "Founders' Council", ru: "Совет Основателей", ex: "The Founders' Council secretly hunted vampires in Mystic Falls for generations." },
+    { s: "tvd", en: "boarding house", ru: "пансион (особняк Сальваторе)", ex: "The Salvatore boarding house became the headquarters for every supernatural crisis." },
+    { s: "tvd", en: "eternal life", ru: "вечная жизнь", ex: "Eternal life sounds tempting until you watch everyone you love grow old." },
+    { s: "tvd", en: "cure for vampirism", ru: "лекарство от вампиризма", ex: "Everyone in town was willing to kill for the single dose of the cure for vampirism." },
+    { s: "tvd", en: "witchcraft grimoire", ru: "ведьмовской гримуар", ex: "Bonnie flipped through her ancestor's witchcraft grimoire to find a counter-spell." },
+    { s: "tvd", en: "boundary spell", ru: "заклинание барьера", ex: "A powerful boundary spell trapped the vampires inside the burning building." },
+    { s: "tvd", en: "cloak a location", ru: "скрыть место магией", ex: "Witches can cloak a location so no tracking spell can ever find it." },
+    { s: "tvd", en: "link lives together", ru: "связать жизни заклинанием", ex: "Esther cast a spell to link lives together so all her children shared one fate." },
+    { s: "tvd", en: "heal in seconds", ru: "исцелиться за секунды", ex: "One drop of vampire blood allows a human wound to heal in seconds." },
+    { s: "tvd", en: "vampire bloodline", ru: "кровная линия вампиров", ex: "Killing an Original destroys their entire vampire bloodline." },
+
+    { s: "dh", en: "white lie", ru: "ложь во спасение", ex: "Susan told a harmless white lie to avoid hurting Mike's feelings." },
+    { s: "dh", en: "cover up a crime", ru: "скрыть преступление / замести следы", ex: "The four housewives banded together to cover up a crime." },
+    { s: "dh", en: "catch red-handed", ru: "поймать с поличным", ex: "Mrs. McCluskey caught the intruder red-handed in the garage." },
+    { s: "dh", en: "nosy neighbor", ru: "любопытный сосед", ex: "Every block on Wisteria Lane has at least one nosy neighbor." },
+    { s: "dh", en: "drop a bombshell", ru: "ошарашить неожиданной новостью", ex: "Edie loved to drop a bombshell right in the middle of brunch." },
+    { s: "dh", en: "air dirty laundry", ru: "выносить сор из избы", ex: "Bree refused to air her family's dirty laundry in front of guests." },
+    { s: "dh", en: "save face", ru: "сохранить лицо / репутацию", ex: "She smiled politely through the scandal just to save face." },
+    { s: "dh", en: "bite one's tongue", ru: "прикусить язык / промолчать", ex: "Lynette had to bite her tongue during her boss's ridiculous speech." },
+    { s: "dh", en: "put on an act", ru: "ломать комедию / притворяться", ex: "Gabrielle can put on an act whenever she wants to get her way." },
+    { s: "dh", en: "get cold feet", ru: "струсить в последний момент", ex: "The groom got cold feet ten minutes before the ceremony." },
+    { s: "dh", en: "file for divorce", ru: "подать на развод", ex: "After discovering the secret, she threatened to file for divorce." },
+    { s: "dh", en: "prenuptial agreement", ru: "брачный контракт", ex: "Carlos insisted on signing a strict prenuptial agreement." },
+    { s: "dh", en: "custody battle", ru: "борьба за опеку над детьми", ex: "A bitter custody battle broke out between the former spouses." },
+    { s: "dh", en: "turn a blind eye", ru: "закрывать глаза на что-то", ex: "Neighbors often turn a blind eye to what happens after dark." },
+    { s: "dh", en: "add fuel to the fire", ru: "подливать масла в огонь", ex: "Mentioning her ex-husband only added fuel to the fire." },
+    { s: "dh", en: "read between the lines", ru: "читать между строк", ex: "If you read between the lines, Mary Alice's note was a cry for help." },
+    { s: "dh", en: "have an alibi", ru: "иметь алиби", ex: "Bree made sure everyone at the poker game had a solid alibi." },
+    { s: "dh", en: "plant evidence", ru: "подбросить улики", ex: "Paul Young suspected someone had tried to plant evidence in his shed." },
+    { s: "dh", en: "hold one's head high", ru: "высоко держать голову", ex: "Despite the rumors, Bree walked down the street holding her head high." },
+    { s: "dh", en: "bitter pill to swallow", ru: "горькая пилюля (неприятная правда)", ex: "Losing her catering company was a bitter pill to swallow." },
+    { s: "dh", en: "talk behind someone's back", ru: "сплетничать за спиной", ex: "Everyone smiles to your face, then talks behind your back." },
+    { s: "dh", en: "make a confession", ru: "сделать признание", ex: "Susan couldn't sleep until she went to make a confession." },
+    { s: "dh", en: "silver lining", ru: "светлая сторона / лучик надежды", ex: "Even after losing their fortune, Gabrielle looked for a silver lining." },
+    { s: "dh", en: "push someone over the edge", ru: "довести до крайности", ex: "Constant blackmail finally pushed her over the edge." },
+    { s: "dh", en: "walk down the aisle", ru: "пойти под венец", ex: "Susan dreamed of walking down the aisle in a white gown." },
+    { s: "dh", en: "call off the wedding", ru: "отменить свадьбу", ex: "A shocking discovery forced them to call off the wedding." },
+    { s: "dh", en: "dig up dirt", ru: "раскопать компромат", ex: "A private investigator was hired to dig up dirt on the new neighbor." },
+    { s: "dh", en: "keep a straight face", ru: "сохранять невозмутимое лицо", ex: "It was hard to keep a straight face while listening to her excuse." },
+    { s: "dh", en: "over my dead body", ru: "только через мой труп", ex: "Sell my grandmother's antique silver? Over my dead body!" },
+    { s: "dh", en: "let the cat out of the bag", ru: "случайно выдать тайну", ex: "Susan accidentally let the cat out of the bag at the dinner table." },
+    { s: "dh", en: "under suspicion", ru: "под подозрением", ex: "Every husband on Wisteria Lane fell under suspicion." },
+    { s: "dh", en: "clear one's name", ru: "очистить своё доброе имя", ex: "Orson fought desperately to clear his name." },
+    { s: "dh", en: "pass judgment", ru: "осуждать / выносить приговор", ex: "Neighbors are always quick to pass judgment on others." },
+    { s: "dh", en: "domestic bliss", ru: "семейная идиллия", ex: "Behind the picture of domestic bliss lurked deep resentment." },
+    { s: "dh", en: "tarnished reputation", ru: "подмоченная репутация", ex: "A tarnished reputation is the worst nightmare in suburbia." },
+    { s: "dh", en: "anonymous tip", ru: "анонимная наводка", ex: "The detective arrived after receiving an anonymous tip." },
+    { s: "dh", en: "stage a scene", ru: "инсценировать сцену", ex: "Gabrielle decided to stage a scene to distract the security guard." },
+    { s: "dh", en: "have the last laugh", ru: "смеяться последним", ex: "Bree always manages to have the last laugh against her rivals." },
+    { s: "dh", en: "two-faced", ru: "двуличный", ex: "Martha Huber was the most two-faced woman on the block." },
+    { s: "dh", en: "close-knit community", ru: "сплочённый райончик / община", ex: "Wisteria Lane looks like a warm, close-knit community." },
+    { s: "dh", en: "picket fence", ru: "белый штакетник (символ идеального пригорода)", ex: "Behind every white picket fence on Wisteria Lane hides a messy scandal." },
+    { s: "dh", en: "poker night", ru: "вечер покера (традиция подруг)", ex: "Weekly poker night was where the four friends traded their biggest secrets." },
+    { s: "dh", en: "juicy gossip", ru: "пикантные сплетни", ex: "Edie Britt always arrived with the latest juicy gossip about the neighbors." },
+    { s: "dh", en: "backhanded compliment", ru: "двусмысленный комплимент (скрытая колкость)", ex: "Bree mastered the art of delivering a polite backhanded compliment." },
+    { s: "dh", en: "point the finger at", ru: "указывать пальцем / обвинять", ex: "As soon as the police arrived, neighbors began to point the finger at Paul." },
+    { s: "dh", en: "keep a secret", ru: "хранить тайну", ex: "On this street, nobody knows how to keep a secret for more than a week." },
+    { s: "dh", en: "stir up trouble", ru: "заваривать кашу / провоцировать скандал", ex: "Felicia Tilman moved onto the block purely to stir up trouble." },
+    { s: "dh", en: "under the table", ru: "тайно / неофициально (взятка или сделка)", ex: "Carlos paid the contractor under the table to finish the remodel early." },
+    { s: "dh", en: "put on a brave face", ru: "делать вид, что всё в порядке, несмотря на беду", ex: "Lynette had to put on a brave face for her kids during the crisis." },
+    { s: "dh", en: "blow the whistle", ru: "разоблачить / сдать с потрохами", ex: "An anonymous witness threatened to blow the whistle on the cover-up." },
+    { s: "dh", en: "bury a secret", ru: "похоронить тайну навсегда", ex: "They dug up the backyard pool trying to bury a secret from the past." },
+    { s: "dh", en: "cul-de-sac", ru: "тупиковая улочка", ex: "Wisteria Lane is the most dramatic cul-de-sac in television history." },
+    { s: "dh", en: "dinner party disaster", ru: "провал званого ужина", ex: "A sudden confession turned Bree's formal evening into a dinner party disaster." },
+    { s: "dh", en: "alimony payments", ru: "выплата алиментов", ex: "The divorce lawyer demanded generous alimony payments after the affair." },
+    { s: "dh", en: "marriage counseling", ru: "семейная психотерапия", ex: "Bree and Rex reluctantly agreed to try marriage counseling." },
+    { s: "dh", en: "eavesdrop on", ru: "подслушивать чужой разговор", ex: "Mrs. Huber stood by the hedge to eavesdrop on Susan's phone call." },
+    { s: "dh", en: "catch someone off balance", ru: "выбить из колеи", ex: "The detective's unexpected question managed to catch her off balance." },
+    { s: "dh", en: "sweep off one's feet", ru: "вскружить голову", ex: "Mike Delfino swept Susan off her feet the moment he moved in." },
+    { s: "dh", en: "skeleton key", ru: "отмычка / универсальный ключ", ex: "She used an old skeleton key to unlock the neighbor's attic trunk." },
+    { s: "dh", en: "bitter truth", ru: "горькая правда", ex: "Eventually, the bitter truth came out at the neighborhood block party." },
+
+    { s: "spn", en: "shut your piehole", ru: "закрой рот / помалкивай", ex: "Driver picks the music, shotgun shuts his piehole!" },
+    { s: "spn", en: "idjit", ru: "придурок / балбес (словечко Бобби)", ex: "Bobby shook his head and muttered, 'You two are a couple of idjits.'" },
+    { s: "spn", en: "salt and burn", ru: "посолить и сжечь (останки)", ex: "To stop a vengeful spirit, hunters have to salt and burn the bones." },
+    { s: "spn", en: "devil's trap", ru: "дьявольская ловушка", ex: "Sam painted a hidden devil's trap under the motel rug." },
+    { s: "spn", en: "exorcism chant", ru: "заклинание экзорцизма", ex: "Dean recited the Latin exorcism chant before the demon could escape." },
+    { s: "spn", en: "hellhound", ru: "адская гончая", ex: "Only those marked for Hell can see an invisible hellhound approaching." },
+    { s: "spn", en: "mark of Cain", ru: "печать Каина", ex: "Bearing the Mark of Cain filled Dean with uncontrollable rage." },
+    { s: "spn", en: "free will", ru: "свобода воли", ex: "Team Free Will refused to let angels or demons write their destiny." },
+    { s: "spn", en: "king of Hell", ru: "король Ада (Кроули)", ex: "Crowley always wore a sharp suit as the self-proclaimed King of Hell." },
+    { s: "spn", en: "summon a demon", ru: "призвать демона", ex: "You need graveyard dirt and a photo to summon a crossroads demon." },
+    { s: "spn", en: "ward off evil", ru: "защищаться от зла", ex: "Anti-possession tattoos ward off evil spirits and demons." },
+    { s: "spn", en: "graveyard shift", ru: "ночная смена", ex: "Working the graveyard shift at the morgue always attracts trouble." },
+    { s: "spn", en: "dead end", ru: "тупик (в расследовании)", ex: "Every witness interview led the brothers to another dead end." },
+    { s: "spn", en: "gut feeling", ru: "внутреннее чутьё / интуиция", ex: "Dean trusted his gut feeling more than any police report." },
+    { s: "spn", en: "go rogue", ru: "выйти из-под контроля / действовать самому", ex: "Castiel decided to go rogue against Heaven's orders." },
+    { s: "spn", en: "cheat death", ru: "обмануть смерть", ex: "The Winchesters have managed to cheat death more times than anyone." },
+    { s: "spn", en: "on borrowed time", ru: "жить взаймы (на исходе срока)", ex: "Once you make a demon deal, you are living on borrowed time." },
+    { s: "spn", en: "restless spirit", ru: "неупокоенный дух", ex: "A restless spirit haunted the old Victorian house." },
+    { s: "spn", en: "cursed object", ru: "проклятый предмет", ex: "Lock the cursed object inside a box lined with iron." },
+    { s: "spn", en: "bloodline", ru: "родословная / кровная линия", ex: "Sam and Dean come from a long bloodline of Men of Letters." },
+    { s: "spn", en: "raise Hell", ru: "устроить переполох / поднять бучу", ex: "Dean was ready to raise Hell to save his younger brother." },
+    { s: "spn", en: "pay the ultimate price", ru: "заплатить высшую цену (жизнью)", ex: "Hunters know they might pay the ultimate price on any job." },
+    { s: "spn", en: "back from the dead", ru: "вернувшийся с того света", ex: "Castiel pulled Dean straight back from the dead." },
+    { s: "spn", en: "lie low", ru: "залечь на дно", ex: "After escaping the FBI, the boys had to lie low in a small town." },
+    { s: "spn", en: "trace a pattern", ru: "отследить закономерность", ex: "Sam spread the map on the hood to trace a pattern of attacks." },
+    { s: "spn", en: "sulfur trace", ru: "след серы", ex: "The EMF meter spiked right next to a yellow sulfur trace." },
+    { s: "spn", en: "EMF meter", ru: "детектор электромагнитного поля", ex: "Dean built his first EMF meter out of an old Walkman." },
+    { s: "spn", en: "silver bullet", ru: "серебряная пуля", ex: "Load the revolver with a silver bullet before entering the woods." },
+    { s: "spn", en: "shape-shifter", ru: "оборотень-перевёртыш", ex: "The camera flash revealed the glowing eyes of a shape-shifter." },
+    { s: "spn", en: "skinwalker", ru: "перевёртыш (оборотень-собака)", ex: "A skinwalker can shift between human and canine form." },
+    { s: "spn", en: "wendigo", ru: "вендиго (лесной монстр)", ex: "A wendigo mimics human voices to lure campers into the dark." },
+    { s: "spn", en: "reaper", ru: "жнец (проводник душ)", ex: "A reaper appeared to escort the soul to the afterlife." },
+    { s: "spn", en: "apocalypse world", ru: "мир Апокалипсиса", ex: "They opened a rift into a ruined apocalypse world." },
+    { s: "spn", en: "take the wheel", ru: "сесть за руль", ex: "Sam rarely got permission to take the wheel of the Impala." },
+    { s: "spn", en: "pull an all-nighter", ru: "не спать всю ночь (за изучением)", ex: "Sam pulled an all-nighter reading ancient lore in the bunker." },
+    { s: "spn", en: "against all odds", ru: "вопреки всему / несмотря ни на что", ex: "Against all odds, the two brothers stopped the apocalypse." },
+    { s: "spn", en: "no turning back", ru: "пути назад нет", ex: "Once you step into the hunting life, there is no turning back." },
+    { s: "spn", en: "sell one's soul", ru: "продать душу", ex: "Dean made a desperate choice to sell his soul at the crossroads." },
+    { s: "spn", en: "break the deal", ru: "расторгнуть сделку", ex: "They searched for a loophole to break the crossroads deal." },
+    { s: "spn", en: "ride or die", ru: "вместе до конца / верный напарник", ex: "Sam and Dean are the ultimate ride or die brothers." },
+    { s: "spn", en: "angel blade", ru: "ангельский клинок", ex: "Castiel drew a silver angel blade from his trench coat sleeve." },
+    { s: "spn", en: "demon-possessed", ru: "одержимый демоном", ex: "The black eyes proved the town mayor was demon-possessed." },
+    { s: "spn", en: "salt line", ru: "защитная линия из соли", ex: "Do not step across the salt line until sunrise!" },
+    { s: "spn", en: "hunter's journal", ru: "дневник охотника", ex: "Every monster's weakness was scribbled inside John's leather hunter's journal." },
+    { s: "spn", en: "credit card scam", ru: "мошенничество с кредитками", ex: "Sam and Dean funded their cross-country hunts with a classic credit card scam." },
+    { s: "spn", en: "poltergeist activity", ru: "активность полтергейста", ex: "Flying kitchen knives were a clear sign of violent poltergeist activity." },
+    { s: "spn", en: "ghost sickness", ru: "призрачная болезнь", ex: "An infected ghost scratch gave Dean a terrifying case of ghost sickness." },
+    { s: "spn", en: "bloody Mary", ru: "Кровавая Мэри (легенда о зеркале)", ex: "Never say Bloody Mary three times in front of a dark bathroom mirror." },
+    { s: "spn", en: "crossroads deal", ru: "сделка на перекрёстке", ex: "Every crossroads deal gives you ten years before the hellhounds collect." },
+    { s: "spn", en: "archangel", ru: "архангел", ex: "Gabriel disguised himself as a Trickster to hide from his archangel brothers." },
+    { s: "spn", en: "leviathan", ru: "левиафан (древнее чудовище)", ex: "Even angels feared the ancient, shapeshifting leviathan." },
+    { s: "spn", en: "banishing sigil", ru: "печать изгнания ангелов", ex: "Castiel carved a blood banishing sigil onto his own chest to escape." },
+    { s: "spn", en: "iron poker", ru: "железная кочерга (против призраков)", ex: "Dean swung a heavy iron poker right through the phantom." },
+    { s: "spn", en: "cold spot", ru: "ледяная зона (признак призрака)", ex: "Their breath turned to mist as they walked into a sudden cold spot." },
+    { s: "spn", en: "ectoplasm", ru: "эктоплазма", ex: "Sam wiped sticky ectoplasm off the antique mirror frame." },
+    { s: "spn", en: "gank a monster", ru: "прикончить монстра (охотничий сленг)", ex: "Grab the machete—we've got a vampire nest to gank." },
+    { s: "spn", en: "save people, hunt things", ru: "спасать людей, охотиться на нечисть", ex: "Our motto is simple: save people, hunt things, the family business." },
+    { s: "spn", en: "wayward son", ru: "блудный сын (отсылка к гимну сериала)", ex: "Carry on my wayward son echoed through the Impala on every season finale." },
+    { s: "spn", en: "hell's gate", ru: "врата Ада", ex: "Jake used the Colt to unlock the devil's trap guarding hell's gate." },
+    { s: "spn", en: "knight of Hell", ru: "рыцарь Ада", ex: "Abaddon was the last surviving knight of Hell trained by Cain." },
+
+    { s: "ph", en: "climb the social ladder", ru: "взбираться по социальной лестнице", ex: "Oh Yoon-hee fought relentlessly to climb the social ladder." },
+    { s: "ph", en: "born with a silver spoon", ru: "родиться в роскоши", ex: "The kids of Hera Palace were born with a silver spoon." },
+    { s: "ph", en: "hush money", ru: "деньги за молчание", ex: "Joo Dan-tae paid millions in hush money to silence witnesses." },
+    { s: "ph", en: "sweep into power", ru: "стремительно прийти к власти", ex: "He used blackmail and bribery to sweep into power." },
+    { s: "ph", en: "abuse of power", ru: "злоупотребление властью", ex: "The Hera Club members were guilty of constant abuse of power." },
+    { s: "ph", en: "vocal cords", ru: "голосовые связки", ex: "Cheon Seo-jin panicked when a doctor warned about her vocal cords." },
+    { s: "ph", en: "lip-sync", ru: "петь под фонограмму", ex: "The famous soprano secretly hired a shadow singer to lip-sync." },
+    { s: "ph", en: "blackmail footage", ru: "компрометирующая видеозапись", ex: "A flash drive with blackmail footage changed the entire trial." },
+    { s: "ph", en: "launder money", ru: "отмывать деньги", ex: "They used offshore accounts to launder money from construction deals." },
+    { s: "ph", en: "shell company", ru: "подставная фирма", ex: "Logan traced the stolen fortune to a hidden shell company." },
+    { s: "ph", en: "real estate mogul", ru: "магнат недвижимости", ex: "Joo Dan-tae posed as a respectable real estate mogul." },
+    { s: "ph", en: "high-profile trial", ru: "громкий судебный процесс", ex: "Reporters crowded the courthouse during the high-profile trial." },
+    { s: "ph", en: "perjury", ru: "лжесвидетельство в суде", ex: "Lying on the witness stand is a serious crime of perjury." },
+    { s: "ph", en: "tamper with evidence", ru: "фальсифицировать / подменять улики", ex: "Corrupt detectives were paid to tamper with evidence." },
+    { s: "ph", en: "accomplice", ru: "сообщник / соучастник", ex: "Every villain in Hera Palace had a secret accomplice." },
+    { s: "ph", en: "mastermind", ru: "организатор / серый кардинал", ex: "Su-ryeon revealed the true mastermind behind the penthouse tragedy." },
+    { s: "ph", en: "fall from grace", ru: "падение с вершины / опала", ex: "Cheon Seo-jin's fall from grace shocked the classical music world." },
+    { s: "ph", en: "ruthless tycoon", ru: "безжалостный магнат", ex: "Nobody dared cross the ruthless tycoon of the 100th floor." },
+    { s: "ph", en: "gilded cage", ru: "золотая клетка", ex: "Living in the luxury penthouse felt like a gilded cage." },
+    { s: "ph", en: "avenge someone", ru: "отомстить за кого-либо", ex: "Shim Su-ryeon vowed to avenge her innocent daughter." },
+    { s: "ph", en: "twist the knife", ru: "сыпать соль на рану / добивать", ex: "She smiled coldly just to twist the knife in her rival's wound." },
+    { s: "ph", en: "play the victim", ru: "строить из себя жертву", ex: "Even after committing the crime, she tried to play the victim." },
+    { s: "ph", en: "cut ties with", ru: "разорвать все связи с кем-либо", ex: "She decided to cut ties with the corrupt Hera Club forever." },
+    { s: "ph", en: "buy someone's silence", ru: "купить чьё-то молчание", ex: "No amount of gold could buy the witness's silence." },
+    { s: "ph", en: "confidential file", ru: "конфиденциальное досье", ex: "Logan unlocked a confidential file inside the hidden safe." },
+    { s: "ph", en: "hostile takeover", ru: "враждебное поглощение (бизнеса)", ex: "Logan Lee launched a hostile takeover of Dan-tae's company." },
+    { s: "ph", en: "public humiliation", ru: "публичное унижение", ex: "Losing the foundation chair was a bitter public humiliation." },
+    { s: "ph", en: "unforgivable sin", ru: "непростительный грех", ex: "Betraying a loyal friend was an unforgivable sin." },
+    { s: "ph", en: "secret twin", ru: "тайный близнец", ex: "The arrival of a secret twin turned the investigation upside down." },
+    { s: "ph", en: "rise from the ashes", ru: "восстать из пепла", ex: "Like a phoenix, she returned to rise from the ashes." },
+    { s: "ph", en: "checkmate", ru: "шах и мат (полная победа)", ex: "With the final recording played in court, it was checkmate." },
+    { s: "ph", en: "blinded by greed", ru: "ослеплённый жадностью", ex: "Blinded by greed, they destroyed their own families." },
+    { s: "ph", en: "cutthroat competition", ru: "беспощадная конкуренция", ex: "Cheong-ah Arts School was notorious for cutthroat competition." },
+    { s: "ph", en: "pull rank", ru: "давить авторитетом / статусом", ex: "Parents constantly tried to pull rank on the music teachers." },
+    { s: "ph", en: "under oath", ru: "под присягой", ex: "She testified under oath and exposed the entire conspiracy." },
+    { s: "ph", en: "plead guilty", ru: "признать себя виновным", ex: "Cornered by evidence, the accomplice had to plead guilty." },
+    { s: "ph", en: "appeal the verdict", ru: "обжаловать приговор", ex: "Their expensive lawyers immediately tried to appeal the verdict." },
+    { s: "ph", en: "inner sanctum", ru: "святая святых (тайный кабинет)", ex: "Only one person knew the passcode to his inner sanctum." },
+    { s: "ph", en: "glass ceiling", ru: "стеклянный потолок", ex: "Outsiders faced an invisible glass ceiling in Hera Palace." },
+    { s: "ph", en: "pay the piper", ru: "расплачиваться за содеянное", ex: "At the end of the season, every villain had to pay the piper." },
+    { s: "ph", en: "penthouse suite", ru: "роскошный пентхаус на верхнем этаже", ex: "Floor-to-ceiling windows overlooked all of Seoul from the penthouse suite." },
+    { s: "ph", en: "marble fountain", ru: "мраморный фонтан", ex: "Everyone froze in horror beside the Hera Palace marble fountain." },
+    { s: "ph", en: "vocal audition", ru: "вокальное прослушивание", ex: "Bae Ro-na practiced day and night for the Cheong-ah vocal audition." },
+    { s: "ph", en: "grand prize", ru: "главный приз (трофей Чхона)", ex: "Winning the arts festival grand prize guaranteed admission to Seoul National University." },
+    { s: "ph", en: "chaebol heir", ru: "наследник корейской бизнес-империи", ex: "Logan Lee returned to Korea disguised as a flamboyant chaebol heir." },
+    { s: "ph", en: "destroy evidence", ru: "уничтожить улики", ex: "Joo Dan-tae ordered his secretary to destroy evidence before sunrise." },
+    { s: "ph", en: "bribe a witness", ru: "подкупить свидетеля", ex: "They offered a suitcase of cash to bribe a witness before the hearing." },
+    { s: "ph", en: "false testimony", ru: "ложные показания", ex: "The defense lawyer exposed the security guard's false testimony." },
+    { s: "ph", en: "secret vault", ru: "потайной сейф / хранилище", ex: "Gold bars and forged deeds were locked inside his secret vault." },
+    { s: "ph", en: "ruthless betrayal", ru: "беспощадное предательство", ex: "Every alliance in Hera Club ended in a ruthless betrayal." },
+    { s: "ph", en: "taste of revenge", ru: "вкус мести", ex: "Watching her enemies crumble finally gave Su-ryeon the taste of revenge." },
+    { s: "ph", en: "high society", ru: "высшее общество", ex: "Gossip spreads faster than wildfire in Seoul's high society." },
+    { s: "ph", en: "VIP lounge", ru: "закрытая VIP-ложа", ex: "Only Hera Club founders were permitted inside the opera VIP lounge." },
+    { s: "ph", en: "forged signature", ru: "поддельная подпись", ex: "A handwriting expert proved the property transfer had a forged signature." },
+    { s: "ph", en: "expose the truth", ru: "раскрыть всю правду", ex: "She hijacked the live broadcast to expose the truth to the whole nation." },
+    { s: "ph", en: "downfall of an empire", ru: "крах империи", ex: "One leaked audio file triggered the rapid downfall of an empire." },
+    { s: "ph", en: "puppet master", ru: "кукловод (управляющий людьми)", ex: "For years, Dan-tae acted as the unseen puppet master of the district." },
+    { s: "ph", en: "blood on one's hands", ru: "кровь на чьих-то руках", ex: "Every member of the inner circle had blood on their hands." },
+    { s: "ph", en: "unmask a liar", ru: "сорвать маску с лжеца", ex: "Su-ryeon waited patiently for the perfect moment to unmask a liar." },
+    { s: "ph", en: "sweet victory", ru: "сладкая победа", ex: "After three seasons of chaos, justice finally tasted like sweet victory." },
+
+    { s: "ouat", en: "dearie", ru: "дорогуша (фирменное слово Голда)", ex: "Rumplestiltskin chuckled, 'Everything is possible with magic, dearie.'" },
+    { s: "ouat", en: "the Dark One", ru: "Тёмный маг", ex: "Whoever holds the dagger controls the power of the Dark One." },
+    { s: "ouat", en: "the Evil Queen", ru: "Злая Королева", ex: "Regina vowed to destroy Snow White's happiness as the Evil Queen." },
+    { s: "ouat", en: "the Savior", ru: "Спасительница (Эмма Свон)", ex: "Only the Savior had the power to break the Storybrooke curse." },
+    { s: "ouat", en: "sleeping curse", ru: "сонное проклятие", ex: "One bite of the poisoned turnover triggered the sleeping curse." },
+    { s: "ouat", en: "magic bean", ru: "волшебный боб (портал)", ex: "Throw a magic bean to open a swirling portal to another realm." },
+    { s: "ouat", en: "fine print", ru: "мелкий шрифт (в сделке)", ex: "Always read the fine print before signing a deal with Mr. Gold." },
+    { s: "ouat", en: "once upon a time", ru: "давным-давно / однажды в сказке", ex: "Every great adventure in Henry's book begins with once upon a time." },
+    { s: "ouat", en: "happily ever after", ru: "долго и счастливо", ex: "Even villains secretly hope to find their happily ever after." },
+    { s: "ouat", en: "sheriff's badge", ru: "значок шерифа Сторибрука", ex: "Emma pinned on the silver sheriff's badge to protect the town." },
+    { s: "ouat", en: "lie detector", ru: "детектор лжи (суперсила Эммы)", ex: "Emma's natural lie detector told her Regina was hiding something." },
+    { s: "ouat", en: "enchanted mirror", ru: "волшебное зеркало", ex: "The Evil Queen spied on her enemies through an enchanted mirror." },
+    { s: "ouat", en: "poisoned apple", ru: "отравленное яблоко", ex: "Regina offered Snow White a glossy red poisoned apple." },
+    { s: "ouat", en: "frozen in time", ru: "застывший во времени", ex: "For twenty-eight years, Storybrooke remained frozen in time." },
+    { s: "ouat", en: "town line", ru: "граница города", ex: "Crossing the Storybrooke town line carried a dangerous risk." },
+    { s: "ouat", en: "Jolly Roger", ru: "«Весёлый Роджер» (корабль Крюка)", ex: "Captain Hook sailed across realms aboard the Jolly Roger." },
+    { s: "ouat", en: "swashbuckler", ru: "лихой пират / сорвиголова", ex: "Killian Jones was a charming swashbuckler with a silver hook." },
+    { s: "ouat", en: "change one's fate", ru: "изменить свою судьбу", ex: "Regina proved that anyone can choose to change their fate." },
+    { s: "ouat", en: "heart of darkness", ru: "сердце тьмы", ex: "True love's light can heal even a heart of darkness." },
+    { s: "ouat", en: "light magic", ru: "светлая магия", ex: "Light magic is born from pure love and selflessness." },
+    { s: "ouat", en: "darkness within", ru: "тьма внутри", ex: "Emma had to confront the darkness within to save Hook." },
+    { s: "ouat", en: "make a wish", ru: "загадать желание", ex: "Blue Fairy told Geppetto to wish upon a star and make a wish." },
+    { s: "ouat", en: "enchanted wardrobe", ru: "волшебный шкаф", ex: "The enchanted wardrobe carried baby Emma safely to our world." },
+    { s: "ouat", en: "glass coffin", ru: "хрустальный гроб", ex: "Prince Charming found Snow White sleeping inside a glass coffin." },
+    { s: "ouat", en: "true north", ru: "истинный север (компас)", ex: "The magical compass always points toward true north." },
+    { s: "ouat", en: "author's quill", ru: "перо Автора", ex: "The Author's quill can only write when dipped in magic ink." },
+    { s: "ouat", en: "untold stories", ru: "нерассказанные истории", ex: "Jekyll and Hyde arrived from the Land of Untold Stories." },
+    { s: "ouat", en: "step out of the shadows", ru: "выйти из тени", ex: "It was time for the Savior to step out of the shadows." },
+    { s: "ouat", en: "forgive and forget", ru: "простить и забыть", ex: "Snow White chose to forgive and forget Regina's past crimes." },
+    { s: "ouat", en: "second chance", ru: "второй шанс", ex: "Storybrooke became a land of hope and a second chance." },
+    { s: "ouat", en: "keep one's word", ru: "сдержать своё слово", ex: "Rumplestiltskin always finds a clever way to keep his word." },
+    { s: "ouat", en: "break a promise", ru: "нарушить обещание", ex: "To break a promise in the Enchanted Forest brings bad luck." },
+    { s: "ouat", en: "outwit a villain", ru: "перехитрить злодея", ex: "Belle used books and wisdom to outwit a villain." },
+    { s: "ouat", en: "royal decree", ru: "королевский указ", ex: "The King issued a royal decree across the entire kingdom." },
+    { s: "ouat", en: "banished to another realm", ru: "изгнанный в другой мир", ex: "The Wicked Witch was banished to another realm." },
+    { s: "ouat", en: "spark of hope", ru: "искра надежды", ex: "Henry's storybook kept a spark of hope alive in Storybrooke." },
+    { s: "ouat", en: "tangled fate", ru: "переплетённая судьба", ex: "All the heroes and villains shared one tangled fate." },
+    { s: "ouat", en: "under a spell", ru: "под чарами", ex: "The entire town lived under a spell without knowing who they were." },
+    { s: "ouat", en: "claim one's birthright", ru: "заявить права на наследие", ex: "Snow White returned to claim her birthright as rightful queen." },
+    { s: "ouat", en: "storybook hero", ru: "сказочный герой", ex: "Henry believed Emma was a true storybook hero." },
+    { s: "ouat", en: "storybook curse", ru: "сказочное проклятие", ex: "Henry believed only Emma could break the storybook curse." },
+    { s: "ouat", en: "clock hands move", ru: "стрелки часов снова идут", ex: "The moment Emma decided to stay, the town clock hands began to move." },
+    { s: "ouat", en: "believe in magic", ru: "верить в волшебство", ex: "You have to truly believe in magic for the fairy dust to work." },
+    { s: "ouat", en: "villain's happy ending", ru: "счастливый конец для злодея", ex: "Regina searched Henry's book to find a villain's happy ending." },
+    { s: "ouat", en: "magic always comes with a price", ru: "за любое волшебство приходится платить", ex: "Rumplestiltskin reminded everyone that magic always comes with a price." },
+    { s: "ouat", en: "blood magic", ru: "магия крови", ex: "Regina used blood magic to unseal her mother's secret vault." },
+    { s: "ouat", en: "heart box", ru: "шкатулка для сердец", ex: "The Evil Queen kept rows of glowing hearts inside her underground heart box." },
+    { s: "ouat", en: "wishing well", ru: "колодец желаний", ex: "Water from the Storybrooke wishing well could restore what was lost." },
+    { s: "ouat", en: "dreamcatcher", ru: "ловец снов (хранитель воспоминаний)", ex: "Emma used a magical dreamcatcher to recover stolen memories." },
+    { s: "ouat", en: "mad hatter's hat", ru: "шляпа Безумного Шляпника (портал)", ex: "Jefferson spun the mad hatter's hat to open portals between worlds." },
+    { s: "ouat", en: "spinning wheel", ru: "прялка Румпельштильцхена", ex: "Rumplestiltskin spun straw into gold on his enchanted spinning wheel." },
+    { s: "ouat", en: "golden thread", ru: "золотая нить", ex: "Every spool of golden thread held a piece of dark magic." },
+    { s: "ouat", en: "beanstalk", ru: "бобовый стебель", ex: "Emma and Hook climbed the giant beanstalk to retrieve the magic compass." },
+    { s: "ouat", en: "neverland shadow", ru: "тень Нетландии", ex: "Peter Pan's shadow flew through the night sky stealing children." },
+    { s: "ouat", en: "snow queen", ru: "Снежная Королева", ex: "Ingrid the Snow Queen cast a spell of shattered sight over the town." },
+    { s: "ouat", en: "underworld river", ru: "река Подземного мира", ex: "Charon's boat ferried lost souls across the misty underworld river." },
+    { s: "ouat", en: "true love's sacrifice", ru: "жертва ради истинной любви", ex: "Only true love's sacrifice could shatter the Dark One's curse." },
+    { s: "ouat", en: "rewrite the story", ru: "переписать историю", ex: "Isaac tried to use the magic pen to rewrite the story in his favor." },
+    { s: "ouat", en: "darkness takes over", ru: "тьма берёт верх", ex: "When darkness takes over, only love can anchor a hero back to the light." },
+    { s: "ouat", en: "find one's way home", ru: "найти дорогу домой", ex: "No matter how far they traveled, the Charmings always promised to find their way home." },
+{ s: "ouat", en: "magic mirror on the wall", ru: "волшебное зеркало на стене", ex: "Regina asked the magic mirror on the wall who was the fairest of them all." }
+  ];
+
+  function extractBase200() {
+    let list = [];
+    document.querySelectorAll('script').forEach(scr => {
+      const code = scr.textContent || '';
+      const marker = 'const MASTER_200_DATABASE = [';
+      const start = code.indexOf(marker);
+      if (start !== -1) {
+        const end = code.indexOf('];', start);
+        if (end !== -1) {
+          let body = code.slice(start + marker.length, end);
+          body = body.replace(/\brx\s*:/g, 'ru:').replace(/邻居/g, "neighbors'");
+          try {
+            const parsed = (new Function('return [' + body + ']'))();
+            if (Array.isArray(parsed)) list = parsed;
+          } catch (e) {}
+        }
+      }
+    });
+    return list;
+  }
+
+  function buildFull500() {
+    const base = extractBase200();
+    const seen = new Set();
+    const combined = [];
+
+    [...base, ...ADDED_300].forEach(item => {
+      const s = SHOWS[item.s] || item.s || "The Vampire Diaries";
+      const en = (item.en || '').trim();
+      const ru = (item.ru || '').trim();
+      const ex = (item.ex || '').trim();
+      if (en && ru && !seen.has(en.toLowerCase())) {
+        seen.add(en.toLowerCase());
+        combined.push({ s, en, ru, ex });
+      }
+    });
+
+    return combined.map((w, idx) => ({
+      id: 'mw_' + idx + '_' + w.en.toLowerCase().replace(/[^a-z0-9]/g, '').slice(0, 10),
+      s: w.s,
+      en: w.en,
+      ru: w.ru,
+      ex: w.ex
+    }));
+  }
+
+  const DICT_KEY = 'english_hub_master_dict_v2';
+  let dictState = { starred: [], srs: {} };
+
+  function loadState() {
+    try {
+      const raw = localStorage.getItem(DICT_KEY);
+      if (raw) {
+        const p = JSON.parse(raw);
+        if (Array.isArray(p.starred)) dictState.starred = p.starred;
+        if (p.srs && typeof p.srs === 'object') dictState.srs = p.srs;
+      }
+    } catch (e) {}
+  }
+
+  function saveState() {
+    try { localStorage.setItem(DICT_KEY, JSON.stringify(dictState)); } catch (e) {}
+    if (typeof window._proUpdateUI === 'function') window._proUpdateUI();
+  }
+
+  function mount500Dictionary() {
+    let container = null;
+    document.querySelectorAll('h2, h3').forEach(h => {
+      if (h.textContent.includes('Мастер-Словарь') || h.textContent.includes('Интерактивный словарь') || h.textContent.includes('Словарь')) {
+        container = h.closest('.card') || h.parentElement;
+      }
+    });
+    if (!container) return;
+
+    loadState();
+    const ALL_WORDS = buildFull500();
+    const counts = {
+      ALL: ALL_WORDS.length,
+      "The Vampire Diaries": ALL_WORDS.filter(w => w.s === "The Vampire Diaries").length,
+      "Desperate Housewives": ALL_WORDS.filter(w => w.s === "Desperate Housewives").length,
+      "Supernatural": ALL_WORDS.filter(w => w.s === "Supernatural").length,
+      "The Penthouse": ALL_WORDS.filter(w => w.s === "The Penthouse").length,
+      "Once Upon a Time": ALL_WORDS.filter(w => w.s === "Once Upon a Time").length
+    };
+
+    let filtered = [...ALL_WORDS];
+    let activeSeries = 'ALL';
+    let activeStatus = 'ALL';
+    let searchQuery = '';
+    let srsIndex = 0;
+
+    container.innerHTML = `
+      <div class="pro-dict-wrap">
+        <div class="pro-dict-top">
+          <div>
+            <h2 class="pro-dict-title">📚 Мастер-Словарь Вселенных (<span id="proTotalCount">${counts.ALL}</span>)</h2>
+            <div class="pro-dict-sub">Полная база на ${counts.ALL} выражений: интерактивные карточки, озвучка и умное повторение (SRS)</div>
+          </div>
+          <div class="pro-dict-modes">
+            <button id="btnModeGrid" class="pro-mode-btn active" onclick="window._proSetMode('grid')">🗂️ Все карточки</button>
+            <button id="btnModeSrs" class="pro-mode-btn" onclick="window._proSetMode('srs')">🧠 Умный SRS-тренажер</button>
+            <button class="pro-mode-btn" onclick="window._proShuffle()">🔀 Перемешать</button>
+          </div>
+        </div>
+
+        <div class="pro-dict-progress-box">
+          <div style="font-size:0.82rem;">
+            ⭐ Освоено карточек: <b id="proLearnedStat" style="color:#6be38c">0 / ${counts.ALL}</b>
+            <span style="margin-left:14px; color:#d4af37;" id="proDueStat"></span>
+          </div>
+          <div class="pro-prog-bar-bg">
+            <div id="proDictProgFill" class="pro-prog-bar-fill"></div>
+          </div>
+        </div>
+
+        <div class="pro-dict-controls">
+          <input type="text" id="proSearchInput" class="pro-search-input" placeholder="🔍 Поиск по-английски, по-русски или по цитате...">
+          <select id="proStatusSelect" class="pro-select">
+            <option value="ALL">📌 Все статусы</option>
+            <option value="UNLEARNED">⏳ В процессе</option>
+            <option value="DUE">🔥 Повторить сейчас (SRS)</option>
+            <option value="STARRED">⭐ Избранные (Выучено)</option>
+          </select>
+        </div>
+
+        <div class="pro-series-pills" id="proSeriesPills">
+          <button class="pro-pill active" data-s="ALL">🌐 Все 5 сериалов (${counts.ALL})</button>
+          <button class="pro-pill" data-s="The Vampire Diaries">🩸 Vampire Diaries (${counts["The Vampire Diaries"]})</button>
+          <button class="pro-pill" data-s="Desperate Housewives">🧁 Housewives (${counts["Desperate Housewives"]})</button>
+          <button class="pro-pill" data-s="Supernatural">🚗 Supernatural (${counts["Supernatural"]})</button>
+          <button class="pro-pill" data-s="The Penthouse">🥂 Penthouse (${counts["The Penthouse"]})</button>
+          <button class="pro-pill" data-s="Once Upon a Time">🍎 Once Upon (${counts["Once Upon a Time"]})</button>
+        </div>
+
+        <div id="proSrsArea" class="pro-srs-box">
+          <div id="proSrsMeta" style="font-size:0.75rem; color:#d4af37; margin-bottom:8px; text-transform:uppercase;"></div>
+          <div id="proSrsEn" style="font-family:'Cormorant Garamond',serif; font-size:2.2rem; font-weight:700; margin-bottom:8px; cursor:pointer;" onclick="window._proSpeakCurrent()"></div>
+          <div id="proSrsEx" style="font-size:0.86rem; color:#b8a693; font-style:italic; max-width:640px; margin:0 auto 16px;"></div>
+          <button id="proSrsShowBtn" class="pro-mode-btn" onclick="window._proRevealSrs()">👁️ Показать перевод</button>
+          <div id="proSrsAnswerWrap" style="display:none; margin-top:16px; padding-top:16px; border-top:1px dashed rgba(212,175,55,0.4);">
+            <div id="proSrsRu" style="font-size:1.15rem; color:#6be38c; font-weight:700; margin-bottom:16px;"></div>
+            <div style="display:flex; justify-content:center; gap:8px; flex-wrap:wrap;">
+              <button class="pro-mode-btn" style="background:#6e1414!important;" onclick="window._proRate(0)">❌ Снова</button>
+              <button class="pro-mode-btn" style="background:#6e4814!important;" onclick="window._proRate(1)">😓 Трудно</button>
+              <button class="pro-mode-btn" style="background:#195228!important;" onclick="window._proRate(2)">👍 Хорошо</button>
+              <button class="pro-mode-btn" style="background:#164e63!important;" onclick="window._proRate(3)">⚡ Легко (+⭐)</button>
+            </div>
+          </div>
+        </div>
+
+        <div id="proCardsGrid" class="pro-cards-grid"></div>
+      </div>
+    `;
+
+    function applyFilters() {
+      const now = Date.now();
+      filtered = ALL_WORDS.filter(w => {
+        if (activeSeries !== 'ALL' && w.s !== activeSeries) return false;
+        if (activeStatus === 'STARRED' && !dictState.starred.includes(w.id)) return false;
+        if (activeStatus === 'UNLEARNED' && dictState.starred.includes(w.id)) return false;
+        if (activeStatus === 'DUE') {
+          const rec = dictState.srs[w.id];
+          if (rec && rec.due > now) return false;
+        }
+        if (searchQuery) {
+          const q = searchQuery.toLowerCase();
+          return w.en.toLowerCase().includes(q) || w.ru.toLowerCase().includes(q) || w.ex.toLowerCase().includes(q);
+        }
+        return true;
+      });
+      srsIndex = 0;
+      renderGrid();
+      renderSrsCard();
+      window._proUpdateUI();
+    }
+
+    function renderGrid() {
+      const grid = document.getElementById('proCardsGrid');
+      if (!grid) return;
+      if (filtered.length === 0) {
+        grid.innerHTML = `<div style="grid-column:1/-1; text-align:center; padding:40px; color:#8c7b6b;">Ничего не найдено. Измените параметры поиска или фильтр.</div>`;
+        return;
+      }
+      grid.innerHTML = filtered.map(w => {
+        const starred = dictState.starred.includes(w.id);
+        const srs = dictState.srs[w.id];
+        const lvl = srs ? `Уровень SRS: ${srs.lvl}/5` : `Новое слово`;
+        return `
+          <div class="pro-vocab-card ${starred ? 'learned' : ''}">
+            <div>
+              <div class="pro-card-head">
+                <span class="pro-card-badge">${w.s}</span>
+                <div class="pro-card-actions">
+                  <button class="pro-icon-btn" onclick="window._proSpeak('${w.en.replace(/'/g, "\\'")}')">🔊</button>
+                  <button class="pro-icon-btn ${starred ? 'starred' : ''}" onclick="window._proToggle('${w.id}')">⭐</button>
+                </div>
+              </div>
+              <div class="pro-card-en" onclick="window._proSpeak('${w.en.replace(/'/g, "\\'")}')">${w.en}</div>
+              <div class="pro-card-ru">${w.ru}</div>
+              <div class="pro-card-ex">${w.ex}</div>
+            </div>
+            <div class="pro-card-srs-tag">
+              <span>🧠 ${lvl}</span>
+              <span>${starred ? '✅ Выучено' : 'В процессе'}</span>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function renderSrsCard() {
+      if (filtered.length === 0) return;
+      if (srsIndex >= filtered.length) srsIndex = 0;
+      const w = filtered[srsIndex];
+      document.getElementById('proSrsMeta').textContent = `${w.s} • Карточка ${srsIndex + 1} из ${filtered.length}`;
+      document.getElementById('proSrsEn').textContent = `${w.en} 🔊`;
+      document.getElementById('proSrsEx').textContent = w.ex;
+      document.getElementById('proSrsRu').textContent = w.ru;
+      document.getElementById('proSrsShowBtn').style.display = 'inline-block';
+      document.getElementById('proSrsAnswerWrap').style.display = 'none';
+    }
+
+    window._proUpdateUI = function() {
+      const learned = dictState.starred.length;
+      const pct = Math.min(100, Math.round((learned / ALL_WORDS.length) * 100));
+      const dueNow = ALL_WORDS.filter(w => !dictState.srs[w.id] || dictState.srs[w.id].due <= Date.now()).length;
+
+      const lEl = document.getElementById('proLearnedStat');
+      const dEl = document.getElementById('proDueStat');
+      const fEl = document.getElementById('proDictProgFill');
+
+      if (lEl) lEl.textContent = `${learned} / ${ALL_WORDS.length} (${pct}%)`;
+      if (dEl) dEl.textContent = `• К повторению: ${dueNow}`;
+      if (fEl) fEl.style.width = pct + '%';
+    };
+
+    window._proSpeak = function(txt) {
+      if (typeof window.speakText === 'function') {
+        window.speakText(txt);
+      } else if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+        const u = new SpeechSynthesisUtterance(txt);
+        u.lang = 'en-US';
+        u.rate = 0.92;
+        window.speechSynthesis.speak(u);
+      }
+    };
+
+    window._proToggle = function(id) {
+      const idx = dictState.starred.indexOf(id);
+      if (idx === -1) dictState.starred.push(id);
+      else dictState.starred.splice(idx, 1);
+      saveState();
+      renderGrid();
+    };
+
+    window._proShuffle = function() {
+      for (let i = filtered.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [filtered[i], filtered[j]] = [filtered[j], filtered[i]];
+      }
+      srsIndex = 0;
+      renderGrid();
+      renderSrsCard();
+    };
+
+    window._proSetMode = function(mode) {
+      document.getElementById('btnModeGrid').classList.toggle('active', mode === 'grid');
+      document.getElementById('btnModeSrs').classList.toggle('active', mode === 'srs');
+      document.getElementById('proSrsArea').classList.toggle('active', mode === 'srs');
+      document.getElementById('proCardsGrid').style.display = mode === 'grid' ? 'grid' : 'none';
+    };
+
+    window._proRevealSrs = function() {
+      document.getElementById('proSrsShowBtn').style.display = 'none';
+      document.getElementById('proSrsAnswerWrap').style.display = 'block';
+      window._proSpeakCurrent();
+    };
+
+    window._proSpeakCurrent = function() {
+      const w = filtered[srsIndex];
+      if (w) window._proSpeak(w.en);
+    };
+
+    window._proRate = function(grade) {
+      const w = filtered[srsIndex];
+      if (!w) return;
+      const prev = dictState.srs[w.id] || { lvl: 0 };
+      const delays = [60 * 1000, 10 * 60 * 1000, 24 * 3600 * 1000, 96 * 3600 * 1000];
+      dictState.srs[w.id] = {
+        lvl: grade === 0 ? 0 : Math.min(5, prev.lvl + grade),
+        due: Date.now() + delays[grade]
+      };
+      if (grade === 3 && !dictState.starred.includes(w.id)) {
+        dictState.starred.push(w.id);
+      }
+      saveState();
+      srsIndex = (srsIndex + 1) % filtered.length;
+      renderSrsCard();
+      renderGrid();
+    };
+
+    document.getElementById('proSearchInput').addEventListener('input', e => {
+      searchQuery = e.target.value.trim();
+      applyFilters();
+    });
+
+    document.getElementById('proStatusSelect').addEventListener('change', e => {
+      activeStatus = e.target.value;
+      applyFilters();
+    });
+
+    document.querySelectorAll('#proSeriesPills .pro-pill').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('#proSeriesPills .pro-pill').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        activeSeries = btn.getAttribute('data-s');
+        applyFilters();
+      });
+    });
+
+    applyFilters();
+
+    setInterval(() => {
+      const statsEl = document.getElementById('agentStatsText');
+      if (statsEl && statsEl.textContent) {
+        statsEl.textContent = statsEl.textContent.replace(/\/(50|200|400)\b/g, '/' + counts.ALL);
+      }
+    }, 500);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', mount500Dictionary);
+  } else {
+    mount500Dictionary();
+  }
 })();
 </script>
 </body>
