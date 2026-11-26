@@ -1453,14 +1453,14 @@ body.winter-off .vh-snow-container {
   backface-visibility: hidden;
 }
 .vnc-char-slot.speaking > .vnc-char-actor {
-  transform: translate3d(0, -3px, 0) scale(1.03);
-  filter: brightness(1.04);
+  transform: translate3d(0, -3px, 0) scale(1.025);
+  filter: none;
   opacity: 1;
 }
 .vnc-char-slot.dimmed > .vnc-char-actor {
-  transform: translate3d(0, 6px, 0) scale(0.955);
-  filter: brightness(0.56) saturate(0.75);
-  opacity: 0.9;
+  transform: translate3d(0, 6px, 0) scale(0.95);
+  filter: brightness(0.62) saturate(0.8);
+  opacity: 0.92;
 }
 
 /* Уровень 3: мягкие реакции (без резкого подёргивания) */
@@ -1520,13 +1520,14 @@ body.winter-off .vh-snow-container {
   50% { transform: translate3d(0, -2px, 0) scaleY(1.012); }
 }
 
-/* Единая высота для всех героев — Сэм теперь одного роста с Лукасом */
+/* Единая высота для всех героев без сжатия по ширине — Сэм всегда одного роста с остальными */
 .vnc-char-img {
-  height: 80vh;
-  max-height: 780px;
-  max-width: 68vw;
+  height: 78vh;
+  max-height: 760px;
   width: auto;
+  max-width: none;
   object-fit: contain;
+  object-position: center bottom;
   display: block;
 }
 .vnc-char-img.vnc-emo-fadein {
@@ -2016,12 +2017,31 @@ body.winter-off .vh-snow-container {
 .vnc-log-ru { font-size: 0.78rem; color: #aa9987; margin-top: 3px; }
 
 @media (max-width: 600px) {
+  .vnc-topbar { padding: 6px 8px; gap: 5px; }
+  .vnc-top-actions { gap: 4px; }
+  .vnc-topbar .vnc-btn { padding: 5px 8px; font-size: 0.68rem; }
+  .vnc-chapter-pill { font-size: 0.66rem; padding: 3px 8px; }
   .vnc-stats-mini { display: none; }
-  .vnc-char-slot { bottom: 0; height: 74vh; }
-  .vnc-char-img { height: 70vh; max-width: 82vw; }
-  .vnc-char-slot.pos-left { left: 28%; }
-  .vnc-char-slot.pos-right { left: 72%; }
-  .vnc-dialog-box { padding: 13px 14px 11px; }
+  .vnc-char-slot { bottom: 48px; height: auto; max-height: none; }
+  .vnc-char-img {
+    height: 58vh;
+    max-height: 480px;
+    width: auto;
+    max-width: none;
+    object-fit: contain;
+    object-position: center bottom;
+  }
+  .vnc-char-slot.pos-left .vnc-char-img,
+  .vnc-char-slot.pos-right .vnc-char-img {
+    height: 50vh;
+    max-height: 420px;
+    width: auto;
+    max-width: none;
+  }
+  .vnc-char-slot.pos-left { left: 25%; }
+  .vnc-char-slot.pos-right { left: 75%; }
+  .vnc-dialog-box { padding: 12px 13px 10px; }
+  .vnc-text-en { min-height: 62px; }
   .vnc-cg-layer { padding: 14px 12px 175px; }
 }
 
