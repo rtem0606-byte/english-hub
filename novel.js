@@ -134,37 +134,25 @@
       { en: 'for good', ru: 'навсегда', ex: 'I hoped the monsters were gone for good.' },
       { en: 'pull the strings', ru: 'дёргать за ниточки / управлять из тени', ex: 'Someone is pulling the strings behind this curse.' },
       { en: 'walk in blind', ru: 'действовать вслепую', ex: 'Without magic, you are walking in blind.' },
-      { en: 'watch out for', ru: 'остерегаться кого-то / быть начеку', ex: 'Watch out for the new guests from Mystic Falls.' },
-      { en: 'give someone the benefit of the doubt', ru: 'поверить на слово / дать шанс оправдаться', ex: 'I will give you the benefit of the doubt—for now.' },
-      { en: 'under my nose', ru: 'у меня прямо под носом', ex: 'You buried a silver box right under my nose.' },
-      { en: 'in plain sight', ru: 'на самом видном месте', ex: 'The biggest clues are always hidden in plain sight.' },
-      { en: 'lose track of time', ru: 'потерять счёт времени', ex: 'It is easy to lose track of time when every clock stops.' },
-      { en: 'jump to conclusions', ru: 'делать поспешные выводы', ex: 'Let us not jump to conclusions before we check the tower.' },
-      { en: 'call the shots', ru: 'командовать / принимать решения', ex: 'In Storybrooke, Regina is the one who calls the shots.' },
-      { en: 'run out of time', ru: 'остаться без времени / не успевать', ex: 'We are running out of time—the minute hand just moved.' },
-      { en: 'read between the lines', ru: 'читать между строк', ex: 'If you want to survive here, learn to read between the lines.' },
-      { en: 'play along', ru: 'подыграть / сделать вид, что согласен', ex: 'Smile, nod, and play along until we know what she wants.' },
-      { en: 'dead end', ru: 'тупик', ex: 'Every road out of town ends in a thick, freezing dead end.' },
-      { en: 'keep an eye on', ru: 'присматривать за / не спускать глаз', ex: 'Keep an eye on Clara while we talk to the Queen.' },
-      { en: 'turn the tide', ru: 'переломить ход событий', ex: 'One missing page could turn the tide before midnight.' }
+      { en: 'watch out for', ru: 'остерегаться кого-то / быть начеку', ex: 'Watch out for the new guests from Mystic Falls.' }
     ],
     nodes: {
       // ==================== ПРОЛОГ: ТРИ МИРА ДО СБОЯ ====================
       p1_1: {
         bg: 'wisteria_morning',
-        chapterTag: 'WISTERIA LANE · 11:55',
+        chapterTag: 'WISTERIA LANE · 11:58',
         speaker: 'Закадровый голос',
         speakerStyle: 'narrator',
-        en: 'Years ago, the women who made Wisteria Lane famous packed their suitcases and moved on. New families moved into the old houses, painted the fences white, and swore they only wanted a quiet, ordinary life.',
-        ru: 'Много лет назад женщины, прославившие Вистерия Лейн, собрали чемоданы и уехали. В старые дома въехали новые жильцы, перекрасили заборы в белый и поклялись, что им нужна только тихая, обычная жизнь.',
+        en: 'Years ago, the women who made Wisteria Lane famous packed their suitcases and moved on. New families moved into the old houses, painted the fences white, and swore they only wanted peace.',
+        ru: 'Много лет назад женщины, прославившие Вистерия Лейн, собрали чемоданы и уехали. В старые дома въехали новые жильцы, перекрасили заборы в белый и поклялись, что им нужен только покой.',
         next: 'p1_2'
       },
       p1_2: {
         bg: 'wisteria_morning',
         speaker: 'Закадровый голос',
         speakerStyle: 'narrator',
-        en: 'But streets like this never truly stay quiet. On a crisp November morning, the grass was neat, the sprinklers clicked in rhythm—and behind every polite smile, someone was counting down the minutes.',
-        ru: 'Но такие улицы никогда не остаются тихими надолго. Тем свежим ноябрьским утром газоны были идеально подстрижены, поливалки щёлкали в такт — а за каждой вежливой улыбкой кто-то уже отсчитывал минуты.',
+        en: 'But streets like this never truly stay quiet. On a crisp November morning, the grass was neat, the coffee was hot—and behind every polite smile, someone was counting down the minutes.',
+        ru: 'Но такие улицы никогда не остаются тихими надолго. Тем свежим ноябрьским утром газоны были подстрижены, кофе — горячим, а за каждой вежливой улыбкой кто-то уже отсчитывал минуты.',
         next: 'p1_3'
       },
       p1_3: {
@@ -174,8 +162,8 @@
           { id: 'lucas', emo: 'calm', pos: 'right', active: false }
         ],
         speaker: 'clara',
-        en: 'Good morning, Lucas! Fresh lemon muffins, still warm from the oven. And please tell me you finally trimmed those wild bushes by your porch.',
-        ru: 'Доброе утро, Лукас! Свежие лимонные маффины, ещё тёплые из духовки. И скажи, пожалуйста, что ты наконец подстриг эти дикие кусты у крыльца.',
+        en: 'Good morning, Lucas! Fresh lemon muffins, still warm from the oven. And please tell me you finally trimmed those bushes by your porch.',
+        ru: 'Доброе утро, Лукас! Свежие лимонные маффины, ещё тёплые из духовки. И скажи, пожалуйста, что ты наконец подстриг кусты у крыльца.',
         next: 'p1_4'
       },
       p1_4: {
@@ -185,8 +173,8 @@
           { id: 'lucas', emo: 'calm', pos: 'right', active: true }
         ],
         speaker: 'lucas',
-        en: 'Morning, Clara. I left Chicago to escape angry editors and midnight deadlines, not to join a suburban garden patrol. Nobody is checking our lawns with a ruler.',
-        ru: 'Утро, Клара. Я уехал из Чикаго, чтобы сбежать от злых редакторов и ночных дедлайнов, а не записаться в пригородный садовый патруль. Никто не ходит по газонам с линейкой.',
+        en: 'Morning, Clara. I left the city to escape editors and deadlines, not to join a garden patrol. Nobody is checking our lawns with a ruler.',
+        ru: 'Утро, Клара. Я уехал из города, чтобы сбежать от редакторов и дедлайнов, а не записаться в садовый патруль. Никто не ходит по газонам с линейкой.',
         next: 'p1_5'
       },
       p1_5: {
@@ -198,50 +186,28 @@
         speaker: 'clara',
         en: 'I am checking, Lucas. On Wisteria Lane, we always keep up appearances. Order is the only thing that keeps chaos outside the gate.',
         ru: 'Я хожу, Лукас. На Вистерия Лейн мы всегда держим марку. Порядок — единственное, что не пускает хаос за ворота.',
-        next: 'p1_5b'
+        next: 'p1_6'
       },
-      p1_5b: {
+      p1_6: {
         bg: 'wisteria_morning',
         chars: [
           { id: 'clara', emo: 'calm', pos: 'left', active: false },
           { id: 'lucas', emo: 'calm', pos: 'right', active: true }
         ],
         speaker: 'lucas',
-        en: 'Funny how you talk about this street like you wrote the rulebook yourself. You moved here what—six months ago? Yet you act like you own the whole cul-de-sac.',
-        ru: 'Забавно, как ты говоришь об этой улице, будто сама написала для неё устав. Ты ведь переехала сюда... полгода назад? А ведёшь себя так, словно владеешь всем тупиком.',
-        next: 'p1_6'
-      },
-      p1_6: {
-        bg: 'wisteria_morning',
-        chars: [
-          { id: 'clara', emo: 'suspicious', pos: 'left', active: true },
-          { id: 'lucas', emo: 'calm', pos: 'right', active: false }
-        ],
-        speaker: 'clara',
-        en: 'A good neighbor learns the local traditions quickly. Speaking of traditions—mind your own business, Lucas, instead of peeking through your blinds at night.',
-        ru: 'Хорошая соседка быстро усваивает местные традиции. Кстати о традициях — занимайся своими делами, Лукас, вместо того чтобы подглядывать по ночам сквозь жалюзи.',
-        next: 'p1_6b'
-      },
-      p1_6b: {
-        bg: 'wisteria_morning',
-        chars: [
-          { id: 'clara', emo: 'suspicious', pos: 'left', active: false },
-          { id: 'lucas', emo: 'serious', pos: 'right', active: true }
-        ],
-        speaker: 'lucas',
-        en: 'Who said anything about peeking? All I wanted to ask is whether anyone bought the empty lot next to your house. I swore I heard hammering at three in the morning.',
-        ru: 'Кто говорил про подглядывание? Я всего лишь хотел спросить, не купил ли кто пустой участок рядом с твоим домом. Клянусь, в три часа ночи я слышал какой-то стук.',
+        en: 'Sure, sure. By the way, did you see anyone moving into the empty lot next to your house? I could have sworn I heard hammering at three in the morning.',
+        ru: 'Ну да, ну да. Кстати, ты не видела, чтобы кто-то въезжал на пустой участок рядом с тобой? Клянусь, в три часа ночи я слышал какой-то стук.',
         next: 'p1_7'
       },
       p1_7: {
         bg: 'wisteria_morning',
         chars: [
           { id: 'clara', emo: 'suspicious', pos: 'left', active: true },
-          { id: 'lucas', emo: 'serious', pos: 'right', active: false }
+          { id: 'lucas', emo: 'calm', pos: 'right', active: false }
         ],
         speaker: 'clara',
-        en: 'You drink way too much coffee, Lucas. There is nothing on that lot except wet grass, a rusty mailbox, and—',
-        ru: 'Ты пьёшь слишком много кофе, Лукас. На том участке ничего нет, кроме мокрой травы, ржавого почтового ящика и...',
+        en: 'You stay up way too late, Lucas. There is nothing on that lot except wet grass and—',
+        ru: 'Ты слишком поздно ложишься, Лукас. На том участке ничего нет, кроме мокрой травы и...',
         next: 'p1_8'
       },
       p1_8: {
@@ -253,7 +219,7 @@
         sfx: 'tick',
         speaker: 'Закадровый голос',
         speakerStyle: 'narrator',
-        en: 'She never finished the sentence. Every bird on the lane stopped singing at once. Through Clara's open kitchen window, the wall clock began to tick—slow, heavy, impossibly loud.',
+        en: 'She never finished the sentence. Every bird on the lane stopped singing at once. Through Clara\'s open kitchen window, the wall clock began to tick—slow, heavy, impossibly loud.',
         ru: 'Она не успела договорить. Все птицы на улице смолкли в одну секунду. Из открытого кухонного окна Клары донеслось тиканье настенных часов — медленное, тяжёлое, неестественно громкое.',
         next: 'p1_9'
       },
@@ -263,8 +229,8 @@
         sfx: 'chime',
         fx: 'glitch',
         speaker: 'lucas',
-        en: 'Whoa! What the—? My coffee just went ice cold! Where did this freezing mist come from? It rolled in out of nowhere!',
-        ru: 'Ого! Что за чёрт?.. Мой кофе стал ледяным! Откуда взялся этот морозный туман? Он накрыл улицу буквально из ниоткуда!',
+        en: 'Whoa! What the—? My coffee! Where did this freezing mist come from? It rolled in out of nowhere!',
+        ru: 'Ого! Что за чёрт?.. Мой кофе! Откуда взялся этот ледяной туман? Он накрыл улицу буквально из ниоткуда!',
         next: 'p1_10'
       },
       p1_10: {
@@ -274,8 +240,8 @@
           { id: 'lucas', emo: 'serious', pos: 'right', active: true }
         ],
         speaker: 'lucas',
-        en: 'My watch stopped! 11:59. And my phone has zero bars—not even emergency calls. Clara, look at the end of the street—the highway is gone!',
-        ru: 'Мои часы встали! 11:59. И телефон вообще не ловит — даже экстренные вызовы. Клара, посмотри в конец улицы — шоссе исчезло!',
+        en: 'My watch stopped! 11:59. And my phone has zero bars—not even emergency calls. Clara, look at the end of the street!',
+        ru: 'Мои часы встали! 11:59. И телефон вообще не ловит — даже экстренные вызовы. Клара, посмотри в конец улицы!',
         next: 'p1_11'
       },
       p1_11: {
@@ -283,16 +249,16 @@
         chars: [{ id: 'clara', emo: 'suspicious', pos: 'center', active: true }],
         speaker: 'Рассказчик',
         speakerStyle: 'narrator',
-        en: 'Across the driveway, Clara doesn't look at the street. She stares straight at the empty lot beside her fence—where the silhouette of a two-story colonial house is solidifying out of the gray mist. She whispers so softly Lucas doesn't hear:',
-        ru: 'Через дорогу Клара даже не смотрит в конец улицы. Она не отрывает взгляда от пустого участка у своего забора — где прямо из серого тумана проступают очертания двухэтажного дома. Она шепчет так тихо, что Лукас не слышит:',
+        en: 'Across the driveway, Clara doesn\'t look at the street. She stares straight at the empty lot beside her fence, her knuckles white around the basket handle. She whispers so softly Lucas doesn\'t hear:',
+        ru: 'Через дорогу Клара даже не смотрит в конец улицы. Она не отрывает взгляда от пустого участка у своего забора, до побеления сжимая ручку корзинки, и шепчет так тихо, что Лукас не слышит:',
         next: 'p1_12'
       },
       p1_12: {
         bg: 'wisteria_fog',
         chars: [{ id: 'clara', emo: 'suspicious', pos: 'center', active: true }],
         speaker: 'clara',
-        en: 'Too early... No, it wasn't supposed to start until midnight. Who woke up inside?',
-        ru: 'Слишком рано... Нет, это не должно было начаться до полуночи. Кто проснулся внутри?',
+        en: 'Too early... No, it wasn\'t supposed to start until midnight.',
+        ru: 'Слишком рано... Нет, это не должно было начаться до полуночи.',
         next: 'p2_1'
       },
 
@@ -303,8 +269,8 @@
         chars: [{ id: 'sam', emo: 'calm', pos: 'center', active: true }],
         speaker: 'Рассказчик',
         speakerStyle: 'narrator',
-        en: 'Hundreds of miles away, cold autumn rain taps softly on the tin roof of a quiet wooden garage. Sam Winchester leans over a scarred workbench, soldering a loose wire inside an old desk radio.',
-        ru: 'За сотни миль оттуда холодный осенний дождь тихо стучит по жестяной крыше старого деревянного гаража. Сэм Винчестер склонился над исцарапанным верстаком, припаивая отошедший провод в старом радиоприёмнике.',
+        en: 'Hundreds of miles away, rain taps softly on the roof of a quiet wooden garage. Sam Winchester leans over a workbench, tightening a loose wire inside an old desk radio.',
+        ru: 'За сотни миль оттуда дождь тихо стучит по крыше старого деревянного гаража. Сэм Винчестер склонился над верстаком, подкручивая провод в старом радиоприёмнике.',
         next: 'p2_2'
       },
       p2_2: {
@@ -312,16 +278,16 @@
         chars: [{ id: 'sam', emo: 'calm', pos: 'center', active: true }],
         speaker: 'Рассказчик',
         speakerStyle: 'narrator',
-        en: 'Behind him sits a black 1967 Impala, hidden under a heavy gray tarp. Beside his coffee mug lies an unopened envelope with a job offer in Denver—and a faded photo of two brothers leaning against a chrome bumper.',
-        ru: 'Позади него под тяжёлым серым брезентом стоит чёрная Impala 1967 года. Рядом с кружкой кофе лежит невскрытый конверт с предложением о работе в Денвере — и выцветшее фото двух братьев у хромированного бампера.',
+        en: 'Behind him sits a black 1967 Impala, hidden under a heavy gray tarp. He hasn\'t turned the key in months.',
+        ru: 'Позади него под тяжёлым серым брезентом стоит чёрная Impala 1967 года. Он не поворачивал ключ в зажигании уже несколько месяцев.',
         next: 'p2_3'
       },
       p2_3: {
         bg: 'sam_garage',
         chars: [{ id: 'sam', emo: 'calm', pos: 'center', active: true }],
         speaker: 'sam',
-        en: 'One quiet life. No motel rooms, no fake FBI badges, no midnight highways. I promised I would walk away for good.',
-        ru: 'Одна спокойная жизнь. Никаких мотелей, фальшивых удостоверений ФБР и ночных трасс. Я пообещал, что уйду от этого навсегда.',
+        en: 'One quiet life. That was the deal, Dean. No hunts, no midnight highways—I walked away for good.',
+        ru: 'Одна спокойная жизнь. Так мы договорились, Дин. Никакой охоты, никаких ночных трасс — я ушёл навсегда.',
         next: 'p2_4'
       },
       p2_4: {
@@ -331,8 +297,8 @@
         fx: 'glitch',
         speaker: 'Рассказчик',
         speakerStyle: 'narrator',
-        en: 'KZZZHT! The radio explodes into harsh white noise. Above the bench, a dusty brass EMF meter lights up red all the way to the top and starts screaming—then an antique compass beside it spins wildly before snapping due east.',
-        ru: 'КЗЗЗТ! Радио срывается в резкий белый шум. На полке над верстаком пыльный латунный датчик ЭМП загорается красным до самого предела и начинает пронзительно пищать — а старинный компас рядом бешено крутится и замирает строго на востоке.',
+        en: 'KZZZHT! The radio explodes into harsh white noise. Above the bench, a dusty brass EMF meter lights up red all the way to the top and starts screaming.',
+        ru: 'КЗЗЗТ! Радио срывается в резкий белый шум. На полке над верстаком пыльный латунный датчик ЭМП загорается красным до самого предела и начинает пронзительно пищать.',
         next: 'p2_5'
       },
       p2_5: {
@@ -341,8 +307,8 @@
         sfx: 'tick',
         speaker: 'Рассказчик',
         speakerStyle: 'narrator',
-        en: 'A ribbon of cold silver fog creeps under the closed garage door. The wall clock freezes at 11:59. Sam exhales slowly—then grabs the heavy tarp and pulls it off the Impala's hood.',
-        ru: 'Полоска холодного серебристого тумана заползает под закрытые ворота гаража. Настенные часы замирают на 11:59. Сэм медленно выдыхает — затем берётся за край брезента и сдёргивает его с капота Импалы.',
+        en: 'A ribbon of cold silver fog creeps under the closed garage door. The wall clock freezes at 11:59. Sam doesn\'t hesitate—he grabs the heavy tarp and pulls it off the Impala\'s hood.',
+        ru: 'Полоска холодного серебристого тумана заползает под закрытые ворота гаража. Настенные часы замирают на 11:59. Сэм не медлит — берётся за край брезента и сдёргивает его с капота Импалы.',
         next: 'p2_6'
       },
       p2_6: {
@@ -362,8 +328,8 @@
         sfx: 'chime',
         speaker: 'Рассказчик',
         speakerStyle: 'narrator',
-        en: 'High above the damp brick square of Storybrooke, the giant Clock Tower groans with the sound of grinding iron. Its heavy hands shudder and lock one minute before midnight.',
-        ru: 'Высоко над сырой кирпичной площадью Сторибрука старинная Часовая башня стонет со скрежетом железа. Её тяжёлые стрелки вздрагивают и замирают за минуту до полуночи.',
+        en: 'High above the damp square of Storybrooke, the giant Clock Tower groans with the sound of grinding iron. Its heavy hands shudder and lock one minute before midnight.',
+        ru: 'Высоко над сырой площадью Сторибрука старинная Часовая башня стонет со скрежетом железа. Её тяжёлые стрелки вздрагивают и замирают за минуту до полуночи.',
         next: 'p3_2'
       },
       p3_2: {
@@ -371,16 +337,8 @@
         chars: [{ id: 'regina', emo: 'calm', pos: 'center', active: true }],
         speaker: 'Рассказчик',
         speakerStyle: 'narrator',
-        en: 'Inside her dark mahogany study overlooking the square, Queen Regina Mills stands over the glowing parchment map of the United Realms. For months, the borders have been completely still.',
-        ru: 'В своём кабинете из тёмного красного дерева с видом на площадь Королева Реджина Миллс склонилась над светящейся картой Объединённых Королевств. Долгие месяцы границы оставались неподвижными.',
-        next: 'p3_2b'
-      },
-      p3_2b: {
-        bg: 'regina_office',
-        chars: [{ id: 'regina', emo: 'calm', pos: 'center', active: true }],
-        speaker: 'regina',
-        en: 'Peace was supposed to be boring. Town council meetings, apple cider festivals, endless paperwork... and for once, nobody trying to curse my city.',
-        ru: 'Мирная жизнь должна была быть скучной. Заседания городского совета, ярмарки яблочного сидра, бесконечные бумаги... и впервые никто не пытается проклясть мой город.',
+        en: 'Inside her dark mahogany study overlooking the square, Queen Regina Mills stands over the glowing parchment map of the United Realms. All evening, the borders have been completely still.',
+        ru: 'В своём кабинете из тёмного дерева с видом на площадь Королева Реджина Миллс склонилась над светящейся картой Объединённых Королевств. Весь вечер границы оставались неподвижными.',
         next: 'p3_3'
       },
       p3_3: {
@@ -390,8 +348,8 @@
         fx: 'shake',
         speaker: 'Рассказчик',
         speakerStyle: 'narrator',
-        en: 'Then the golden ink boils over the edge of the map. New roads draw themselves out of thin air: a neat suburban cul-de-sac with white picket fences and a dark strip of forest highway.',
-        ru: 'А потом золотые чернила закипают и переливаются через край карты. Прямо из воздуха прорисовываются чужие дороги: аккуратный пригородный тупик с белыми заборами и тёмная полоса лесного шоссе.',
+        en: 'Then the golden ink boils over the edge of the map. New roads draw themselves out of thin air: a neat suburban cul-de-sac and a dark strip of forest highway.',
+        ru: 'А потом золотые чернила закипают и переливаются через край карты. Прямо из воздуха прорисовываются чужие дороги: аккуратный пригородный тупик и тёмная полоса лесного шоссе.',
         next: 'p3_4'
       },
       p3_4: {
@@ -399,8 +357,8 @@
         chars: [{ id: 'regina', emo: 'serious', pos: 'center', active: true }],
         speaker: 'Рассказчик',
         speakerStyle: 'narrator',
-        en: 'Regina lifts her palm to burn the anomaly away. Purple sparks flare around her fingers—and instantly scatter into gray smoke. Her magic hits an invisible wall.',
-        ru: 'Реджина поднимает ладонь, чтобы выжечь аномалию. Вокруг пальцев вспыхивают фиолетовые искры — и тут же рассыпаются серым дымом. Её магия натыкается на невидимую стену.',
+        en: 'Regina lifts her palm to burn the anomaly away. Purple sparks flare around her fingers—and instantly scatter into gray smoke.',
+        ru: 'Реджина поднимает ладонь, чтобы выжечь аномалию. Вокруг пальцев вспыхивают фиолетовые искры — и тут же рассыпаются серым дымом.',
         next: 'p3_5'
       },
       p3_5: {
@@ -429,7 +387,7 @@
         chapterTag: 'АКТ I // ДОМ № 4354',
         speaker: 'Рассказчик',
         speakerStyle: 'narrator',
-        en: 'You wake up standing in a quiet wooden foyer. Your coat is still damp from rain you don't remember walking through. The house smells of old books, lemon wax, and cold autumn air.',
+        en: 'You wake up standing in a quiet wooden foyer. Your coat is still damp from rain you don\'t remember walking through. The house smells of old books, lemon wax, and cold autumn air.',
         ru: 'Ты приходишь в себя в тихой деревянной прихожей. Твоё пальто всё ещё влажное от дождя, под который ты не помнишь, как попал(а). В доме пахнет старыми книгами, лимонным воском и холодным осенним воздухом.',
         next: 'act1_2'
       },
@@ -452,70 +410,6 @@
       act1_mirror: {
         type: 'setup_player',
         bg: 'house_hall',
-        next: 'act1_room_explore'
-      },
-      act1_room_explore: {
-        bg: 'house_hall',
-        speaker: 'Рассказчик',
-        speakerStyle: 'narrator',
-        en: 'The hallway feels strangely staged—like a movie set built overnight. There are no family photos on the walls, no shoes by the door, and the fireplace ashes are stone cold.',
-        ru: 'Прихожая кажется странно бутафорской — словно декорация, возведённая за одну ночь. На стенах нет семейных фотографий, у двери нет обуви, а зола в камине ледяная.',
-        next: 'act1_room_choice'
-      },
-      act1_room_choice: {
-        type: 'choice',
-        bg: 'house_hall',
-        promptRu: 'Прежде чем выйти на улицу, у тебя есть минута осмотреть дом. Куда заглянешь?',
-        options: [
-          {
-            en: 'Check the grandfather clock in the corner of the hall.',
-            ru: 'Осмотреть напольные часы в углу прихожей.',
-            stat: { intuition: 1 },
-            setFlag: { checkedHallClock: true },
-            toast: '+1 Интуиция · Механизм часов заклинило изнутри',
-            goto: 'act1_room_clock'
-          },
-          {
-            en: 'Look through the front window blinds at the street outside.',
-            ru: 'Осторожно выглянуть сквозь жалюзи на улицу.',
-            stat: { composure: 1 },
-            setFlag: { peekedWindow: true },
-            toast: '+1 Хладнокровие · Ты заметил(а) Клару раньше, чем она подошла',
-            goto: 'act1_room_window'
-          },
-          {
-            en: 'Test the kitchen faucet and light switches to see if the house is real.',
-            ru: 'Проверить свет и воду, чтобы понять, настоящий ли это дом.',
-            stat: { audacity: 1 },
-            setFlag: { testedHouse: true },
-            toast: '+1 Дерзость · Электричество есть, но часы на плите мигают 11:59',
-            goto: 'act1_room_kitchen'
-          }
-        ]
-      },
-      act1_room_clock: {
-        bg: 'house_hall',
-        sfx: 'tick',
-        speaker: 'Рассказчик',
-        speakerStyle: 'narrator',
-        en: 'The brass pendulum hangs completely still. Behind the glass face, a tiny drop of dark red wax is jammed between the gears—holding the minute hand at 11:59.',
-        ru: 'Латунный маятник висит абсолютно неподвижно. За стеклянным циферблатом между шестерёнками застряла крошечная капля тёмно-красного сургуча — она удерживает стрелку на 11:59.',
-        next: 'act1_journal_1'
-      },
-      act1_room_window: {
-        bg: 'house_hall',
-        speaker: 'Рассказчик',
-        speakerStyle: 'narrator',
-        en: 'Through a slit in the blinds, you see a tidy suburban street swallowed by fog. Across the road, a woman in a burgundy dress is already walking up your driveway with a wicker basket.',
-        ru: 'Сквозь щель в жалюзи видна аккуратная пригородная улица, поглощённая туманом. Через дорогу женщина в бордовом платье уже идёт по твоей дорожке с плетёной корзинкой.',
-        next: 'act1_journal_1'
-      },
-      act1_room_kitchen: {
-        bg: 'house_hall',
-        speaker: 'Рассказчик',
-        speakerStyle: 'narrator',
-        en: 'The warm chandelier overhead flickers on, and cold water runs from the tap—yet the cupboards are completely empty, save for a single porcelain saucer with a gold rim.',
-        ru: 'Тёплая люстра под потолком загорается, из крана течёт холодная вода — но шкафчики абсолютно пусты, если не считать единственного фарфорового блюдца с золотой каёмкой.',
         next: 'act1_journal_1'
       },
       act1_journal_1: {
@@ -638,7 +532,7 @@
         chars: [{ id: 'clara', emo: 'calm', pos: 'center', active: true }],
         speaker: 'Рассказчик',
         speakerStyle: 'narrator',
-        en: 'She smiles as if the whole neighborhood isn't buried in freezing silver fog. Before you can even say a word, boots hurry across the wet asphalt behind her.',
+        en: 'She smiles as if the whole neighborhood isn\'t buried in freezing silver fog. Before you can even say a word, boots hurry across the wet asphalt behind her.',
         ru: 'Она улыбается так, словно всю улицу не накрыл ледяной серебристый туман. Не успеваешь ты открыть рот, как позади неё по мокрому асфальту раздаются быстрые шаги.',
         next: 'act2_lucas_arrive'
       },
@@ -671,7 +565,7 @@
           { id: 'lucas', emo: 'serious', pos: 'right', active: false }
         ],
         speaker: 'clara',
-        en: 'Lucas, please. You are making our new neighbor on edge. Strange fog happens in November, and shouting on the porch never solved anything. Isn't that right, {name}?',
+        en: 'Lucas, please. You are making our new neighbor on edge. Strange fog happens in November, and shouting on the porch never solved anything. Isn\'t that right, {name}?',
         ru: 'Лукас, пожалуйста. Ты только нервируешь нашего нового соседа. В ноябре бывает странный туман, а крики на крыльце ещё никому не помогли. Правда, {name}?',
         next: 'act2_choice1'
       },
@@ -685,7 +579,7 @@
         promptRu: 'Ты вспоминаешь запись в дневнике: «Не доверяй первой улыбке». А Клара к тому же уже знает твоё имя. Как ответишь?',
         options: [
           {
-            en: '"Keep a straight face, Clara. You don't look surprised at all—what are you hiding?"',
+            en: '"Keep a straight face, Clara. You don\'t look surprised at all—what are you hiding?"',
             ru: '«Сохраняй невозмутимое лицо, Клара. Ты вообще не выглядишь удивлённой — что ты скрываешь?»',
             stat: { intuition: 1 },
             rel: { lucas: 1, clara: -1 },
@@ -694,7 +588,7 @@
             goto: 'act2_c1_int'
           },
           {
-            en: '"Thank you for the welcome, Clara. Let's stay calm and figure out this fog together."',
+            en: '"Thank you for the welcome, Clara. Let\'s stay calm and figure out this fog together."',
             ru: '«Спасибо за приём, Клара. Давайте сохранять спокойствие и разберёмся с этим туманом вместе».',
             stat: { composure: 1 },
             rel: { clara: 2 },
@@ -752,7 +646,7 @@
         bg: 'wisteria_fog',
         chars: [{ id: 'clara', emo: 'calm', pos: 'center', active: true }],
         speaker: 'clara',
-        en: 'You always twist people's words, Lucas. Now if you will excuse me, I need to check on my rose garden before the frost ruins it. Oh—and {name}, I will leave a little packet of dried herbal tea on your porch railing. Vervain and mint. Wonderful for keeping a clear head.',
+        en: 'You always twist people\'s words, Lucas. Now if you will excuse me, I need to check on my rose garden before the frost ruins it. Oh—and {name}, I will leave a little packet of dried herbal tea on your porch railing. Vervain and mint. Wonderful for keeping a clear head.',
         ru: 'Ты вечно перекручиваешь чужие слова, Лукас. А теперь прошу извинить — мне нужно проверить розарий, пока его не побил мороз. И да, {name}, я оставлю на перилах пакетик сушёного травяного чая. Вербена и мята. Чудесно помогает сохранять ясную голову.',
         next: 'act2_tea_choice'
       },
@@ -771,7 +665,7 @@
             goto: 'act2_street_1'
           },
           {
-            en: 'Leave it on the railing—you don't trust gifts from Clara.',
+            en: 'Leave it on the railing—you don\'t trust gifts from Clara.',
             ru: 'Оставить на перилах — не стоит брать подарки от Клары.',
             setFlag: { hasVervain: false },
             stat: { composure: 1 },
@@ -784,7 +678,7 @@
         bg: 'wisteria_fog',
         chars: [{ id: 'lucas', emo: 'serious', pos: 'center', active: true }],
         speaker: 'lucas',
-        en: 'Did you see her eyes when the fog hit? She wasn't scared—she was annoyed, like someone broke her schedule. And look at the rest of the street: every other house is completely empty.',
+        en: 'Did you see her eyes when the fog hit? She wasn\'t scared—she was annoyed, like someone broke her schedule. And look at the rest of the street: every other house is completely empty.',
         ru: 'Ты видел(а) её глаза, когда ударил туман? Она не испугалась — она разозлилась, словно кто-то сбил ей расписание. И посмотри на остальные дома на улице: в них вообще никого нет.',
         next: 'act2_street_2'
       },
@@ -792,7 +686,7 @@
         bg: 'wisteria_fog',
         chars: [{ id: 'lucas', emo: 'calm', pos: 'center', active: true }],
         speaker: 'lucas',
-        en: 'No cars, no mailman, no kids playing. Just me, Clara, and suddenly you in a house that wasn't here at breakfast. Tell me honestly, {name}—do you remember how you got to Wisteria Lane?',
+        en: 'No cars, no mailman, no kids playing. Just me, Clara, and suddenly you in a house that wasn\'t here at breakfast. Tell me honestly, {name}—do you remember how you got to Wisteria Lane?',
         ru: 'Ни машин, ни почтальона, ни детей. Только я, Клара — и вдруг ты в доме, которого не было за завтраком. Скажи честно, {name} — ты вообще помнишь, как попал(а) на Вистерия Лейн?',
         next: 'act2_lucas_choice'
       },
@@ -827,54 +721,14 @@
         speaker: 'lucas',
         en: '"Do not trust the first smile you see." Well, Clara definitely smiled first. Thanks for trusting me, {name}. Whatever this is, we are not going to let anyone lie to us.',
         ru: '«Не доверяй первой улыбке, которую увидишь». Что ж, Клара точно улыбнулась первой. Спасибо за доверие, {name}. Что бы это ни было, мы не дадим водить себя за нос.',
-        next: 'act2_detour_choice'
+        next: 'act2_engine_sound'
       },
       act2_lucas_hide: {
         bg: 'wisteria_fog',
         chars: [{ id: 'lucas', emo: 'calm', pos: 'center', active: true }],
         speaker: 'lucas',
-        en: 'Fair enough—I wouldn't trust a stranger on a weird morning either. Still, two pairs of eyes are better than one.',
+        en: 'Fair enough—I wouldn\'t trust a stranger on a weird morning either. Still, two pairs of eyes are better than one.',
         ru: 'Справедливо — я бы тоже не стал доверять незнакомцу в такое странное утро. И всё же две пары глаз лучше одной.',
-        next: 'act2_detour_choice'
-      },
-      act2_detour_choice: {
-        type: 'choice',
-        bg: 'wisteria_fog',
-        chars: [{ id: 'lucas', emo: 'calm', pos: 'center', active: true }],
-        promptRu: 'У вас есть пара минут, пока туман не сгустился окончательно. Что проверите перед тем, как идти к границе улицы?',
-        options: [
-          {
-            en: 'Examine the brass mailbox and the edge of your lawn.',
-            ru: 'Осмотреть латунный почтовый ящик и границу твоего участка.',
-            stat: { intuition: 1 },
-            setFlag: { checkedMailbox: true },
-            toast: '+1 Интуиция · Внутри ящика найден обрывок карты Вистерия Лейн',
-            goto: 'act2_detour_box'
-          },
-          {
-            en: 'Ask Lucas to show you his reporter notebook.',
-            ru: 'Попросить Лукаса показать его репортёрский блокнот.',
-            rel: { lucas: 1 },
-            setFlag: { readLucasNotes: true },
-            toast: '+1 Лукас · Ты узнал(а) о странных датах в его записях',
-            goto: 'act2_detour_notes'
-          }
-        ]
-      },
-      act2_detour_box: {
-        bg: 'wisteria_fog',
-        chars: [{ id: 'lucas', emo: 'serious', pos: 'center', active: true }],
-        speaker: 'lucas',
-        en: 'Look at the grass line around your yard—it is cut like a razor, as if someone pasted your house onto the block. And inside the mailbox... an old street map with a red circle around a Clock Tower.',
-        ru: 'Посмотри на линию газона вокруг твоего двора — она ровная, как по лезвию, будто твой дом вклеили в квартал. А внутри ящика... старая карта улиц с красным кругом вокруг Часовой башни.',
-        next: 'act2_engine_sound'
-      },
-      act2_detour_notes: {
-        bg: 'wisteria_fog',
-        chars: [{ id: 'lucas', emo: 'serious', pos: 'center', active: true }],
-        speaker: 'lucas',
-        en: 'Look at this: for the last three weeks, every delivery truck stopped coming past Maple Street, and Clara kept receiving unmarked wax-sealed letters every Friday at 11:59 PM.',
-        ru: 'Взгляни сюда: последние три недели ни один фургон доставки не заезжал дальше Мейпл-стрит, а Клара каждую пятницу ровно в 23:59 получала письма без обратного адреса, запечатанные сургучом.',
         next: 'act2_engine_sound'
       },
       act2_engine_sound: {
@@ -891,7 +745,7 @@
         bg: 'wisteria_fog',
         chars: [{ id: 'lucas', emo: 'serious', pos: 'center', active: true }],
         speaker: 'lucas',
-        en: 'Hear that? Someone just drove straight through the fog. Let's go see who it is before they vanish.',
+        en: 'Hear that? Someone just drove straight through the fog. Let\'s go see who it is before they vanish.',
         ru: 'Слышишь? Кто-то только что проехал прямо сквозь туман. Пошли посмотрим, кто это, пока не исчез.',
         next: 'act3_1'
       },
@@ -913,7 +767,7 @@
         sfx: 'static',
         speaker: 'Рассказчик',
         speakerStyle: 'narrator',
-        en: 'A tall man in a dark green field jacket stands beside the open driver's door, sweeping a small brass meter along the stone border. Every few seconds the device crackles loudly.',
+        en: 'A tall man in a dark green field jacket stands beside the open driver\'s door, sweeping a small brass meter along the stone border. Every few seconds the device crackles loudly.',
         ru: 'Высокий мужчина в тёмно-зелёной куртке стоит у открытой водительской двери и водит небольшим латунным прибором вдоль каменной границы. Каждые пару секунд прибор громко трещит.',
         next: 'act3_3'
       },
@@ -948,17 +802,6 @@
         speaker: 'sam',
         en: 'Ten minutes ago I was driving down an empty highway. My GPS went dead, the engine stalled, and when the fog cleared—there were white picket fences on my left and a brick town square on my right.',
         ru: 'Десять минут назад я ехал по пустому шоссе. Навигатор сдох, мотор заглох, а когда туман чуть разошёлся — слева оказались белые заборы, а справа кирпичная городская площадь.',
-        next: 'act3_5b'
-      },
-      act3_5b: {
-        bg: 'wisteria_fog',
-        chars: [
-          { id: 'sam', emo: 'calm', pos: 'left', active: false },
-          { id: 'lucas', emo: 'calm', pos: 'right', active: true }
-        ],
-        speaker: 'lucas',
-        en: 'Let me guess—your phone has no signal either, and your dashboard clock says 11:59? Welcome to the club, Sam.',
-        ru: 'Дай угадаю — телефон тоже не ловит, а часы на приборной панели показывают 11:59? Добро пожаловать в клуб, Сэм.',
         next: 'act3_6'
       },
       act3_6: {
@@ -969,7 +812,7 @@
         ],
         sfx: 'static',
         speaker: 'sam',
-        en: 'Wait a second... Stop moving. The needle isn't pointing at the fog anymore. It is pointing straight at you, {name}—specifically at whatever you are carrying.',
+        en: 'Wait a second... Stop moving. The needle isn\'t pointing at the fog anymore. It is pointing straight at you, {name}—specifically at whatever you are carrying.',
         ru: 'Секунду... Не двигайся. Стрелка больше не показывает на туман. Она указывает прямо на тебя, {name} — точнее, на то, что у тебя при себе.',
         next: 'act3_7'
       },
@@ -982,17 +825,6 @@
         speaker: 'sam',
         en: 'That leather journal... it is radiating residual spell energy. Not a demon, not a ghost—something old and stitched together by magic.',
         ru: 'Этот кожаный дневник... от него фонит остаточной энергией заклятия. Не демон, не призрак — что-то древнее и сшитое магией.',
-        next: 'act3_7b'
-      },
-      act3_7b: {
-        bg: 'wisteria_fog',
-        chars: [
-          { id: 'sam', emo: 'serious', pos: 'left', active: true },
-          { id: 'lucas', emo: 'calm', pos: 'right', active: false }
-        ],
-        speaker: 'sam',
-        en: 'Whoever cast this curse didn't just trap us here by accident. They used your journal as a focal point—an anchor holding two separate worlds together.',
-        ru: 'Тот, кто наложил это проклятие, запер нас здесь не случайно. Твой дневник использовали как точку фокуса — якорь, удерживающий два разных мира вместе.',
         next: 'act3_8'
       },
       act3_8: {
@@ -1021,7 +853,7 @@
         promptRu: 'ВЫБОР НА ВРЕМЯ (15 СЕК)! Вспышка магии разносит фонари — как ты действуешь?',
         options: [
           {
-            en: 'Shield the journal and pull Lucas behind the Impala's hood!',
+            en: 'Shield the journal and pull Lucas behind the Impala\'s hood!',
             ru: 'Прикрыть дневник и оттолкнуть Лукаса за капот Импалы!',
             stat: { intuition: 1 },
             rel: { sam: 2, lucas: 1 },
@@ -1089,7 +921,7 @@
           { id: 'lucas', emo: 'serious', pos: 'right', active: true }
         ],
         speaker: 'lucas',
-        en: 'Okay, hold everything. Did you both just casually say "magic" like it's Tuesday?! Because ten minutes ago I was drinking coffee and arguing about hedges!',
+        en: 'Okay, hold everything. Did you both just casually say "magic" like it\'s Tuesday?! Because ten minutes ago I was drinking coffee and arguing about hedges!',
         ru: 'Так, стоп. Вы оба только что спокойно сказали «магия», будто это обычный вторник?! Десять минут назад я пил кофе и спорил про кусты!',
         next: 'act3_after_surge_2'
       },
@@ -1102,18 +934,6 @@
         speaker: 'sam',
         en: 'Take a deep breath, Lucas. Look up through the fog. That giant Clock Tower is the center of the energy spike. If we want to figure out who trapped us here, that is where we start.',
         ru: 'Глубокий вдох, Лукас. Посмотри вверх сквозь туман. Та огромная Часовая башня — центр энергетического всплеска. Если хотим понять, кто запер нас здесь, начинать надо оттуда.',
-        next: 'act3_trunk_prep'
-      },
-      act3_trunk_prep: {
-        bg: 'wisteria_fog',
-        chars: [
-          { id: 'sam', emo: 'serious', pos: 'left', active: true },
-          { id: 'lucas', emo: 'calm', pos: 'right', active: false }
-        ],
-        speaker: 'Рассказчик',
-        speakerStyle: 'narrator',
-        en: 'Sam pops the Impala's trunk, revealing a neat arsenal of iron crowbars, salt rounds, and worn leather-bound lore books. He grabs a heavy flashlight and closes the lid.',
-        ru: 'Сэм открывает багажник Импалы — внутри аккуратно уложены железные монтировки, патроны с солью и потёртые книги в кожаных переплётах. Он берёт тяжёлый фонарь и захлопывает крышку.',
         next: 'act3_walk_choice'
       },
       act3_walk_choice: {
@@ -1155,7 +975,7 @@
         bg: 'clock_tower',
         chars: [{ id: 'sam', emo: 'calm', pos: 'center', active: true }],
         speaker: 'sam',
-        en: 'After I lost him, I parked the Impala and tried to live like a normal guy. I don't want another war, {name}. I just want to keep people safe—including you.',
+        en: 'After I lost him, I parked the Impala and tried to live like a normal guy. I don\'t want another war, {name}. I just want to keep people safe—including you.',
         ru: 'После того как я его потерял, я поставил Импалу в гараж и попытался жить как обычный человек. Я не хочу новой войны, {name}. Я просто хочу уберечь людей — и тебя тоже.',
         next: 'act3_walk_sam_3'
       },
@@ -1163,15 +983,15 @@
         bg: 'clock_tower',
         chars: [{ id: 'sam', emo: 'calm', pos: 'center', active: true }],
         speaker: 'sam',
-        en: 'Whatever is hidden in that journal, you don't have to face it alone. Stick close when we reach the square—and don't trust anyone offering easy miracles.',
-        ru: 'Что бы ни скрывалось в этом дневнике, тебе не придётся разбираться с этим в одиночку. Держись рядом, когда выйдем на площадь — и не верь никому, кто обещает лёгкие чудеса.',
+        en: 'Whatever is hidden in that journal, you don\'t have to face it alone. Stick close when we reach the square.',
+        ru: 'Что бы ни скрывалось в этом дневнике, тебе не придётся разбираться с этим в одиночку. Держись рядом, когда выйдем на площадь.',
         next: 'act4_1'
       },
       act3_walk_lucas: {
         bg: 'clock_tower',
         chars: [{ id: 'lucas', emo: 'serious', pos: 'center', active: true }],
         speaker: 'lucas',
-        en: 'Keep your voice down. Two weeks ago I couldn't sleep, looked out my bedroom window at 2 AM, and saw Clara in her backyard with a flashlight and a garden shovel.',
+        en: 'Keep your voice down. Two weeks ago I couldn\'t sleep, looked out my bedroom window at 2 AM, and saw Clara in her backyard with a flashlight and a garden shovel.',
         ru: 'Говори потише. Две недели назад мне не спалось, я выглянул из окна спальни в два часа ночи и увидел Клару на заднем дворе с фонариком и садовой лопаткой.',
         next: 'act3_walk_lucas_2'
       },
@@ -1222,7 +1042,7 @@
           { id: 'regina', emo: 'calm', pos: 'right', active: true }
         ],
         speaker: 'regina',
-        en: 'Put your noisy little toy away, hunter. If I wanted to turn the three of you into dust, I wouldn't have bothered walking down the stairs. I am Regina Mills—Queen of the United Realms.',
+        en: 'Put your noisy little toy away, hunter. If I wanted to turn the three of you into dust, I wouldn\'t have bothered walking down the stairs. I am Regina Mills—Queen of the United Realms.',
         ru: 'Убери свою шумную игрушку, охотник. Если бы я хотела стереть вас троих в порошок, я бы не стала спускаться по лестнице. Я Реджина Миллс — Королева Объединённых Королевств.',
         next: 'act4_4'
       },
@@ -1235,25 +1055,14 @@
         speaker: 'lucas',
         en: '"Queen of the United Realms"? Great. Either I hit my head this morning, or Wisteria Lane just got annexed by a fairy tale.',
         ru: '«Королева Объединённых Королевств»? Чудесно. Либо я ударился головой этим утром, либо Вистерия Лейн только что захватила сказка.',
-        next: 'act4_4b'
-      },
-      act4_4b: {
-        bg: 'clock_tower',
-        chars: [
-          { id: 'lucas', emo: 'serious', pos: 'left', active: false },
-          { id: 'regina', emo: 'serious', pos: 'right', active: true }
-        ],
-        speaker: 'regina',
-        en: 'Careful with that tongue, mortal. In Storybrooke, I call the shots—and right now I am the only person keeping that fog from swallowing your precious little street whole.',
-        ru: 'Осторожнее со словами, смертный. В Сторибруке решения принимаю я — и прямо сейчас я единственная, кто не даёт этому туману проглотить вашу драгоценную улочку целиком.',
         next: 'act4_5'
       },
       act4_5: {
         bg: 'clock_tower',
         chars: [{ id: 'regina', emo: 'serious', pos: 'center', active: true }],
         speaker: 'regina',
-        en: 'Wait... what is that tucked under your arm, {name}? A leather journal with gold lettering? Come upstairs to my office—right now, before the street listens in.',
-        ru: 'Постой... что это у тебя под мышкой, {name}? Кожаный дневник с золотым тиснением? Поднимайтесь в мой кабинет — немедленно, пока улица не подслушала.',
+        en: 'Save the sarcasm, reporter. Wait... what is that tucked under your arm, {name}? A leather journal with gold lettering? Come upstairs to my office—right now, before the street listens in.',
+        ru: 'Прибереги сарказм, репортёр. Постой... что это у тебя под мышкой, {name}? Кожаный дневник с золотым тиснением? Поднимайтесь в мой кабинет — немедленно, пока улица не подслушала.',
         next: 'act4_office_1'
       },
       act4_office_1: {
@@ -1280,17 +1089,6 @@
         speaker: 'regina',
         en: 'Someone secretly broke into my spell using a stolen Blank Page. Now this town is a seam between completely different worlds. Every time the fog shifts, it pulls in another street—and traps everyone inside.',
         ru: 'Кто-то тайно взломал моё заклинание с помощью украденной Чистой Страницы. Теперь этот город — шов между совершенно разными мирами. Каждый раз, когда туман сдвигается, он втягивает ещё одну улицу — и запирает всех внутри.',
-        next: 'act4_office_3b'
-      },
-      act4_office_3b: {
-        bg: 'regina_office',
-        chars: [
-          { id: 'regina', emo: 'calm', pos: 'left', active: false },
-          { id: 'lucas', emo: 'serious', pos: 'right', active: true }
-        ],
-        speaker: 'lucas',
-        en: 'So let me get this straight: a magic book page ripped Wisteria Lane off the map and glued it onto your fairy-tale town? That sounds insane... and yet I am looking right at the map.',
-        ru: 'То есть, если я правильно понял: страница волшебной книги вырвала Вистерия Лейн с карты и приклеила к вашему сказочному городу? Звучит как бред... но я смотрю прямо на эту карту.',
         next: 'act4_office_4'
       },
       act4_office_4: {
@@ -1308,7 +1106,7 @@
         bg: 'regina_office',
         chars: [{ id: 'regina', emo: 'calm', pos: 'center', active: true }],
         speaker: 'regina',
-        en: 'Exactly. And your journal, {name}, is the anchor holding the missing page's memory. Whoever tore that first sheet out is already hiding inside our perimeter.',
+        en: 'Exactly. And your journal, {name}, is the anchor holding the missing page\'s memory. Whoever tore that first sheet out is already hiding inside our perimeter.',
         ru: 'Именно. А твой дневник, {name}, — якорь, хранящий память о пропавшей странице. Тот, кто вырвал первый лист, уже прячется внутри нашего периметра.',
         branchFlag: 'grabbedScrap',
         ifTrue: 'act4_scrap_bonus',
@@ -1347,7 +1145,7 @@
             goto: 'act4_q_home'
           },
           {
-            en: '"How do we know YOU aren't the one who broke the spell?"',
+            en: '"How do we know YOU aren\'t the one who broke the spell?"',
             ru: '«Откуда нам знать, что заклятие сломала не ты сама?»',
             stat: { audacity: 1 },
             rel: { regina: -1, lucas: 1 },
@@ -1360,7 +1158,7 @@
         bg: 'regina_office',
         chars: [{ id: 'regina', emo: 'serious', pos: 'center', active: true }],
         speaker: 'regina',
-        en: 'That is the one part the map refuses to answer. The spell didn't just catch you by accident, {name}—someone wrote you into the center of it.',
+        en: 'That is the one part the map refuses to answer. The spell didn\'t just catch you by accident, {name}—someone wrote you into the center of it.',
         ru: 'Это единственное, на что карта отказывается отвечать. Заклятие не просто зацепило тебя случайно, {name} — кто-то намеренно вписал тебя в самый центр.',
         next: 'act4_ritual_offer'
       },
@@ -1376,7 +1174,7 @@
         bg: 'regina_office',
         chars: [{ id: 'regina', emo: 'serious', pos: 'center', active: true }],
         speaker: 'regina',
-        en: 'Bold words for someone standing in my office. Believe me, {name}—if I still wanted to curse a town, my magic wouldn't be misfiring in my own hands.',
+        en: 'Bold words for someone standing in my office. Believe me, {name}—if I still wanted to curse a town, my magic wouldn\'t be misfiring in my own hands.',
         ru: 'Смелые слова для человека, стоящего в моём кабинете. Поверь, {name} — если бы я всё ещё хотела проклясть город, моя магия не давала бы осечку в моих же руках.',
         next: 'act4_ritual_offer'
       },
@@ -1387,7 +1185,7 @@
           { id: 'sam', emo: 'serious', pos: 'right', active: false }
         ],
         speaker: 'regina',
-        en: 'We are losing precious minutes. Let me cast a tracing spell on your journal right now—I can pull an echo of the thief's face and voice straight out of the ink.',
+        en: 'We are losing precious minutes. Let me cast a tracing spell on your journal right now—I can pull an echo of the thief\'s face and voice straight out of the ink.',
         ru: 'Мы теряем драгоценные минуты. Позволь мне наложить поисковое заклинание на твой дневник прямо сейчас — я смогу вытянуть отголосок лица и голоса похитителя прямо из чернил.',
         next: 'act4_sam_warn'
       },
@@ -1401,17 +1199,6 @@
         speaker: 'sam',
         en: 'Wait, {name}. Her magic already failed once tonight. If she lights up that book with a big spell, it could act like a flare—and tell whoever is pulling the strings exactly where we are.',
         ru: 'Погоди, {name}. Её магия сегодня уже дала сбой. Если она зажжёт эту книгу сильным заклинанием, это может сработать как сигнальная ракета — и выдать тому, кто дёргает за ниточки, где именно мы находимся.',
-        next: 'act4_lucas_weigh'
-      },
-      act4_lucas_weigh: {
-        bg: 'regina_office',
-        chars: [
-          { id: 'lucas', emo: 'serious', pos: 'left', active: true },
-          { id: 'regina', emo: 'serious', pos: 'right', active: false }
-        ],
-        speaker: 'lucas',
-        en: 'For once, I am with the guy carrying a crowbar. We don't even know who the thief is yet—why ring the dinner bell? It is your book, {name}. Your call.',
-        ru: 'Хоть раз я согласен с парнем с монтировкой. Мы даже не знаем, кто похититель — зачем звонить в колокол? Но книга твоя, {name}. Тебе решать.',
         next: 'act4_key_choice'
       },
       act4_key_choice: {
@@ -1481,7 +1268,7 @@
           { id: 'sam', emo: 'calm', pos: 'right', active: false }
         ],
         speaker: 'regina',
-        en: 'Fine. Keep your secrets and walk in blind if you wish. Just don't blame me when the next piece of a broken world lands on your doorstep. Wait... do you hear that?!',
+        en: 'Fine. Keep your secrets and walk in blind if you wish. Just don\'t blame me when the next piece of a broken world lands on your doorstep. Wait... do you hear that?!',
         ru: 'Ладно. Храните свои секреты и идите вслепую, если так хотите. Только не вините меня, когда следующий осколок чужого мира упадёт прямо к вашему порогу. Погодите... слышите это?!',
         next: 'act5_1'
       },
@@ -1509,17 +1296,6 @@
         speaker: 'lucas',
         en: 'Look east! The fog is splitting right down the middle! Where did that whole brick street come from?! The neon sign says... "Mystic Grill"?',
         ru: 'Смотрите на восток! Туман расходится прямо пополам! Откуда взялась целая кирпичная улица?! На неоновой вывеске написано... «Mystic Grill»?',
-        next: 'act5_2b'
-      },
-      act5_2b: {
-        bg: 'clock_tower',
-        chars: [
-          { id: 'sam', emo: 'serious', pos: 'left', active: true },
-          { id: 'regina', emo: 'serious', pos: 'right', active: false }
-        ],
-        speaker: 'sam',
-        en: 'My EMF meter just spiked off the charts—and it isn't just witch magic anymore. Whatever just crossed into this town is fast, cold, and lethal.',
-        ru: 'Мой датчик ЭМП только что зашкалил — и это больше не просто ведьмовская магия. То, что только что вошло в этот город, быстрое, холодное и смертельно опасное.',
         next: 'act5_3'
       },
       act5_3: {
@@ -1549,8 +1325,8 @@
         ],
         speaker: 'Закадровый голос',
         speakerStyle: 'narrator',
-        en: 'High on the balcony of a newly appeared mansion on the hill, two silhouettes look out over the misty square—a man with a dangerous smirk swirling a glass of bourbon, and a blonde woman staring at a phone with no signal.',
-        ru: 'Высоко на балконе внезапно появившегося на холме особняка два силуэта смотрят на туманную площадь — мужчина с опасной ухмылкой, покачивающий бокал бурбона, и блондинка, растерянно глядящая в телефон без сети.',
+        en: 'High on the balcony of a newly appeared mansion on the hill, two silhouettes look out over the misty square—a man with a dangerous smirk and a blonde woman staring at a phone with no signal.',
+        ru: 'Высоко на балконе внезапно появившегося на холме особняка два силуэта смотрят на туманную площадь — мужчина с опасной ухмылкой и блондинка, растерянно глядящая в телефон без сети.',
         next: 'act5_6'
       },
       act5_6: {
