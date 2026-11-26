@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>English Series Hub — Архив вселенных</title>
+  <link rel="stylesheet" href="style.css?v=7">
+
+  <!-- Yandex.Metrika counter -->
+  <script type="text/javascript">
+    (function(m,e,t,r,i,k,a){
+      m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+      m[i].l=1*new Date();
+      for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+      k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+    })(window, document, 'script', 'https://mc.yandex.ru/metrika/tag.js?id=114624558', 'ym');
+    ym(114624558, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", accurateTrackBounce:true, trackLinks:true});
+  </script>
+  <noscript><div><img src="https://mc.yandex.ru/watch/114624558" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+  <!-- /Yandex.Metrika counter -->
+</head>
+<body>
+  <header class="main-header">
+    <img src="banner.jpg" alt="English Series Hub" class="hero-banner">
+  </header>
+
+  <nav class="main-nav">
+    <button class="esh-burger-btn" id="eshBurgerBtn" title="Меню, Новеллы и Инструменты" aria-label="Открыть меню" onclick="window.ESHHub.toggleDrawer()">
+      <span class="esh-burger-line"></span>
+      <span class="esh-burger-line"></span>
+      <span class="esh-burger-line"></span>
+    </button>
+    <button class="nav-tab active" data-tab="home" onclick="switchTab('home', this)">
+      <img src="ico-home.jpg" alt="" class="ui-ico" onerror="this.style.display='none'"> Главная
+    </button>
+    <button class="nav-tab" data-tab="dict" onclick="switchTab('dict', this)">
+      <img src="ico-dict.jpg" alt="" class="ui-ico" onerror="this.style.display='none'"> Словарь
+    </button>
+    <button class="nav-tab" data-tab="tests" onclick="switchTab('tests', this)">
+      <img src="ico-tests.jpg" alt="" class="ui-ico" onerror="this.style.display='none'"> Тесты
+    </button>
+    <button class="nav-tab" data-tab="progress" onclick="switchTab('progress', this)">
+      <img src="ico-progress.jpg" alt="" class="ui-ico" onerror="this.style.display='none'"> Прогресс
+    </button>
+  </nav>
+  <div class="winter-fairy-strip" id="winterFairyStrip" aria-hidden="true"></div>
+
+  <main class="container">
+    <!-- 1. ВКЛАДКА: ГЛАВНАЯ -->
+    <section id="home" class="tab-content active">
+      <div class="card">
+        <h2>English Series Hub</h2>
+        <p>Учи английский по любимым сериалам: живые цитаты, словарь с озвучкой, тесты и визуальная новелла.</p>
+      </div>
+
+      <!-- Новелла Midnight Never Comes -->
+      <div class="vnc-home-card">
+        <div class="vnc-home-left">
+          <img src="novel/cover.jpg" alt="Midnight Never Comes" class="vnc-home-poster" onerror="this.style.display='none'">
+          <div>
+            <div class="vnc-home-kicker">СЕЗОН 1 · ЭПИЗОД 1</div>
+            <h2 class="vnc-home-title">Midnight Never Comes</h2>
+            <div class="vnc-home-desc">Все часы в городе встали на 11:59, а туман свёл на одной карте улицы, которых никогда не было рядом. В доме № 4354 лежит дневник с твоим именем и вырванной первой страницей.</div>
+          </div>
+        </div>
+        <button class="action-btn" style="margin:0; padding:12px 20px;" onclick="window.VNC.open()">
+          <img src="ico-novels.jpg" alt="" class="ui-ico" onerror="this.style.display='none'"> Играть · Эпизод 1
+        </button>
+      </div>
+
+      <!-- Зимний таймер до Нового года (можно скрыть в Настройках) -->
+      <div class="card countdown-card" id="winterCountdownCard">
+        <h2>
+          <img src="ico-winter.jpg" alt="" class="ui-ico-md" onerror="this.style.display='none'">
+          До Нового года осталось
+        </h2>
+        <div class="countdown-grid">
+          <div class="time-box"><span class="time-val" id="cd-days">00</span><span class="time-label">Дней</span></div>
+          <div class="time-box"><span class="time-val" id="cd-hours">00</span><span class="time-label">Часов</span></div>
+          <div class="time-box"><span class="time-val" id="cd-mins">00</span><span class="time-label">Минут</span></div>
+          <div class="time-box"><span class="time-val" id="cd-secs">00</span><span class="time-label">Секунд</span></div>
+        </div>
+        <div class="ny-quote" id="nyQuoteBox"></div>
+        <button class="action-btn secondary" onclick="nextNyQuote()">Следующая цитата</button>
+      </div>
+
+      <!-- Витрина 5 Вселенных (Досье + Разбор цитат + Быстрый переход в словарь) -->
+      <div id="noirSeriesShowcase" class="noir-showcase-wrap">
+        <div class="agent-hud">
+          <div class="agent-info">
+            <div class="agent-rank" id="agentRankTitle">ДОПУСК: ROOKIE CADET (0 XP)</div>
+            <div class="agent-stats" id="agentStatsText">Досье: 0/5 · Архив дел: 0/10 · Словарь: 0/500</div>
+          </div>
+          <div class="agent-xp-bar-wrap">
+            <div class="agent-xp-bar" id="agentXpBar"></div>
+          </div>
+          <div class="agent-actions">
+            <button class="hud-btn" onclick="exportSaveCode()">Код сохранения</button>
+            <button class="hud-btn" onclick="importSaveCode()">Загрузить код</button>
+          </div>
+        </div>
+
+        <div class="noir-showcase-header">
+          <h2 class="noir-showcase-title">Архив пяти вселенных</h2>
+          <div class="noir-showcase-sub">Открой любую карточку: внутри улики, разбор цитат, грамматика и словарь сериала</div>
+        </div>
+
+        <div class="noir-polaroid-grid">
+          <div class="noir-polaroid-item" id="card-tvd" onclick="openUniverseDossier('tvd')">
+            <div class="noir-polaroid-img-box">
+              <img src="tvd-card.jpg" alt="The Vampire Diaries">
+              <div class="solved-stamp">CASE SOLVED</div>
+              <span class="noir-polaroid-badge">ДОСЬЕ</span>
+            </div>
+            <div class="noir-polaroid-tag">FILE #01 // MYSTIC FALLS</div>
+            <div class="noir-polaroid-name">The Vampire Diaries</div>
+          </div>
+
+          <div class="noir-polaroid-item" id="card-dh" onclick="openUniverseDossier('dh')">
+            <div class="noir-polaroid-img-box">
+              <img src="house-wives.jpg" alt="Desperate Housewives">
+              <div class="solved-stamp">CASE SOLVED</div>
+              <span class="noir-polaroid-badge">ДОСЬЕ</span>
+            </div>
+            <div class="noir-polaroid-tag">FILE #02 // WISTERIA LANE</div>
+            <div class="noir-polaroid-name">Desperate Housewives</div>
+          </div>
+
+          <div class="noir-polaroid-item" id="card-spn" onclick="openUniverseDossier('spn')">
+            <div class="noir-polaroid-img-box">
+              <img src="spn-card.jpg" alt="Supernatural">
+              <div class="solved-stamp">CASE SOLVED</div>
+              <span class="noir-polaroid-badge">ДОСЬЕ</span>
+            </div>
+            <div class="noir-polaroid-tag">FILE #03 // WINCHESTER</div>
+            <div class="noir-polaroid-name">Supernatural</div>
+          </div>
+
+          <div class="noir-polaroid-item" id="card-penthouse" onclick="openUniverseDossier('penthouse')">
+            <div class="noir-polaroid-img-box">
+              <img src="penthouse-card.jpg" alt="The Penthouse">
+              <div class="solved-stamp">CASE SOLVED</div>
+              <span class="noir-polaroid-badge">ДОСЬЕ</span>
+            </div>
+            <div class="noir-polaroid-tag">FILE #04 // HERA PALACE</div>
+            <div class="noir-polaroid-name">The Penthouse</div>
+          </div>
+
+          <div class="noir-polaroid-item" id="card-ouat" onclick="openUniverseDossier('ouat')">
+            <div class="noir-polaroid-img-box">
+              <img src="once-upon.jpg" alt="Once Upon a Time">
+              <div class="solved-stamp">CASE SOLVED</div>
+              <span class="noir-polaroid-badge">ДОСЬЕ</span>
+            </div>
+            <div class="noir-polaroid-tag">FILE #05 // STORYBROOKE</div>
+            <div class="noir-polaroid-name">Once Upon a Time</div>
+          </div>
+        </div>
+
+        <div class="evidence-locker-box">
+          <div class="locker-title">Собранные выражения из досье (нажми для озвучки):</div>
+          <div class="locker-chips" id="lockerChipsContainer"></div>
+        </div>
+      </div>
+
+      <!-- Компактная сводка -->
+      <div class="stats-grid">
+        <div class="stat-box">
+          <div class="stat-num" id="statWords">0 / 500</div>
+          <div class="stat-label">Освоено в словаре</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num" id="statTests">0 / 12</div>
+          <div class="stat-label">Верных ответов в тестах</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num" id="statGoals">0 / 6</div>
+          <div class="stat-label">Целей закрыто</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. ВКЛАДКА: СЛОВАРЬ И ТРЕНАЖЁР -->
+    <section id="dict" class="tab-content">
+      <div class="card" id="masterDictMount"></div>
+    </section>
+
+    <!-- 3. ВКЛАДКА: ТЕСТЫ -->
+    <section id="tests" class="tab-content">
+      <div class="card">
+        <div class="quiz-header">
+          <h2>
+            <img src="ico-tests.jpg" alt="" class="ui-ico-md" onerror="this.style.display='none'">
+            Проверка знаний
+          </h2>
+          <span class="score-badge" id="quizScoreBadge">Счет: 0 / 12</span>
+        </div>
+        <p style="margin-bottom: 12px;">Вопросы по лексике, идиомам и грамматике из сериалов. После каждого ответа открывается объяснение.</p>
+        <div class="progress-bar-bg">
+          <div class="progress-bar-fill" id="quizProgressBar"></div>
+        </div>
+        <div class="filter-row">
+          <button class="filter-btn active" onclick="setQuizCategory('all', this)">Все вопросы (12)</button>
+          <button class="filter-btn" onclick="setQuizCategory('vocab', this)">Лексика и идиомы</button>
+          <button class="filter-btn" onclick="setQuizCategory('grammar', this)">Грамматика в цитатах</button>
+        </div>
+        <div id="quizContainer"></div>
+        <button class="action-btn secondary" onclick="resetQuiz()">Пройти заново</button>
+      </div>
+    </section>
+
+    <!-- 4. ВКЛАДКА: ПРОГРЕСС И НАСТРОЙКИ -->
+    <section id="progress" class="tab-content">
+      <div class="card">
+        <h2>
+          <img src="ico-progress.jpg" alt="" class="ui-ico-md" onerror="this.style.display='none'">
+          Оформление и атмосфера
+        </h2>
+        <p style="margin-bottom: 10px;">Выбери тему чтения и настрой зимнее оформление:</p>
+        <div>
+          <button class="action-btn" id="themeDarkBtn" onclick="setTheme('dark')">Тёмный архив (Бордо и Золото)</button>
+          <button class="action-btn secondary" id="themeEmeraldBtn" onclick="setTheme('emerald')">Зимний Изумруд (Хвоя и Золото)</button>
+          <button class="action-btn secondary" id="winterToggleBtn" onclick="toggleWinterMode()">Зимний режим: ВКЛ</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Чек-лист достижений</h2>
+        <p style="margin-bottom: 14px;">Отмечай пройденные этапы — прогресс сохраняется в браузере:</p>
+        <div id="checklistContainer"></div>
+      </div>
+
+      <div class="card">
+        <h2>Управление данными</h2>
+        <p style="margin-bottom: 10px;">Сохрани резервный код, чтобы перенести прогресс между телефоном и ноутбуком, или сбрось статистику:</p>
+        <button class="action-btn secondary" onclick="exportSaveCode()">Экспорт кода</button>
+        <button class="action-btn secondary" onclick="importSaveCode()">Импорт кода</button>
+        <button class="action-btn danger" onclick="clearAllProgress()">Сбросить прогресс</button>
+      </div>
+    </section>
+  </main>
+
+  <!-- ПОДВАЛ И СНЕГ -->
+  <footer class="vintage-holiday-footer">
+    <img src="decor-garland.jpg" alt="" class="footer-garland-img" onerror="this.style.display='none'">
+    <div class="garland">🌲 🕯️ 🦌 🗝️ 🕯️ 🌲</div>
+    <div>ENGLISH SERIES HUB // WINTER CHRONICLES EDITION</div>
+    <div style="font-size: 0.74rem; opacity: 0.75; margin-top: 6px;">Mystic Falls · Storybrooke · Wisteria Lane · Hera Palace</div>
+  </footer>
+  <div class="vh-snow-container" id="vhSnow"></div>
+
+  <!-- ПЛАВАЮЩИЕ ВИДЖЕТЫ (СЛЕВА — CRIMSON PURSUIT, СПРАВА — АРХИВ ДЕЛ) -->
+  <div id="cpLauncherBtn" role="button" tabindex="0" aria-label="Открыть Crimson Pursuit">
+    <img src="ico-pursuit.jpg" alt="" class="ui-ico-lg" onerror="this.style.display='none'">
+    <div>
+      <div class="cp-l-title">CRIMSON PURSUIT</div>
+      <div class="cp-l-sub">Раннер по словарю</div>
+    </div>
+  </div>
+
+  <div class="dcf-widget" id="dcfWidget" role="button" tabindex="0" aria-label="Открыть архив дел">
+    <img src="ico-archive.jpg" alt="" class="ui-ico-lg" onerror="this.style.display='none'">
+    <div>
+      <div class="dcf-w-t">АРХИВ ДЕЛ</div>
+      <div class="dcf-w-c">Раскрыто: <b id="dcfCounter">0/10</b></div>
+    </div>
+  </div>
+
+  <!-- МОДАЛКА: ДОСЬЕ ВСЕЛЕННОЙ -->
+  <div id="uvModalOverlay" class="uv-modal-overlay" onclick="if(event.target===this) closeUniverseDossier()">
+    <div class="uv-dossier-box" id="uvDossierContent"></div>
+  </div>
+
+  <!-- МОДАЛКА: АРХИВ ДЕЛ (10 ДЕЛ) -->
+  <div class="dcf-overlay" id="dcfOverlay">
+    <div class="dcf-modal" role="dialog" aria-modal="true" aria-label="Архив дел">
+      <button class="dcf-close" id="dcfClose" aria-label="Закрыть">×</button>
+      <div id="dcfView"></div>
+    </div>
+  </div>
+
+  <!-- БОКОВАЯ ШТОРКА (DRAWER) -->
+  <div class="esh-drawer-backdrop" id="eshDrawerBackdrop" onclick="window.ESHHub.toggleDrawer()"></div>
+  <aside class="esh-drawer" id="eshDrawer">
+    <div class="esh-drawer-head">
+      <span style="font-family:'Cormorant Garamond',serif; font-size:1.25rem; font-weight:700; color:#e8c775; letter-spacing:1px;">ENGLISH HUB</span>
+      <button class="esh-drawer-close" onclick="window.ESHHub.toggleDrawer()">Закрыть</button>
+    </div>
+
+    <div>
+      <div class="esh-drawer-title">Твой прогресс</div>
+      <div class="esh-stats-card">
+        <div class="esh-stat-row">
+          <span>Освоено в словаре:</span>
+          <span class="esh-stat-val" id="eshDrawerLearned">0 / 500</span>
+        </div>
+        <div class="esh-stat-row" style="cursor:pointer;" title="Открыть «Мои слова» в словаре" onclick="window.ESHHub.openMyWords()">
+          <span style="text-decoration:underline dotted rgba(201,162,75,0.6);">Моих сохранённых слов:</span>
+          <span class="esh-stat-val" id="eshSavedWordsCount">0</span>
+        </div>
+        <div class="esh-stat-row" style="cursor:pointer;" title="Открыть сборники в словаре" onclick="window.ESHHub.openCollections()">
+          <span style="text-decoration:underline dotted rgba(201,162,75,0.6);">Своих сборников:</span>
+          <span class="esh-stat-val" id="eshDrawerDecksCount">0</span>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="esh-drawer-title">Интерактивные новеллы</div>
+      <button class="esh-nav-btn primary" onclick="window.VNC.open()">
+        <span class="esh-nav-btn-left">
+          <img src="ico-novels.jpg" alt="" class="ui-ico" onerror="this.style.display='none'">
+          <span>Midnight Never Comes (Эп. 1)</span>
+        </span>
+        <span>→</span>
+      </button>
+      <div style="font-size:11.5px; color:#e8c775; margin: 6px 4px 10px; line-height:1.4;">
+        Эпизод 1: One Minute to Midnight
+      </div>
+      <button class="esh-nav-btn" onclick="window.ESHHub.openNovelModal('tvd_s4')">
+        <span class="esh-nav-btn-left">
+          <img src="ico-novels.jpg" alt="" class="ui-ico" onerror="this.style.display='none'">
+          <span>The Vampire Diaries (S4)</span>
+        </span>
+        <span>→</span>
+      </button>
+      <div style="font-size:11.5px; color:#9c8d7d; margin: 6px 4px 10px; line-height:1.4;">
+        4 главы: Елена-вампир, Клаус и Кэролайн, магия Бонни и игра Кэтрин.
+      </div>
+      <button class="esh-nav-btn" onclick="window.ESHHub.openNovelModal('spn_s1')">
+        <span class="esh-nav-btn-left">
+          <img src="spn-card.jpg" alt="" class="ui-ico" onerror="this.style.display='none'">
+          <span>Supernatural (Бонус)</span>
+        </span>
+        <span>→</span>
+      </button>
+    </div>
+
+    <div>
+      <div class="esh-drawer-title">Практика и игры</div>
+      <button class="esh-nav-btn primary" onclick="window.ESHHub.openWordTrainer()">
+        <span class="esh-nav-btn-left">
+          <img src="ico-trainer.jpg" alt="" class="ui-ico" onerror="this.style.display='none'">
+          <span>Интенсив-тренажёр слов</span>
+        </span>
+        <span>→</span>
+      </button>
+      <button class="esh-nav-btn" style="margin-top:8px;" onclick="window.ESHHub.openMyWords()">
+        <span class="esh-nav-btn-left">
+          <img src="ico-dict.jpg" alt="" class="ui-ico" onerror="this.style.display='none'">
+          <span>Мои сохранённые слова</span>
+        </span>
+        <span>→</span>
+      </button>
+      <button id="eshPursuitNavBtn" class="esh-nav-btn" style="margin-top:8px;" onclick="window.openCrimsonPursuit()">
+        <span class="esh-nav-btn-left">
+          <img src="ico-pursuit.jpg" alt="" class="ui-ico" onerror="this.style.display='none'">
+          <span>Crimson Pursuit</span>
+        </span>
+        <span>→</span>
+      </button>
+    </div>
+
+    <div>
+      <div class="esh-drawer-title">Инструменты чтения</div>
+      <button class="esh-nav-btn" id="eshGlobalTransBtn" onclick="window.ESHHub.toggleGlobalTranslator()">
+        <span>Перевод по клику</span>
+        <span id="eshGlobalTransStatus" style="color:#4ade80; font-family:monospace;">ВКЛ</span>
+      </button>
+      <div style="font-size:11.5px; color:#9c8d7d; margin-top:6px; line-height:1.4;">
+        Нажми на любое английское слово в тексте — появится мгновенный перевод и озвучка.
+      </div>
+    </div>
+  </aside>
+
+  <!-- МОДАЛКА: ВИЗУАЛЬНАЯ НОВЕЛЛА -->
+  <div class="esh-vn-modal" id="eshVnModal">
+    <div class="esh-vn-topbar">
+      <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
+        <span style="background:#7d1919; color:#faf4e8; padding:4px 10px; border-radius:6px; font-family:monospace; font-size:12px; font-weight:700; border:1px solid #c9a24b;" id="eshVnSeriesBadge">THE VAMPIRE DIARIES // SEASON 4</span>
+        <span style="font-size:12.5px; color:#c2b29f;">Нажимай на <u>любое слово</u> для перевода и озвучки</span>
+      </div>
+      <button onclick="window.ESHHub.closeNovelModal()" style="background:#1e1715; border:1px solid #c9a24b; color:#e8c775; padding:7px 14px; border-radius:7px; cursor:pointer; font-weight:700; font-size:13px;">
+        Закрыть
+      </button>
+    </div>
+    <div class="esh-vn-container">
+      <div class="esh-vn-chap-tabs" id="eshVnTabs"></div>
+      <div id="eshVnContent"></div>
+    </div>
+  </div>
+
+  <!-- ВСПЛЫВАЮЩАЯ КАРТОЧКА ПЕРЕВОДА СЛОВА -->
+  <div class="esh-word-popup" id="eshWordPopup">
+    <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:10px;">
+      <div style="min-width:0; flex:1;">
+        <div id="eshPopupWord" style="font-size:18px; font-weight:700; color:#e8c775; text-transform:lowercase; word-break:break-word;">word</div>
+        <div id="eshPopupTrans" style="font-size:14.5px; color:#efe7d8; margin-top:4px; line-height:1.35;">Перевод...</div>
+      </div>
+      <button onclick="document.getElementById('eshWordPopup').classList.remove('show')" style="background:none; border:none; color:#9c8d7d; font-size:18px; cursor:pointer; padding:2px 6px;">×</button>
+    </div>
+    <div style="display:flex; gap:8px; margin-top:13px; flex-wrap:wrap;">
+      <button id="eshPopupSpeakBtn" style="flex:1; min-width:100px; background:#1e1715; border:1px solid #c9a24b; color:#e8c775; padding:8px; border-radius:7px; cursor:pointer; font-size:13px; font-weight:600;">
+        Озвучить
+      </button>
+      <button id="eshPopupSaveBtn" style="flex:1; min-width:120px; background:#14532d; border:1px solid #4ade80; color:#ecfdf5; padding:8px; border-radius:7px; cursor:pointer; font-size:13px; font-weight:600;">
+        + В «Мои слова»
+      </button>
+      <button id="eshPopupRetryBtn" style="display:none; width:100%; background:#2b1b18; border:1px solid #c9a24b; color:#e8c775; padding:7px; border-radius:7px; cursor:pointer; font-size:12.5px; font-weight:600;">
+        Повторить перевод
+      </button>
+      <button id="eshPopupOpenSavedBtn" style="display:none; width:100%; background:rgba(201,162,75,0.14); border:1px solid rgba(201,162,75,0.5); color:#e8c775; padding:7px; border-radius:7px; cursor:pointer; font-size:12.5px; font-weight:600;" onclick="window.ESHHub.openMyWords()">
+        Открыть «Мои слова» →
+      </button>
+    </div>
+  </div>
+
+  <!-- МОДАЛКА: CRIMSON PURSUIT -->
+  <div id="cpModal" role="dialog" aria-modal="true" aria-label="Crimson Pursuit">
+    <div class="cp-topbar">
+      <div class="cp-brand">
+        <img src="ico-pursuit.jpg" alt="" class="ui-ico" onerror="this.style.display='none'">
+        CRIMSON PURSUIT
+      </div>
+      <div class="cp-top-controls">
+        <button class="cp-btn ghost" id="cpPauseBtn" style="display:none;" title="Пауза (P)">⏸ Пауза</button>
+        <button class="cp-btn ghost" id="cpSfxToggle">SFX: ВКЛ</button>
+        <button class="cp-btn ghost" id="cpVoiceToggle">Голос: ВКЛ</button>
+        <button class="cp-btn ghost" id="cpCloseBtn">Выйти</button>
+      </div>
+    </div>
+
+    <div class="cp-stage">
+      <canvas id="cpCanvas"></canvas>
+
+      <div class="cp-hud" id="cpHud">
+        <div class="cp-hud-row">
+          <div class="cp-lives" id="cpLives">♥♥♥</div>
+          <div class="cp-combo-badge" id="cpCombo">COMBO x1</div>
+          <div class="cp-score-val" id="cpScore">0 PTS</div>
+        </div>
+        <div class="cp-word-banner" id="cpWordBanner" title="Нажми, чтобы озвучить снова">
+          <div class="cp-word-series" id="cpWordSeries">MYSTIC FALLS</div>
+          <div class="cp-word-main" id="cpWordMain">Ready...</div>
+        </div>
+        <div class="cp-feedback-toast" id="cpFeedbackToast"></div>
+      </div>
+
+      <div class="cp-bottom-bar" id="cpBottomBar">
+        <button class="cp-btn ghost" id="cpDashBtn">Рывок (Пробел)</button>
+      </div>
+
+      <div class="cp-overlay-screen active" id="cpStartScreen">
+        <div class="cp-panel">
+          <h2>CRIMSON PURSUIT</h2>
+          <div class="cp-sub">
+            Ночной раннер по базе из <b id="cpPoolCount" style="color:#e8c775;">500</b> фраз. Выбирай правильную полосу перевода до столкновения.<br>
+            <span style="opacity:0.85;">Телефон: тап по полосе или свайп &nbsp;|&nbsp; ПК: ← →, A/D или 1–2–3</span>
+          </div>
+
+          <div class="cp-section-lbl">Трасса (Вселенная):</div>
+          <div class="cp-grid-opts" id="cpUniversePicker">
+            <button class="cp-btn ghost active" data-u="ALL">Все 5 вселенных (Марафон)</button>
+            <button class="cp-btn ghost" data-u="The Vampire Diaries">Мистик Фоллс (TVD)</button>
+            <button class="cp-btn ghost" data-u="Supernatural">Ночное шоссе · Импала (SPN)</button>
+            <button class="cp-btn ghost" data-u="Desperate Housewives">Вистерия Лейн (DH)</button>
+            <button class="cp-btn ghost" data-u="The Penthouse">Дворец Гера (Penthouse)</button>
+            <button class="cp-btn ghost" data-u="Once Upon a Time">Сторибрук (OUAT)</button>
+          </div>
+
+          <div class="cp-section-lbl">Источник слов (можно играть по своим сборникам на любой трассе):</div>
+          <select id="cpDeckSelect" class="cp-select">
+            <option value="BY_TRACK">Слова выбранной трассы (по умолчанию)</option>
+          </select>
+
+          <div class="cp-section-lbl">Направление языков:</div>
+          <div class="cp-grid-3" id="cpLangPicker">
+            <button class="cp-btn ghost active" data-lang="en-ru">EN → RU</button>
+            <button class="cp-btn ghost" data-lang="ru-en">RU → EN</button>
+            <button class="cp-btn ghost" data-lang="mix">Оба (Микс)</button>
+          </div>
+
+          <div class="cp-section-lbl">Темп погони (удобно читать в любом темпе):</div>
+          <div class="cp-grid-3" id="cpSpeedPicker">
+            <button class="cp-btn ghost active" data-sp="0.55">Спокойный</button>
+            <button class="cp-btn ghost" data-sp="0.82">Стандарт</button>
+            <button class="cp-btn ghost" data-sp="1.18">Быстрый</button>
+          </div>
+
+          <div class="cp-section-lbl">Фильтр освоения:</div>
+          <div class="cp-grid-3" id="cpFilterPicker">
+            <button class="cp-btn ghost active" data-flt="all">Все слова</button>
+            <button class="cp-btn ghost" data-flt="unlearned">Невыученные</button>
+            <button class="cp-btn ghost" data-flt="learned">Повторить выученные</button>
+          </div>
+          <div id="cpFilterHint" style="margin-top:6px; font-size:11.5px; color:#c2b29f;"></div>
+
+          <div style="margin-top:14px; font-size:12px; color:#c2b29f;">
+            Рекорд: <b id="cpBestScoreMenu" style="color:#e8c775;">0</b> PTS
+          </div>
+
+          <button class="cp-btn" id="cpStartBtn" style="width:100%; margin-top:14px; padding:13px; font-size:14.5px;">
+            Начать погоню
+          </button>
+        </div>
+      </div>
+
+      <div class="cp-overlay-screen" id="cpPauseScreen">
+        <div class="cp-panel" style="max-width:440px;">
+          <h2>ПАУЗА</h2>
+          <div class="cp-sub">Передохни, агент. Прогресс текущего забега сохранён.</div>
+          <div style="display:flex; flex-direction:column; gap:10px; margin-top:16px;">
+            <button class="cp-btn" id="cpResumeBtn" style="padding:13px;">▶ Продолжить погоню</button>
+            <button class="cp-btn ghost" id="cpRestartFromPauseBtn" style="padding:11px;">Начать забег заново</button>
+            <button class="cp-btn ghost" id="cpMenuFromPauseBtn" style="padding:11px;">Выйти в меню трасс</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="cp-overlay-screen" id="cpGameOverScreen">
+        <div class="cp-panel">
+          <h2 id="cpOverTitle">ПОГОНЯ ОКОНЧЕНА</h2>
+          <div class="cp-sub" id="cpOverSub">Результаты забега и слова для повторения:</div>
+
+          <div class="cp-stats-summary">
+            <div class="cp-stat-tile"><b id="cpFinalScore">0</b><span>ОЧКИ</span></div>
+            <div class="cp-stat-tile"><b id="cpFinalBest">0</b><span>РЕКОРД</span></div>
+            <div class="cp-stat-tile"><b id="cpFinalCombo">x1</b><span>МАКС. КОМБО</span></div>
+          </div>
+
+          <div id="cpMissedSection" style="display:none;">
+            <div class="cp-section-lbl">Ошибки забега (нажми для озвучки):</div>
+            <div class="cp-missed-list" id="cpMissedList"></div>
+          </div>
+
+          <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:12px;">
+            <button class="cp-btn" id="cpRetryMissedBtn" style="flex:1; display:none; background:#6e4814;">
+              Реванш на ошибках
+            </button>
+            <button class="cp-btn" id="cpPlayAgainBtn" style="flex:1;">
+              Новый забег
+            </button>
+            <button class="cp-btn ghost" id="cpBackToMenuBtn" style="width:100%;">
+              Сменить вселенную / темп
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- МОДАЛКА: ПОЛНОЦЕННАЯ ВИЗУАЛЬНАЯ НОВЕЛЛА «11:59 // ГОРОД МЕЖДУ СТРОК» -->
+  <div id="vnChroniclesModal" role="dialog" aria-modal="true" aria-label="Midnight Never Comes">
+    <div class="vnc-topbar">
+      <div class="vnc-top-left">
+        <span class="vnc-chapter-pill" id="vncChapterPill">СЕЗОН 1</span>
+        <div class="vnc-stats-mini" id="vncStatsMini"></div>
+      </div>
+      <div class="vnc-top-actions">
+        <button class="vnc-btn ghost" id="vncAutoRuBtn" onclick="window.VNC.toggleAutoRu()">Автоперевод: ВЫКЛ</button>
+        <button class="vnc-btn ghost" id="vncBgmBtn" onclick="window.VNC.toggleBgm()">Музыка: ВКЛ</button>
+        <button class="vnc-btn ghost" id="vncSfxBtn" onclick="window.VNC.toggleSfx()">SFX: ВКЛ</button>
+        <button class="vnc-btn ghost" onclick="window.VNC.openLog()">История</button>
+        <button class="vnc-btn ghost" onclick="window.VNC.openMenu()">Эпизоды</button>
+        <button class="vnc-btn primary" onclick="window.VNC.close()">Выйти</button>
+      </div>
+    </div>
+
+    <div class="vnc-stage" id="vncStage">
+      <div class="vnc-bg-layer" id="vncBgLayer"></div>
+      <div class="vnc-vignette"></div>
+      <div class="vnc-fog-layer" id="vncFogLayer"></div>
+      <div class="vnc-chars-layer" id="vncCharsLayer"></div>
+      <div class="vnc-cg-layer" id="vncCgLayer"></div>
+      <div class="vnc-toast" id="vncToast"></div>
+
+      <div class="vnc-overlay-center" id="vncOverlayCenter"></div>
+
+      <div class="vnc-dialog-wrap" id="vncDialogWrap" style="display:none;">
+        <div class="vnc-speaker-tag" id="vncSpeakerName">Speaker</div>
+        <div class="vnc-dialog-box" id="vncDialogBox">
+          <div class="vnc-text-en" id="vncTextEn"></div>
+          <div class="vnc-text-ru" id="vncTextRu" style="display:none;"></div>
+          <div class="vnc-dialog-footer">
+            <div class="vnc-dialog-tools">
+              <button class="vnc-btn ghost" onclick="window.VNC.speakCurrent(event)">🔊 Озвучить</button>
+              <button class="vnc-btn ghost" id="vncRuToggleBtn" onclick="window.VNC.toggleLineRu(event)">Перевод</button>
+            </div>
+            <div class="vnc-next-hint">Тапни дальше →</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="vnc-log-modal" id="vncLogModal" onclick="if(event.target===this) window.VNC.closeLog()">
+        <div class="vnc-log-card">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <span style="font-family:'Cormorant Garamond',serif; font-size:1.35rem; color:#e8c775; font-weight:700;">История диалога (слова кликабельны)</span>
+            <button class="vnc-btn ghost" onclick="window.VNC.closeLog()">Закрыть</button>
+          </div>
+          <div class="vnc-log-body" id="vncLogBody"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ПОДКЛЮЧЕНИЕ МОДУЛЕЙ (РАБОТАЕТ И НА GITHUB PAGES, И ЛОКАЛЬНО) -->
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+  <script src="game.js"></script>
+  <script src="novel.js?v=8"></script>
+</body>
+</html>
